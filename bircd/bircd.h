@@ -35,6 +35,14 @@ typedef struct	s_env
   fd_set	fd_write;
 }		t_env;
 
+/*
+Les deux fonctions suivantes permettent de proteger un appel de fonction qui peut echouer (comme malloc)
+et, si le retour res == err (cad qu'une erreur a bien eu lieu), alors le programme exit et affiche un message indiquant
+le fichier, la ligne et le nom de la fonction ayant echouee.
+*/
+int		x_int(int err, int res, char *str, char *file, int line);		// Permet de proteger les appels de fonction avec un int en retour. A utiliser avec la macro X ci-dessus.
+void	*x_void(void *err, void *res, char *str, char *file, int line);	// Permet de proteger les appels de fonction avec un pointeur en retour. A utiliser avec la macro Xv ci-dessus.
+
 void	init_env(t_env *e);
 void	get_opt(t_env *e, int ac, char **av);
 void	main_loop(t_env *e);
@@ -43,15 +51,6 @@ void	srv_accept(t_env *e, int s);
 void	client_read(t_env *e, int cs);
 void	client_write(t_env *e, int cs);
 void	clean_fd(t_fd *fd);
-
-/*
-Les deux fonctions suivantes permettent de proteger un appel de fonction qui peut echouer (comme malloc)
-et, si le retour est == err (cad qu'une erreur a bien eu lieu), alors le programme exit et affiche un message indiquant
-le fichier, la ligne et le nom de la fonction ayant echouee.
-*/
-int		x_int(int err, int res, char *str, char *file, int line);		// Permet de proteger les appels de fonction avec un int en retour. A utiliser avec la macro X ci-dessus.
-void	*x_void(void *err, void *res, char *str, char *file, int line);	// Permet de proteger les appels de fonction avec un pointeur en retour. A utiliser avec la macro Xv ci-dessus.
-
 void	init_fd(t_env *e);
 void	do_select(t_env *e);
 void	check_fd(t_env *e);
