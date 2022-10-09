@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:40:31 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/09 18:07:15 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/10 01:21:06 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static bool	parse_input(int ac, const char **av, serv_env* env)
 
 static sockfd	start_listening(serv_env *env)
 {
-	// Should return a listening socket that will be added to poll_fd, or an invalid sockfd to indicate an error.
 	struct protoent *protoent = shield<struct protoent*>(getprotobyname("tcp"), NULL, "getprotobyname", __FILE__, __LINE__);
 	std::cout << "Protoent, prototcol name :" << protoent->p_name << "\nProtocol number : " << protoent->p_proto << std::endl;
 
@@ -52,7 +51,7 @@ static sockfd	start_listening(serv_env *env)
 	std::ifstream	ifs;
 
 	ifs.open("/proc/sys/net/ipv4/tcp_max_syn_backlog");
-	shield(ifs.fail(), false, "ifstream", __FILE__, __LINE__);
+	shield(ifs.fail(), true, "ifstream", __FILE__, __LINE__);
 	ifs >> max_backlog;
 	ifs.close();
 	shield(listen(sock, max_backlog), -1, "listen", __FILE__, __LINE__);
@@ -68,9 +67,15 @@ int	main(int ac, const char **av)
 
 	shield(parse_input(ac, av, &env), false, "Usage: ./ircserv <port> <password>", __FILE__, __LINE__);
 	std::cout << "Port : " << env.port << "\nPassword : " << env.password << std::endl;
-	
-	// Use start_listening function to open a socket, bind it, and listen onto it.
-	start_listening(&env);
+
+	env.fds = new struct pollfd [42];
+	memset(env.fds, 0, sizeof(env.fds));
+	env.fds[0].fd = start_listening(&env);
+	env.fds[0].events = POLLIN;
+	env.nfds = 1;
+
+	/* Accept incoming connection requests from clients here */
+	shield(accept())
 
 	return EXIT_SUCCESS;
 }

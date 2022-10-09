@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/09 18:04:01 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/10 00:53:36 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@
 # include <fstream>
 # include <memory.h>
 # include <errno.h>
+# include <poll.h>
 
 #endif
