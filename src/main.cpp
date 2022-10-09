@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:40:31 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/09 15:10:50 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/09 18:07:15 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,30 @@ static bool	parse_input(int ac, const char **av, serv_env* env)
 static sockfd	start_listening(serv_env *env)
 {
 	// Should return a listening socket that will be added to poll_fd, or an invalid sockfd to indicate an error.
+	struct protoent *protoent = shield<struct protoent*>(getprotobyname("tcp"), NULL, "getprotobyname", __FILE__, __LINE__);
+	std::cout << "Protoent, prototcol name :" << protoent->p_name << "\nProtocol number : " << protoent->p_proto << std::endl;
+
+	sockfd			sock = shield<sockfd>(socket(AF_INET, SOCK_STREAM, protoent->p_proto), -1, "socket", __FILE__, __LINE__);
+
+	struct sockaddr_in	addr;
+	addr.sin_family = AF_INET;
+	addr.sin_addr.s_addr = INADDR_ANY;
+	addr.sin_port = htons(env->port);
+	memset(addr.sin_zero, 0, sizeof(addr.sin_zero));
+	shield(bind(sock, reinterpret_cast<struct sockaddr *>(&addr), sizeof(addr)), -1, "bind", __FILE__, __LINE__);
+
+	int				max_backlog;
+	std::ifstream	ifs;
+
+	ifs.open("/proc/sys/net/ipv4/tcp_max_syn_backlog");
+	shield(ifs.fail(), false, "ifstream", __FILE__, __LINE__);
+	ifs >> max_backlog;
+	ifs.close();
+	shield(listen(sock, max_backlog), -1, "listen", __FILE__, __LINE__);
+
+	std::cout << "Listening Socket : " << sock << "\nMax Backlogs: " << max_backlog << std::endl;
+
+	return sock;
 }
 
 int	main(int ac, const char **av)
@@ -46,6 +70,7 @@ int	main(int ac, const char **av)
 	std::cout << "Port : " << env.port << "\nPassword : " << env.password << std::endl;
 	
 	// Use start_listening function to open a socket, bind it, and listen onto it.
+	start_listening(&env);
 
 	return EXIT_SUCCESS;
 }
