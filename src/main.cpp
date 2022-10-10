@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:40:31 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/10 01:21:06 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/10 15:57:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,20 @@ static bool	parse_input(int ac, const char **av, serv_env* env)
 		return false;
 }
 
+static void	init_env(serv_env* env)
+{
+	size_t			max;
+	std::ifstream	ifs;
+
+	ifs.open("/proc/sys/net/ipv4/tcp_max_syn_backlog");
+	if (ifs.fail())
+		max = 10;
+	else
+		ifs >> max;
+	ifs.close();
+	env->max_backlogs = max;
+}
+
 static sockfd	start_listening(serv_env *env)
 {
 	struct protoent *protoent = shield<struct protoent*>(getprotobyname("tcp"), NULL, "getprotobyname", __FILE__, __LINE__);
@@ -47,16 +61,9 @@ static sockfd	start_listening(serv_env *env)
 	memset(addr.sin_zero, 0, sizeof(addr.sin_zero));
 	shield(bind(sock, reinterpret_cast<struct sockaddr *>(&addr), sizeof(addr)), -1, "bind", __FILE__, __LINE__);
 
-	int				max_backlog;
-	std::ifstream	ifs;
+	shield(listen(sock, env->max_backlogs), -1, "listen", __FILE__, __LINE__);
 
-	ifs.open("/proc/sys/net/ipv4/tcp_max_syn_backlog");
-	shield(ifs.fail(), true, "ifstream", __FILE__, __LINE__);
-	ifs >> max_backlog;
-	ifs.close();
-	shield(listen(sock, max_backlog), -1, "listen", __FILE__, __LINE__);
-
-	std::cout << "Listening Socket : " << sock << "\nMax Backlogs: " << max_backlog << std::endl;
+	std::cout << "Listening Socket : " << sock << "\nMax Backlogs: " << env->max_backlogs << std::endl;
 
 	return sock;
 }
@@ -68,14 +75,16 @@ int	main(int ac, const char **av)
 	shield(parse_input(ac, av, &env), false, "Usage: ./ircserv <port> <password>", __FILE__, __LINE__);
 	std::cout << "Port : " << env.port << "\nPassword : " << env.password << std::endl;
 
-	env.fds = new struct pollfd [42];
-	memset(env.fds, 0, sizeof(env.fds));
-	env.fds[0].fd = start_listening(&env);
-	env.fds[0].events = POLLIN;
-	env.nfds = 1;
+	init_env(&env);
+
+	start_listening(&env);
+
 
 	/* Accept incoming connection requests from clients here */
-	shield(accept())
+	while (true)
+	{
+		shield(accept());
+	}
 
 	return EXIT_SUCCESS;
 }
