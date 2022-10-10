@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:40:31 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/10 15:57:44 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/10 18:50:11 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static void	init_env(serv_env* env)
 		ifs >> max;
 	ifs.close();
 	env->max_backlogs = max;
+
+	env->epoll_fd = shield(epoll_create(env->max_backlogs), -1, "epoll_create", __FILE__, __LINE__);
 }
 
 static sockfd	start_listening(serv_env *env)
@@ -71,19 +73,25 @@ static sockfd	start_listening(serv_env *env)
 int	main(int ac, const char **av)
 {
 	serv_env	env;
+	socks		*tmp = new socks;
 
 	shield(parse_input(ac, av, &env), false, "Usage: ./ircserv <port> <password>", __FILE__, __LINE__);
 	std::cout << "Port : " << env.port << "\nPassword : " << env.password << std::endl;
 
 	init_env(&env);
 
-	start_listening(&env);
+	tmp->fd = start_listening(&env);
+	tmp->type = SERVER;
+	tmp->event.events = EPOLLIN;
 
+	env.socks_map.insert({tmp->fd, tmp});
+	shield(epoll_ctl(env.epoll_fd, EPOLL_CTL_ADD, tmp->fd, &tmp->event), -1, "epoll_ctl", __FILE__, __LINE__);
 
-	/* Accept incoming connection requests from clients here */
+	struct epoll_event tab_fds[1024];
+
 	while (true)
 	{
-		shield(accept());
+		epoll_wait(env.epoll_fd, tab_fds, 1024, -1);
 	}
 
 	return EXIT_SUCCESS;
