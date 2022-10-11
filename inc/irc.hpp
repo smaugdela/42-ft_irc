@@ -6,15 +6,15 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:41:25 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/09 17:25:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:04:45 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef IRC_HPP
 # define IRC_HPP
 
-# include "libs.hpp"
-# include "structs.hpp"
+# define MAX_BACKLOGS	10
+# define MAX_CLIENTS	42
 
 typedef int	sockfd;
 

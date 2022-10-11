@@ -6,11 +6,11 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:40:31 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/10 18:50:11 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:54:21 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "irc.hpp"
+#include "libs.hpp"
 
 static bool	parse_input(int ac, const char **av, serv_env* env)
 {
@@ -40,19 +40,18 @@ static void	init_env(serv_env* env)
 
 	ifs.open("/proc/sys/net/ipv4/tcp_max_syn_backlog");
 	if (ifs.fail())
-		max = 10;
+		max = MAX_BACKLOGS;
 	else
 		ifs >> max;
 	ifs.close();
 	env->max_backlogs = max;
-
-	env->epoll_fd = shield(epoll_create(env->max_backlogs), -1, "epoll_create", __FILE__, __LINE__);
+	std::cout << "Max Backlogs: " << env->max_backlogs << std::endl;
 }
 
 static sockfd	start_listening(serv_env *env)
 {
 	struct protoent *protoent = shield<struct protoent*>(getprotobyname("tcp"), NULL, "getprotobyname", __FILE__, __LINE__);
-	std::cout << "Protoent, prototcol name :" << protoent->p_name << "\nProtocol number : " << protoent->p_proto << std::endl;
+	std::cout << "Protoent, prototcol name : " << protoent->p_name << "\nProtocol number : " << protoent->p_proto << std::endl;
 
 	sockfd			sock = shield<sockfd>(socket(AF_INET, SOCK_STREAM, protoent->p_proto), -1, "socket", __FILE__, __LINE__);
 
@@ -64,35 +63,83 @@ static sockfd	start_listening(serv_env *env)
 	shield(bind(sock, reinterpret_cast<struct sockaddr *>(&addr), sizeof(addr)), -1, "bind", __FILE__, __LINE__);
 
 	shield(listen(sock, env->max_backlogs), -1, "listen", __FILE__, __LINE__);
-
-	std::cout << "Listening Socket : " << sock << "\nMax Backlogs: " << env->max_backlogs << std::endl;
+	std::cout << "Listening Socket : " << sock << std::endl;
 
 	return sock;
+}
+
+static void	serv_accept(serv_env *env)
+{
+	struct sockaddr	cs;
+	socklen_t		cs_len = sizeof(cs);
+	socks			new_client_sock;
+
+	new_client_sock.fd = shield(accept(env->listener, &cs, &cs_len), -1, "accept", __FILE__, __LINE__);
+	new_client_sock.type = CLIENT;
+
+	env->socks_map.insert(std::make_pair(new_client_sock.fd, new_client_sock));
+
+	std::cout << "New Client! On socket : " << new_client_sock.fd << std::endl;
+}
+
+static void	server_loop(serv_env *env)
+{
+	while (true)
+	{
+		nfds_t			nfds = env->socks_map.size();
+		struct pollfd	fds[nfds];
+		size_t 			i = 0;
+
+		for (std::map<sockfd, socks>::iterator it = env->socks_map.begin(); it != env->socks_map.end() && i < env->socks_map.size(); ++it, ++i)
+		{
+			fds[i].fd = (*it).first;
+			if ((*it).second.type == SERVER)
+				fds[i].events = POLLIN;
+			else if ((*it).second.type == CLIENT)
+				fds[i].events = POLLIN | POLLOUT;
+			else
+				fds[i].events = 0;
+			fds[i].revents = 0;
+		}
+
+		int	nevents;
+		nevents = shield(poll(fds, nfds, -1), -1, "poll", __FILE__, __LINE__);
+
+		for (int n = 0; n < nevents; ++n)
+		{
+			if (fds[n].revents != 0)
+			{
+				if (env->socks_map[fds[n].fd].type == SERVER)
+					serv_accept(env);
+				else if (env->socks_map[fds[n].fd].type == CLIENT)
+					std::cout << "Communication with client at socket : " << fds[n].fd << std::endl;
+					// Here we should communicate with the client using recv/send depending on the revent.
+			}
+		}
+	}
 }
 
 int	main(int ac, const char **av)
 {
 	serv_env	env;
-	socks		*tmp = new socks;
+	socks		tmp;
 
 	shield(parse_input(ac, av, &env), false, "Usage: ./ircserv <port> <password>", __FILE__, __LINE__);
 	std::cout << "Port : " << env.port << "\nPassword : " << env.password << std::endl;
 
 	init_env(&env);
 
-	tmp->fd = start_listening(&env);
-	tmp->type = SERVER;
-	tmp->event.events = EPOLLIN;
+	tmp.fd = start_listening(&env);
+	tmp.type = SERVER;
 
-	env.socks_map.insert({tmp->fd, tmp});
-	shield(epoll_ctl(env.epoll_fd, EPOLL_CTL_ADD, tmp->fd, &tmp->event), -1, "epoll_ctl", __FILE__, __LINE__);
+	env.listener = tmp.fd;
 
-	struct epoll_event tab_fds[1024];
+	env.socks_map.insert(std::make_pair(tmp.fd, tmp));
 
-	while (true)
-	{
-		epoll_wait(env.epoll_fd, tab_fds, 1024, -1);
-	}
+	std::cout << "Listening socket type : " << env.socks_map[tmp.fd].type << std::endl;
+	std::cout << "Checking listening socket value again : " << env.socks_map[tmp.fd].fd << std::endl;
+
+	server_loop(&env);
 
 	return EXIT_SUCCESS;
 }
