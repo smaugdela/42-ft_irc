@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/10/09 14:53:15 by smagdela         ###   ########.fr        #
+#    Updated: 2022/10/12 14:51:38 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,12 +18,17 @@
 
 BIN     =       ircserv
 
-INCS    = 	irc.hpp\
-			libs.hpp\
-			shield.tpp\
-			structs.hpp\
+INCS    = 	irc.hpp \
+			libs.hpp \
+			shield.tpp \
+			class/Client.hpp \
+			class/Channel.hpp \
+			class/Server.hpp \
 
-SRCS    =       main.cpp\
+SRCS    =	main.cpp \
+			class/Client.cpp \
+			class/Channel.cpp \
+			class/Server.cpp \
 
 OBJS    =       ${SRCS:.cpp=.o}
 
@@ -86,7 +91,6 @@ ${BIN}: ${OBJS}
 		@echo "${S_CYAN}➤ Compiling $@...${NC}"
 		@${CXX} ${CXXFLAGS} ${OBJS} -o ${BIN}
 		@echo "${S_GREEN}✔ Binary available!\n${NC}"
-
 
 clean:
 		@echo "${S_RED}➤ Deleting object files...${NC}"

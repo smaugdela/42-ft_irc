@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/11 17:07:42 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:51:29 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,13 @@
 # include <netdb.h>
 # include <poll.h>
 
-# include "irc.hpp"
-# include "structs.hpp"
+# define MAX_BACKLOGS	10
+# define MAX_CLIENTS	42
+
+typedef int	sockfd;
+
+# include "proto.hpp"
+# include "Client.hpp"
+# include "Channel.hpp"
 
 #endif

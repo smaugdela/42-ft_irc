@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:40:31 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/11 17:54:21 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/12 13:12:51 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,22 @@ static void	serv_accept(serv_env *env)
 	std::cout << "New Client! On socket : " << new_client_sock.fd << std::endl;
 }
 
+static void	serv_receive(serv_env *env, sockfd client)
+{
+	char	buffer[512];
+	ssize_t	len;
+
+	(void)env;
+
+	len = shield(recv(client, buffer, 512, 0), static_cast<ssize_t>(-1), "recv", __FILE__, __LINE__);
+
+	if (len)
+	{
+		std::cout << "Client at socket #" << client << " : ";
+		std::cout << buffer << std::endl;
+	}
+}
+
 static void	server_loop(serv_env *env)
 {
 	while (true)
@@ -112,7 +128,7 @@ static void	server_loop(serv_env *env)
 				if (env->socks_map[fds[n].fd].type == SERVER)
 					serv_accept(env);
 				else if (env->socks_map[fds[n].fd].type == CLIENT)
-					std::cout << "Communication with client at socket : " << fds[n].fd << std::endl;
+					serv_receive(env, fds[n].fd);
 					// Here we should communicate with the client using recv/send depending on the revent.
 			}
 		}
