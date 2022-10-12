@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/12 14:50:33 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/12 17:02:38 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,29 @@ class Server
 
 	public:
 
-		Server();
+		Server(int ac, const char **av);
 		~Server();
+
+		bool	addUser(Client* new_user);
+		bool	rmUser(Client* user);
+		Client*	getUser(sockfd	fd) const;
+		Client*	getUser(std::string nickname) const;
+
+		int										getPort(void) const;
+		std::string	const&						getPassword(void) const;
+		size_t									getMaxbacklogs(void) const;
+		sockfd									getListener(void) const;
+		std::map<sockfd, *Client> const&		getUsers(void) const;
+		std::map<std::string, *Channel> const&	getChans(void) const;
+
+		void									setPort(int);
+		void									setPassword(std::string);
+		void									setMaxbacklogs(size_t);
+		void									setListener(sockfd);
 
 	private:
 
+		Server();
 		Server( Server const & src );
 		Server &		operator=( Server const & rhs );
 

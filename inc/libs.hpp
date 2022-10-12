@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/12 14:51:29 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/12 16:04:22 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ typedef int	sockfd;
 # include "proto.hpp"
 # include "Client.hpp"
 # include "Channel.hpp"
+# include "Server.hpp"
 
 #endif

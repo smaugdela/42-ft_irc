@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/10/12 14:51:38 by smagdela         ###   ########.fr        #
+#    Updated: 2022/10/12 16:54:21 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,14 @@ INCS    = 	irc.hpp \
 			class/Client.hpp \
 			class/Channel.hpp \
 			class/Server.hpp \
+			class/Message.hpp \
 
 SRCS    =	main.cpp \
+			server_utils.cpp \
 			class/Client.cpp \
 			class/Channel.cpp \
 			class/Server.cpp \
+			class/Message.cpp \
 
 OBJS    =       ${SRCS:.cpp=.o}
 
