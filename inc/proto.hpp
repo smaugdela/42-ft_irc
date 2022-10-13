@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:41:25 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/12 16:54:08 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:42:30 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ T	shield(T ft, T error, const char *description, const char *file, int line);
 
 /* Functions */
 
-bool	parse_input(int ac, const char **av, serv_env* env);
+bool	parse_input(int ac, const char **av, Server *serv);
 sockfd	start_listening(Server *serv);
-
+void	server_loop(Server *serv);
 
 #endif

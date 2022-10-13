@@ -6,14 +6,12 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/12 17:05:09 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:19:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CLIENT_HPP
 # define CLIENT_HPP
-
-# include "libs.hpp"
 
 class Client
 {
@@ -21,6 +19,7 @@ class Client
 	public:
 
 		Client();
+		Client(int fd, struct sockaddr_in addr);
 		~Client();
 
 		sockfd						getFd(void) const;

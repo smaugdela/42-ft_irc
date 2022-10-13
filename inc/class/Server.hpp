@@ -6,14 +6,12 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/12 17:02:38 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:20:30 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SERVER_HPP
 # define SERVER_HPP
-
-# include "libs.hpp"
 
 class Server
 {
@@ -32,8 +30,8 @@ class Server
 		std::string	const&						getPassword(void) const;
 		size_t									getMaxbacklogs(void) const;
 		sockfd									getListener(void) const;
-		std::map<sockfd, *Client> const&		getUsers(void) const;
-		std::map<std::string, *Channel> const&	getChans(void) const;
+		std::map<sockfd, Client*> const&		getUsers(void) const;
+		std::map<std::string, Channel*> const&	getChans(void) const;
 
 		void									setPort(int);
 		void									setPassword(std::string);
@@ -50,8 +48,8 @@ class Server
 		std::string						_password;
 		size_t							_max_backlogs;
 		sockfd							_listener;
-		std::map<sockfd, *Client>		_users;
-		std::map<std::string, *Channel>	_chans;
+		std::map<sockfd, Client*>		_users;
+		std::map<std::string, Channel*>	_chans;
 
 };
 

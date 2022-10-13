@@ -6,14 +6,12 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:16 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/12 14:42:48 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:20:33 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHANNEL_HPP
 # define CHANNEL_HPP
-
-# include "libs.hpp"
 
 class Channel
 {
@@ -30,7 +28,7 @@ class Channel
 		Channel &		operator=( Channel const & rhs );
 
 		std::string					_name;
-		std::map<sockfd, *Client>	_members;
+		std::map<sockfd, Client*>	_members;
 		// Add attributes for the modes
 
 };

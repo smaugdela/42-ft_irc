@@ -6,11 +6,11 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/12 14:06:16 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:20:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Channel.hpp"
+# include "libs.hpp"
 
 /*
 ** ------------------------------- CONSTRUCTOR --------------------------------
@@ -23,7 +23,6 @@ Channel::Channel()
 Channel::Channel( const Channel & src )
 {
 }
-
 
 /*
 ** -------------------------------- DESTRUCTOR --------------------------------
