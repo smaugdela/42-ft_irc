@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libs.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/13 18:04:26 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:18:22 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <sys/socket.h>
 # include <netdb.h>
 # include <poll.h>
+# include <cstring>
+# include <vector>
 
 # define MAX_BACKLOGS	10	// Maximum of pending connection request on listening socket.
 # define MAX_CLIENTS	42	// Maximum of connected clients.

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Message.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/17 14:58:56 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:32:46 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,15 @@ Message::Message()
 
 Message::Message(Client *sender, Client *receiver, std::string message) : _sender(sender), _receiver(receiver), _message(message)
 {
-
+	const char *delim = " ";
+	std::vector<std::string> tab_parse;
+	
+	char *token = strtok(const_cast<char*>(_message.c_str()), delim);
+	while(token != NULL)
+	{
+		tab_parse.push_back(std::string(token));
+		token = strtok(NULL, delim);
+	}
 }
 
 Message::Message( const Message & src )

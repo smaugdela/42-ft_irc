@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/17 15:36:51 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/17 16:59:25 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	serv_accept(Server *serv)
 	std::cout << "New Client on socket #" << new_client_fd << std::endl;
 }
 
-void	serv_receive(sockfd client)
+void	serv_receive(sockfd client, Server *server)
 {
 	char		buffer[512];
 	ssize_t		len;
@@ -35,7 +35,7 @@ void	serv_receive(sockfd client)
 
 	if (len > 0)
 	{
-		// std::string	buffer_str(buffer);
+		std::string	buffer_str(buffer);
 		std::cout << "Message from client at socket #" << client << " : ";
 		// if (buffer_str.find("\r\n") != std::string::npos)
 		// 	std::cout << buffer_str << std::endl;
