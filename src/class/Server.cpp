@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/13 18:09:00 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/17 13:03:32 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,17 @@ bool	Server::addUser(Client* new_user)
 
 bool Server::rmUser(Client* user)
 {
-	
+	this->_user.erase(user->getfd());
+}
+
+Client *Server::getUser(socket fd) const
+{
+	return (this->_users[fd]);
+}
+
+Client *Server::getUser(std::string nickname) const
+{
+	return (this->_users[nickname]);
 }
 
 /*
