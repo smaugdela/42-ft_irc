@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/17 15:10:02 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:36:51 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	serv_receive(sockfd client)
 
 	if (len > 0)
 	{
-		std::string	buffer_str(buffer);
+		// std::string	buffer_str(buffer);
 		std::cout << "Message from client at socket #" << client << " : ";
-		if (buffer_str.find("\r\f") != std::string::npos)
-			std::cout << buffer << std::endl;
-		else
-			std::cout << "Message incomplete." << std::endl;
+		// if (buffer_str.find("\r\n") != std::string::npos)
+		// 	std::cout << buffer_str << std::endl;
+		// else
+		// 	std::cout << "Message incomplete." << std::endl;
 	}
 }
 
