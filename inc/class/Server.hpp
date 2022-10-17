@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
 /*   Updated: 2022/10/13 18:20:30 by smagdela         ###   ########.fr       */
@@ -33,10 +33,10 @@ class Server
 		std::map<sockfd, Client*> const&		getUsers(void) const;
 		std::map<std::string, Channel*> const&	getChans(void) const;
 
-		void									setPort(int);
-		void									setPassword(std::string);
-		void									setMaxbacklogs(size_t);
-		void									setListener(sockfd);
+		void									setPort(int port);
+		void									setPassword(std::string password);
+		void									setMaxbacklogs(size_t log);
+		void									setListener(sockfd listener);
 
 	private:
 
