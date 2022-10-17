@@ -6,11 +6,25 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:27:33 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/12 16:51:58 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:08:05 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "libs.hpp"
+
+static size_t	init_backlog(void)
+{
+	std::ifstream	ifs;
+	size_t			tmp;
+
+	ifs.open("/proc/sys/net/ipv4/tcp_max_syn_backlog");
+	if (ifs.fail())
+		tmp = MAX_BACKLOGS;
+	else
+		ifs >> tmp;
+	ifs.close();
+	return (tmp);
+}
 
 bool	parse_input(int ac, const char **av, Server* serv)
 {
@@ -27,6 +41,7 @@ bool	parse_input(int ac, const char **av, Server* serv)
 		}
 		serv->setPassword(pwrd);
 		serv->setPort(portint);
+		serv->setMaxbacklogs(init_backlog());
 		return true;
 	}
 	else

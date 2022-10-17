@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/13 18:04:26 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:14:27 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <iostream>
 # include <fstream>
 # include <map>
+# include <list>
 # include <memory.h>
 # include <errno.h>
 # include <sys/types.h>

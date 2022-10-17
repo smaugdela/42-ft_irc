@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/17 14:47:32 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:09:22 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,6 @@ Server::Server() //private
 Server::Server(int ac, const char **av) // public
 {
 	shield(parse_input(ac, av, this), false, "Usage: ./ircserv <port> <password>", __FILE__, __LINE__);
-
-	std::ifstream	ifs;
-
-	ifs.open("/proc/sys/net/ipv4/tcp_max_syn_backlog");
-	if (ifs.fail())
-		this->_max_backlogs = MAX_BACKLOGS;
-	else
-		ifs >> this->_max_backlogs;
-	ifs.close();
-
 	this->_listener = start_listening(this);
 }
 
@@ -41,7 +31,6 @@ Server::Server( const Server & src ) // private
 {
 	(void)src;
 }
-
 
 /*
 ** -------------------------------- DESTRUCTOR --------------------------------
