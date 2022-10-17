@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:16 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/12 14:42:48 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/14 14:47:47 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ class Channel
 		Channel &		operator=( Channel const & rhs );
 
 		std::string					_name;
-		std::map<sockfd, *Client>	_members;
+		std::map<sockfd, Client*>	_members;
 		// Add attributes for the modes
 
 };
