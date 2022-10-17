@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/17 17:53:42 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:58:03 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,16 @@ void	serv_receive(sockfd client, Server *server)
 		while(buffer_str.size() > start)
 		{
 			end = buffer_str.find("\r\n", start);
+			if (end == std::string::npos)
+			{
+				std::cout << "pattern not found" << std::endl;
+				break;
+			}
 			try {msg_list.push_back(Message(server->getUser(client), NULL, buffer_str.substr(start, end - start)));}
-			catch (std::exception &e){break;}
+			catch (std::exception &e) {
+				std::cout << "substr fail" << std::endl;
+				break;
+			}
 			start = end;
 		}
 		for (std::list<Message>::iterator it = msg_list.begin(); it != msg_list.end(); ++it)
