@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/17 13:03:32 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:47:32 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ Server::Server(int ac, const char **av) // public
 
 Server::Server( const Server & src ) // private
 {
+	(void)src;
 }
 
 
@@ -61,12 +62,13 @@ Server &				Server::operator=( Server const & rhs )
 	//{
 		//this->_value = rhs.getValue();
 	//}
+	(void)rhs;
 	return *this;
 }
 
 std::ostream &			operator<<( std::ostream & o, Server const & i )
 {
-	// o << "Value = " << i.getValue();
+	o << "Port: " << i.getPort() << " Password: " << i.getPassword();
 	return o;
 }
 
@@ -77,23 +79,24 @@ std::ostream &			operator<<( std::ostream & o, Server const & i )
 
 bool	Server::addUser(Client* new_user)
 {
-	this->_users.insert(std::make_pair(new_user->getFd(), new_user));
+	try
+	{
+		this->_users.at(new_user->getFd());
+	}
+	catch(const std::out_of_range &e)
+	{
+		this->_users.insert(std::make_pair(new_user->getFd(), new_user));
+		return true;
+	}
+	return false;
 }
 
-bool Server::rmUser(Client* user)
+void Server::rmUser(Client* user)
 {
-	this->_user.erase(user->getfd());
+	this->_users.erase(user->getFd());
+	delete user;
 }
 
-Client *Server::getUser(socket fd) const
-{
-	return (this->_users[fd]);
-}
-
-Client *Server::getUser(std::string nickname) const
-{
-	return (this->_users[nickname]);
-}
 
 /*
 ** --------------------------------- ACCESSOR ---------------------------------
@@ -129,15 +132,31 @@ std::map<std::string, Channel*> const &Server::getChans(void) const
 	return this->_chans;
 }
 
-
-Client* Server::getUser(sockfd fd) const
+Client *Server::getUser(sockfd fd) const
 {
+	Client *ret;
 
+	try
+	{
+		ret = this->_users.at(fd);	
+	}
+	catch(const std::out_of_range &e)
+	{
+		return NULL;
+	}
+	return (ret);
 }
 
-Client*	Server::getUser(std::string nickname) const
+Client *Server::getUser(std::string nickname) const
 {
-	
+	std::map<sockfd, Client*>::const_iterator	it;
+
+	for (it = this->_users.begin(); it != this->_users.end(); ++it)
+		if (it->second->getNickname() == nickname)
+			break ;
+	if (it == this->_users.end())
+		return NULL;
+	return it->second;
 }
 
 void	Server::setPort(int port)

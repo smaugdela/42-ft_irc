@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/10/12 16:54:21 by smagdela         ###   ########.fr        #
+#    Updated: 2022/10/17 14:59:37 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ INCS    = 	irc.hpp \
 			class/Message.hpp \
 
 SRCS    =	main.cpp \
+			loop.cpp \
 			server_utils.cpp \
 			class/Client.cpp \
 			class/Channel.cpp \
@@ -87,6 +88,7 @@ all:    ${BIN}
 ${OBJD}%.o:     ${SRCD}%.cpp
 		@echo "${S_CYAN}➤ Compiling $@...${NC}"
 		@mkdir -p ${OBJD}
+		@mkdir -p ${OBJD}/class
 		@${CXX} ${CXXFLAGS} -c -o $@ -I${INCD} $<
 		@echo "${S_GREEN}✔ Object file built!\n${NC}"
 

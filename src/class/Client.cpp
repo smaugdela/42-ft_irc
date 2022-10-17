@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/13 18:20:04 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:08:40 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,12 @@ Client::Client()
 
 Client::Client( const Client & src )
 {
+	(void)src;
 }
 
+Client::Client(sockfd fd, struct sockaddr addr) : _fd(fd), _addr(addr)
+{
+}
 
 /*
 ** -------------------------------- DESTRUCTOR --------------------------------
@@ -44,20 +48,19 @@ Client &				Client::operator=( Client const & rhs )
 	//{
 		//this->_value = rhs.getValue();
 	//}
+	(void)rhs;
 	return *this;
 }
 
 std::ostream &			operator<<( std::ostream & o, Client const & i )
 {
-	//o << "Value = " << i.getValue();
+	o << "Client at socket #" << i.getFd() << " has nickname: " << i.getNickname();
 	return o;
 }
-
 
 /*
 ** --------------------------------- METHODS ----------------------------------
 */
-
 
 /*
 ** --------------------------------- ACCESSOR ---------------------------------
@@ -67,7 +70,7 @@ sockfd						Client::getFd(void) const
 	return this->_fd;
 }
 
-struct sockaddr_in const &Client::getAddr(void) const
+struct sockaddr const&	Client::getAddr(void) const
 {
 	return this->_addr;
 }

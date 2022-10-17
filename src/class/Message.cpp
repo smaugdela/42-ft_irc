@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Message.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/14 14:51:15 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:58:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ Message::Message()
 {
 }
 
-Message::Message(Client *Client, std::string message) : _sender(Client), _message(message)
+Message::Message(Client *sender, Client *receiver, std::string message) : _sender(sender), _receiver(receiver), _message(message)
 {
 
 }
 
 Message::Message( const Message & src )
 {
-
+	(void)src;
 }
 
 
@@ -50,12 +50,13 @@ Message &				Message::operator=( Message const & rhs )
 	//{
 		//this->_value = rhs.getValue();
 	//}
+	(void)rhs;
 	return *this;
 }
 
 std::ostream &			operator<<( std::ostream & o, Message const & i )
 {
-	//o << "Value = " << i.getValue();
+	o << "Raw message: " << i.getMessage();
 	return o;
 }
 
@@ -69,5 +70,9 @@ std::ostream &			operator<<( std::ostream & o, Message const & i )
 ** --------------------------------- ACCESSOR ---------------------------------
 */
 
+std::string const& Message::getMessage(void) const
+{
+	return (this->_message);
+}
 
 /* ************************************************************************** */

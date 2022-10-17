@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/13 18:20:30 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:39:35 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ class Server
 		~Server();
 
 		bool	addUser(Client* new_user);
-		bool	rmUser(Client* user);
+		void	rmUser(Client* user);
 		Client*	getUser(sockfd	fd) const;
 		Client*	getUser(std::string nickname) const;
 

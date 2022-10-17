@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/13 18:19:56 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:08:54 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ class Client
 	public:
 
 		Client();
-		Client(int fd, struct sockaddr_in addr);
+		Client(int fd, struct sockaddr addr);
 		~Client();
 
 		sockfd						getFd(void) const;
-		struct sockaddr_in const&	getAddr(void) const;
+		struct sockaddr const&		getAddr(void) const;
 		std::string const&			getNickname(void) const;
 		std::string const&			getUsername(void) const;
 		std::string const&			getRealname(void) const;
@@ -36,7 +36,7 @@ class Client
 	private:
 
 		sockfd				_fd;
-		struct sockaddr_in	_addr;
+		struct sockaddr		_addr;
 		std::string			_nickname; // nickname - name which appears for other users
 		std::string			_username; //username - name you use to login, allows system to identify you
 		std::string			_realname; // real name - this is just additional information about you
