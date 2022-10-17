@@ -13,8 +13,6 @@
 #ifndef CHANNEL_HPP
 # define CHANNEL_HPP
 
-# include "libs.hpp"
-
 class Channel
 {
 

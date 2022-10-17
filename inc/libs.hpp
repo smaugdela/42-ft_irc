@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/12 16:04:22 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:04:26 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,16 @@
 # include <netdb.h>
 # include <poll.h>
 
-# define MAX_BACKLOGS	10
-# define MAX_CLIENTS	42
+# define MAX_BACKLOGS	10	// Maximum of pending connection request on listening socket.
+# define MAX_CLIENTS	42	// Maximum of connected clients.
+# define TIMEOUT		-1	// -1 means no timeout. Value in milliseconds.
 
 typedef int	sockfd;
 
+# include "class/Client.hpp"
+# include "class/Message.hpp"
+# include "class/Channel.hpp"
+# include "class/Server.hpp"
 # include "proto.hpp"
-# include "Client.hpp"
-# include "Channel.hpp"
-# include "Server.hpp"
 
 #endif

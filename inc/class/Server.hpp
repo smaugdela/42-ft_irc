@@ -6,14 +6,12 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/13 17:16:23 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:20:30 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SERVER_HPP
 # define SERVER_HPP
-
-# include "libs.hpp"
 
 class Server
 {
