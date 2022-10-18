@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/17 14:58:56 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/18 12:39:14 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ Message::Message()
 {
 }
 
-Message::Message(Client *sender, Client *receiver, std::string message) : _sender(sender), _receiver(receiver), _message(message)
+Message::Message(Client *sender, Client *receiver, char *message) : _sender(sender), _receiver(receiver)
 {
-
+	std::string str(message);
+	this->_message = str;
 }
 
 Message::Message( const Message & src )

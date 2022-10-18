@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/17 17:58:03 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/18 13:03:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,24 @@
 void	serv_receive(sockfd client, Server *server)
 {
 	char					buffer[512];
+	char					*ptr;
 	ssize_t					len;
-	std::list<Message>		msg_list;
-	size_t					start = 0;
-	size_t					end;
+	std::list<Message*>		msg_list;
 
 	memset(buffer, 0, 512);
 	len = shield(recv(client, buffer, 512, 0), static_cast<ssize_t>(-1), "recv", __FILE__, __LINE__);
 
 	if (len > 0)
 	{
-		std::string	buffer_str(buffer);
-		while(buffer_str.size() > start)
+		ptr = strtok(buffer, "\r\n");
+		while(ptr)
 		{
-			end = buffer_str.find("\r\n", start);
-			if (end == std::string::npos)
-			{
-				std::cout << "pattern not found" << std::endl;
-				break;
-			}
-			try {msg_list.push_back(Message(server->getUser(client), NULL, buffer_str.substr(start, end - start)));}
-			catch (std::exception &e) {
-				std::cout << "substr fail" << std::endl;
-				break;
-			}
-			start = end;
+			msg_list.push_back(new Message(server->getUser(client), NULL, ptr));
+			ptr = strtok(NULL, "\r\n");
 		}
-		for (std::list<Message>::iterator it = msg_list.begin(); it != msg_list.end(); ++it)
-			std::cout << "Message: " << it->getMessage() << std::endl;
 	}
+	for (std::list<Message*>::iterator	it = msg_list.begin(); it != msg_list.end(); ++it)
+		std::cout << "Message: [" << (*it)->getMessage() << "]" << std::endl;
 }
 
 void	serv_accept(Server *serv)
@@ -68,7 +57,7 @@ static void	set_pollfd(Server *serv, struct pollfd *fds)
 	fds[0].revents = 0;
 
 	size_t	i = 1;
-	for (std::map<sockfd, Client*>::const_iterator it = serv->getUsers().begin(); it != serv->getUsers().end() && i < serv->getUsers().size(); ++it, ++i)
+	for (std::map<sockfd, Client*>::const_iterator it = serv->getUsers().begin(); it != serv->getUsers().end() && i < serv->getUsers().size(); ++it, i++)
 	{
 		fds[i].fd = (*it).first;
 		fds[i].events = POLLIN | POLLOUT;
