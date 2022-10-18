@@ -6,13 +6,13 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 15:59:20 by fboumell          #+#    #+#             */
-/*   Updated: 2022/10/17 17:02:11 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/18 12:43:47 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "libs.hpp"
 
-bool    parse_message(std::string message)
+bool    Check_prefix(std::string str)
 {
     
 }
