@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/18 13:03:44 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/18 16:14:15 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,22 @@ void	serv_receive(sockfd client, Server *server)
 
 	if (len > 0)
 	{
+		std::cout << "Buffer len = " << len << std::endl;
 		ptr = strtok(buffer, "\r\n");
 		while(ptr)
 		{
 			msg_list.push_back(new Message(server->getUser(client), NULL, ptr));
 			ptr = strtok(NULL, "\r\n");
 		}
+		for (std::list<Message*>::iterator	it = msg_list.begin(); it != msg_list.end(); ++it)
+			std::cout << "Message: [" << (*it)->getMessage() << "]" << std::endl;
 	}
-	for (std::list<Message*>::iterator	it = msg_list.begin(); it != msg_list.end(); ++it)
-		std::cout << "Message: [" << (*it)->getMessage() << "]" << std::endl;
+	else
+	{
+		server->rmUser(server->getUser(client));
+		std::cout << "Client at socket #" << client << " disconnected." << std::endl;
+	}
+	std::cout << "--------------------------------------------" << std::endl;
 }
 
 void	serv_accept(Server *serv)
@@ -80,7 +87,7 @@ void	server_loop(Server *serv)
 			{
 				if (n == 0)				// The listening socket is at index 0.
 					serv_accept(serv);
-				else if (fds[n].revents == POLLIN)
+				else if (fds[n].revents & POLLIN)
 					serv_receive(fds[n].fd, serv);
 			}
 		}
