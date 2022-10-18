@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/17 17:32:46 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/17 18:00:00 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,26 @@ Message::Message()
 {
 }
 
-Message::Message(Client *sender, Client *receiver, std::string message) : _sender(sender), _receiver(receiver), _message(message)
+Message::Message(Client *sender, Client *receiver, char *message) : _sender(sender), _receiver(receiver), _message(message)
 {
 	const char *delim = " ";
 	std::vector<std::string> tab_parse;
 	
-	char *token = strtok(const_cast<char*>(_message.c_str()), delim);
+	char *token = strtok(_message, delim);
 	while(token != NULL)
 	{
 		tab_parse.push_back(std::string(token));
 		token = strtok(NULL, delim);
 	}
+
+	std::vector<std::string>::iterator it = tab_parse.begin();
+	for (it; it != tab_parse.end(); it++)
+	{
+	
+		it++;
+	}
+		
+		
 }
 
 Message::Message( const Message & src )
