@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/17 14:39:35 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:43:08 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ class Server
 		void	rmUser(Client* user);
 		Client*	getUser(sockfd	fd) const;
 		Client*	getUser(std::string nickname) const;
+		bool	setConfigData(void); // modifier le proto si necessaire
 
 		int										getPort(void) const;
 		std::string	const&						getPassword(void) const;
@@ -32,11 +33,21 @@ class Server
 		sockfd									getListener(void) const;
 		std::map<sockfd, Client*> const&		getUsers(void) const;
 		std::map<std::string, Channel*> const&	getChans(void) const;
+		std::string const&						getServerName(void) const;
+		std::string const&						getServerVersion(void) const;
+		std::string const&						getOperUSer(void) const;
+		std::string const&						getOperPass(void)	const;
+		std::string const&						getPing(void) const;
 
 		void									setPort(int port);
 		void									setPassword(std::string password);
 		void									setMaxbacklogs(size_t log);
 		void									setListener(sockfd listener);
+		void									setServerName(std::string serverName);
+		void									setServerVersion(std::string serverVersion);
+		void									setOperUser(std::string operUser);
+		void									setOperPass(std::string operPass);
+		void									setPing(std::string ping);
 
 	private:
 
@@ -50,6 +61,11 @@ class Server
 		sockfd							_listener;
 		std::map<sockfd, Client*>		_users;
 		std::map<std::string, Channel*>	_chans;
+		std::string						_serverName;
+		std::string						_serverVersion;
+		std::string						_operUser;
+		std::string						_operPass;
+		std::string						_ping;
 
 };
 

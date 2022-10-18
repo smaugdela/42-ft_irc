@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/17 14:47:32 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/18 17:25:21 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,15 @@ void Server::rmUser(Client* user)
 	delete user;
 }
 
+bool	Server::setConfigData(void)
+{
+	std::ifstream	fileConfig("./config/file.config", std::ifstream::in);
+
+	while(fileConfig.good())
+	{
+		
+	}
+}
 
 /*
 ** --------------------------------- ACCESSOR ---------------------------------
@@ -159,6 +168,31 @@ Client *Server::getUser(std::string nickname) const
 	return it->second;
 }
 
+std::string const &Server::getServerName(void) const
+{
+	return this->_serverName;
+}
+
+std::string const &Server::getServerVersion(void) const
+{
+	return this->_serverVersion;
+}
+
+std::string const &Server::getOperUSer(void) const
+{
+	return this->_operUser;
+}
+
+std::string const &Server::getOperPass(void) const
+{
+	return this->_operPass;
+}
+
+std::string const &Server::getPing(void) const
+{
+	return this->_ping;
+}
+
 void	Server::setPort(int port)
 {
 	this->_port = port;
@@ -179,5 +213,29 @@ void	Server::setListener(sockfd listener)
 	this->_listener = listener;
 }
 
+void	Server::setServerName(std::string serverName)
+{
+	this->_serverName = serverName;
+}
+
+void	Server::setServerVersion(std::string serverVersion)
+{
+	this->_serverVersion = serverVersion;
+}
+
+void	Server::setOperUser(std::string OperUser)
+{
+	this->_operUser = _operUser;
+}
+
+void	Server::setOperPass(std::string OperPass)
+{
+	this->_operPass = OperPass;
+}
+
+void	Server::setPing(std::string ping)
+{
+	this->_ping = ping;
+}
 
 /* ************************************************************************** */
