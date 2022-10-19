@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/17 17:51:54 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/18 15:18:52 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@ class Message
 		~Message();
 
 		std::string const& getMessage(void) const;
+		std::string const& getCommand(void) const;
+		std::string const& getPrefix(void) const;
+		std::string const& getParams(void) const;
+		void	setCommand(std::string command);
+		void	setPrefix(std::string prefix);
+		void	setParams(std::string params);
+
+		bool	Check_prefix(std::string str);
+		bool	Check_command(std::string str);
 
 	private:
 

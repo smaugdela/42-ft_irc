@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_utils.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:27:33 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/12 16:51:58 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:56:10 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,70 @@ sockfd	start_listening(Server *serv)
 	shield(listen(sock, serv->getMaxbacklogs()), -1, "listen", __FILE__, __LINE__);
 
 	return sock;
+}
+
+bool	setData(std::string str, Server *dataConfig)
+{
+	int							i = 0;
+	const char 					delim = '=';
+	std::string					token;
+	std::vector<std::string>	v;
+
+	std::stringstream			ss(str);
+	while (getline(ss, token, delim))
+		v.push_back(token);
+
+	std::vector<std::string>::iterator	it;
+	it = std::find(v.begin(), v.end(), v[0]);
+	std::string tab[8] = {"name", "version", "motd", "info", "oper_user", "oper_password", "ping", "timeout"};
+	for (; i < 8 && *it != tab[i]; i++);
+	it++;
+
+	switch (i)
+	{
+		case 0 :
+				dataConfig->setServerName(*it);
+				break ;
+			case 1 :
+				dataConfig->setServerVersion(*it);
+				break ;
+			case 2 :
+				dataConfig->setMotd(*it);
+				break ;
+			case 3 :
+				dataConfig->setInfoConfig(*it);
+				break ;
+			case 4 :
+				dataConfig->setOperUser(*it);
+				break ;
+			case 5 :
+				dataConfig->setOperPass(*it);
+				break ;
+			case 6 :
+				dataConfig->setPing(*it);
+				break ;
+			case 7 :
+				dataConfig->setTimeout(*it);
+				break ;
+			default :
+				return (false);
+	}
+	return (true);
+}
+
+//traiter erreur dans le cas ou il n'ya pas de valeur apres le '=' dans le fichier config
+void	setConfigData(Server *dataConfig)
+{
+	std::ifstream	ifs("./config/file.config", std::ifstream::in);
+
+	if(ifs.good())
+	{
+		std::string str;
+		while (getline(ifs, str))
+			if (setData(str, dataConfig) == false)
+				std::cout << "Error file configuration\n";
+	}
+	else
+		std::cout << "Error. File Configuration not opened\n";
+	ifs.close();
 }

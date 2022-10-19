@@ -26,6 +26,9 @@
 # include <poll.h>
 # include <cstring>
 # include <vector>
+# include <sstream>
+# include <fstream>
+# include <algorithm>
 
 //colors 
 # define GREEN "\033[0;32m"
