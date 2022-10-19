@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libs.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/19 12:13:22 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:33:16 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <string>
 # include <iostream>
 # include <fstream>
-# include <algorithm>
 # include <map>
 # include <list>
 # include <memory.h>
@@ -28,6 +27,19 @@
 # include <poll.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <cstring>
+# include <vector>
+# include <sstream>
+# include <fstream>
+# include <algorithm>
+
+//colors 
+# define GREEN "\033[0;32m"
+# define PURPLE "\033[0;35m"
+# define YELLOW "\033[1;33m"
+# define BLUE "\033[0;36m"
+# define RED "\033[4;31m"
+# define RESET "\033[0m"
 
 # define MAX_BACKLOGS	10	// Maximum of pending connection request on listening socket.
 # define MAX_CLIENTS	42	// Maximum of connected clients.
@@ -41,5 +53,6 @@ typedef int	sockfd;
 # include "class/Channel.hpp"
 # include "class/Server.hpp"
 # include "proto.hpp"
+# include "err_def.hpp"
 
 #endif

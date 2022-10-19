@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   loop.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
 /*   Updated: 2022/10/19 16:51:42 by smagdela         ###   ########.fr       */

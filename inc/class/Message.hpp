@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   Message.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
 /*   Updated: 2022/10/19 16:16:57 by smagdela         ###   ########.fr       */
@@ -24,6 +24,15 @@ class Message
 		~Message();
 
 		std::string const& getMessage(void) const;
+		std::string const& getCommand(void) const;
+		std::string const& getPrefix(void) const;
+		std::string const& getParams(void) const;
+		void	setCommand(std::string command);
+		void	setPrefix(std::string prefix);
+		void	setParams(std::string params);
+
+		bool	Check_prefix(std::string str);
+		bool	Check_command(std::string str);
 
 	private:
 
@@ -31,8 +40,11 @@ class Message
 
 		Client*		_sender;
 		Client*		_receiver;
-		std::string	_message;
+		char		*_message;
 		std::string	_command;
+		std::string _prefix;
+		std::string _params;
+		
 
 };
 
