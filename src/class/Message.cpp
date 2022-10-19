@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Message.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/19 16:16:52 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:12:17 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ Message::Message(Client *sender, Client *receiver, char *message) : _sender(send
 	}
 
 	std::vector<std::string>::iterator it = tab_parse.begin();
-	for (it; it != tab_parse.end(); it++)
+	for (; it != tab_parse.end(); it++)
 	{	
 		std::string str = *it;
-		if (str[0] = ':')
+		if (str[0] == ':')
+		{
 			if (Check_prefix(str) == true)
 				setPrefix(str);
+		}
 		else
 		{
 			if (Check_command(str) == true)
@@ -100,6 +102,7 @@ std::ostream &			operator<<( std::ostream & o, Message const & i )
 
 bool Message::Check_prefix(std::string str)
 {
+	(void)str;
 	return false;
 }
 
@@ -112,7 +115,7 @@ bool Message::Check_command(std::string str)
 				return false;
 		return true;
 	}
-	for (int i = 0; i < str.size(); i++)
+	for (size_t i = 0; i < str.size(); i++)
 	{
 		if (isalpha(str[i]) == false)
 			return false;
@@ -125,7 +128,7 @@ bool Message::Check_command(std::string str)
 ** --------------------------------- ACCESSOR ---------------------------------
 */
 
-std::string const& Message::getMessage(void) const
+char *Message::getMessage(void) const
 {
 	return (this->_message);
 }

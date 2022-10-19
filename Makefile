@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+         #
+#    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/10/19 15:49:06 by smagdela         ###   ########.fr        #
+#    Updated: 2022/10/19 17:13:31 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRCS    =	main.cpp \
 			class/Channel.cpp \
 			class/Server.cpp \
 			class/Message.cpp \
-			commands/die.cpp \
+			# commands/die.cpp \
 			commands/error.cpp \
 			commands/info.cpp \
 			commands/join.cpp \

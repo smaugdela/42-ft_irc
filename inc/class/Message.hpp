@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Message.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/19 16:16:57 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:18:51 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ class Message
 		Message(Client *sender, Client *receiver, char *message);
 		~Message();
 
-		std::string const& getMessage(void) const;
+		char *getMessage(void) const;
 		std::string const& getCommand(void) const;
 		std::string const& getPrefix(void) const;
 		std::string const& getParams(void) const;
@@ -44,7 +44,6 @@ class Message
 		std::string	_command;
 		std::string _prefix;
 		std::string _params;
-		
 
 };
 

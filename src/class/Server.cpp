@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/19 16:26:21 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:08:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ void	Server::setInfoConfig(std::string infoConfig)
 
 void	Server::setOperUser(std::string OperUser)
 {
-	this->_operUser = _operUser;
+	this->_operUser = OperUser;
 }
 
 void	Server::setOperPass(std::string OperPass)

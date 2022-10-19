@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/19 16:51:42 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:09:57 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	serv_accept(Server *serv)
 
 static void	set_pollfd(Server *serv, struct pollfd *fds, nfds_t nfds)
 {
+	memset(fds, 0, nfds * sizeof(struct pollfd));
+
 	fds[0].fd = serv->getListener();
 	fds[0].events = POLLIN;
 	fds[0].revents = 0;
