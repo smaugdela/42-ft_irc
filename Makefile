@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
+#    By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/10/17 14:59:37 by smagdela         ###   ########.fr        #
+#    Updated: 2022/10/19 12:30:11 by ajearuth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,18 @@ SRCS    =	main.cpp \
 			class/Channel.cpp \
 			class/Server.cpp \
 			class/Message.cpp \
+			commands/die.cpp \
+			commands/error.cpp \
+			commands/info.cpp \
+			commands/join.cpp \
+			commands/kick.cpp \
+			commands/list.cpp \
+			commands/nick.cpp \
+			commands/ping.cpp \
+			commands/pong.cpp \
+			commands/quit.cpp \
+			commands/rehash.cpp \
+			commands/stats.cpp \
 
 OBJS    =       ${SRCS:.cpp=.o}
 
