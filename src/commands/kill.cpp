@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:07:50 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/18 16:09:11 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/19 11:13:24 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 //    Command: KILL         !!!  RECOMMENDED TO BE ONLY ALLOWED TO OPERATORS !!! 
 //    Parameters: <nickname> <comment>
 
+
+// FR : Vire la personne du serveur 
 //    The KILL command is used to cause a client-server connection to be
 //    closed by the server which has the actual connection.  Servers
 //    generate KILL messages on nickname collisions.  It MAY also be
