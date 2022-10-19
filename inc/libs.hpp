@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/18 11:51:23 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:33:16 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ typedef int	sockfd;
 # include "class/Channel.hpp"
 # include "class/Server.hpp"
 # include "proto.hpp"
+# include "err_def.hpp"
 
 #endif
