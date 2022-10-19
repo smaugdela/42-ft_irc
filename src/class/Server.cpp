@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/17 17:09:22 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/19 13:58:21 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ Server::~Server()
 {
 }
 
-
 /*
 ** --------------------------------- OVERLOAD ---------------------------------
 */
@@ -68,6 +67,8 @@ std::ostream &			operator<<( std::ostream & o, Server const & i )
 
 bool	Server::addUser(Client* new_user)
 {
+	if (new_user == NULL)
+		return false;
 	try
 	{
 		this->_users.at(new_user->getFd());
@@ -82,10 +83,12 @@ bool	Server::addUser(Client* new_user)
 
 void Server::rmUser(Client* user)
 {
-	this->_users.erase(user->getFd());
-	delete user;
+	if (user != NULL)
+	{
+		this->_users.erase(user->getFd());
+		delete user;
+	}
 }
-
 
 /*
 ** --------------------------------- ACCESSOR ---------------------------------

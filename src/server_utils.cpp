@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:27:33 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/18 15:31:30 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:16:48 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ sockfd	start_listening(Server *serv)
 {
 	struct protoent *protoent = shield<struct protoent*>(getprotobyname("tcp"), NULL, "getprotobyname", __FILE__, __LINE__);
 
-	sockfd	sock = shield<sockfd>(socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK, protoent->p_proto), -1, "socket", __FILE__, __LINE__);
+	sockfd	sock = shield<sockfd>(socket(PF_INET, SOCK_STREAM, protoent->p_proto), -1, "socket", __FILE__, __LINE__);
+	int optval = 1;
+	shield(setsockopt(sock, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &optval, sizeof(optval)), -1, "setsockopt", __FILE__, __LINE__);
+	shield(fcntl(sock, F_SETFL, O_NONBLOCK), -1, "fcntl", __FILE__, __LINE__);
 
 	struct sockaddr_in	addr;
 	addr.sin_family = AF_INET;
