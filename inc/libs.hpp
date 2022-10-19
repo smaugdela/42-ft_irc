@@ -18,12 +18,15 @@
 # include <iostream>
 # include <fstream>
 # include <map>
+# include <list>
 # include <memory.h>
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/socket.h>
 # include <netdb.h>
 # include <poll.h>
+# include <unistd.h>
+# include <fcntl.h>
 # include <cstring>
 # include <vector>
 # include <sstream>
@@ -41,6 +44,7 @@
 # define MAX_BACKLOGS	10	// Maximum of pending connection request on listening socket.
 # define MAX_CLIENTS	42	// Maximum of connected clients.
 # define TIMEOUT		-1	// -1 means no timeout. Value in milliseconds.
+# define BUFFER_SIZE	512
 
 typedef int	sockfd;
 

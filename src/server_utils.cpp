@@ -12,6 +12,20 @@
 
 # include "libs.hpp"
 
+static size_t	init_backlog(void)
+{
+	std::ifstream	ifs;
+	size_t			tmp;
+
+	ifs.open("/proc/sys/net/ipv4/tcp_max_syn_backlog");
+	if (ifs.fail())
+		tmp = MAX_BACKLOGS;
+	else
+		ifs >> tmp;
+	ifs.close();
+	return (tmp);
+}
+
 bool	parse_input(int ac, const char **av, Server* serv)
 {
 	if (ac != 3)
@@ -27,6 +41,7 @@ bool	parse_input(int ac, const char **av, Server* serv)
 		}
 		serv->setPassword(pwrd);
 		serv->setPort(portint);
+		serv->setMaxbacklogs(init_backlog());
 		return true;
 	}
 	else
@@ -37,7 +52,10 @@ sockfd	start_listening(Server *serv)
 {
 	struct protoent *protoent = shield<struct protoent*>(getprotobyname("tcp"), NULL, "getprotobyname", __FILE__, __LINE__);
 
-	sockfd	sock = shield<sockfd>(socket(AF_INET, SOCK_STREAM, protoent->p_proto), -1, "socket", __FILE__, __LINE__);
+	sockfd	sock = shield<sockfd>(socket(PF_INET, SOCK_STREAM, protoent->p_proto), -1, "socket", __FILE__, __LINE__);
+	int optval = 1;
+	shield(setsockopt(sock, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &optval, sizeof(optval)), -1, "setsockopt", __FILE__, __LINE__);
+	shield(fcntl(sock, F_SETFL, O_NONBLOCK), -1, "fcntl", __FILE__, __LINE__);
 
 	struct sockaddr_in	addr;
 	addr.sin_family = AF_INET;

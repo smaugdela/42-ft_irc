@@ -24,16 +24,6 @@ Server::Server() //private
 Server::Server(int ac, const char **av) // public
 {
 	shield(parse_input(ac, av, this), false, "Usage: ./ircserv <port> <password>", __FILE__, __LINE__);
-
-	std::ifstream	ifs;
-
-	ifs.open("/proc/sys/net/ipv4/tcp_max_syn_backlog");
-	if (ifs.fail())
-		this->_max_backlogs = MAX_BACKLOGS;
-	else
-		ifs >> this->_max_backlogs;
-	ifs.close();
-
 	this->_listener = start_listening(this);
 	setConfigData(this);
 }
@@ -43,7 +33,6 @@ Server::Server( const Server & src ) // private
 	(void)src;
 }
 
-
 /*
 ** -------------------------------- DESTRUCTOR --------------------------------
 */
@@ -51,7 +40,6 @@ Server::Server( const Server & src ) // private
 Server::~Server()
 {
 }
-
 
 /*
 ** --------------------------------- OVERLOAD ---------------------------------
@@ -80,6 +68,8 @@ std::ostream &			operator<<( std::ostream & o, Server const & i )
 
 bool	Server::addUser(Client* new_user)
 {
+	if (new_user == NULL)
+		return false;
 	try
 	{
 		this->_users.at(new_user->getFd());
@@ -94,8 +84,11 @@ bool	Server::addUser(Client* new_user)
 
 void Server::rmUser(Client* user)
 {
-	this->_users.erase(user->getFd());
-	delete user;
+	if (user != NULL)
+	{
+		this->_users.erase(user->getFd());
+		delete user;
+	}
 }
 
 /*

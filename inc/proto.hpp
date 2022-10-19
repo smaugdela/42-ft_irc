@@ -24,8 +24,8 @@ T	shield(T ft, T error, const char *description, const char *file, int line);
 bool	parse_input(int ac, const char **av, Server *serv);
 sockfd	start_listening(Server *serv);
 void	server_loop(Server *serv);
-void    setConfigData(Server *dataConfig);
+void	serv_receive(sockfd client, Server *server);
+void  setConfigData(Server *dataConfig);
 bool	setData(std::string str, Server *dataConfig);
-
 
 #endif

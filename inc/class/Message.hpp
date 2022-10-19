@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/18 15:18:52 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:16:57 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ class Message
 	public:
 
 		Message();
+		Message( Message const & src );
 		Message(Client *sender, Client *receiver, char *message);
 		~Message();
 
@@ -35,7 +36,6 @@ class Message
 
 	private:
 
-		Message( Message const & src );
 		Message &		operator=( Message const & rhs );
 
 		Client*		_sender;
