@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/18 17:14:38 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:30:20 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <vector>
 # include <sstream>
 # include <fstream>
+# include <algorithm>
 
 # define MAX_BACKLOGS	10	// Maximum of pending connection request on listening socket.
 # define MAX_CLIENTS	42	// Maximum of connected clients.

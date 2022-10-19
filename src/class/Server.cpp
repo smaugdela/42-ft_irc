@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/18 17:25:21 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:26:21 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ Server::Server(int ac, const char **av) // public
 	ifs.close();
 
 	this->_listener = start_listening(this);
+	setConfigData(this);
 }
 
 Server::Server( const Server & src ) // private
@@ -95,16 +96,6 @@ void Server::rmUser(Client* user)
 {
 	this->_users.erase(user->getFd());
 	delete user;
-}
-
-bool	Server::setConfigData(void)
-{
-	std::ifstream	fileConfig("./config/file.config", std::ifstream::in);
-
-	while(fileConfig.good())
-	{
-		
-	}
 }
 
 /*
@@ -178,6 +169,16 @@ std::string const &Server::getServerVersion(void) const
 	return this->_serverVersion;
 }
 
+std::string const &Server::getMotd(void) const
+{
+	return this->_motd;
+}
+
+std::string const &Server::getInfoConfig(void) const
+{
+	return this->_infoConfig;
+}
+
 std::string const &Server::getOperUSer(void) const
 {
 	return this->_operUser;
@@ -191,6 +192,11 @@ std::string const &Server::getOperPass(void) const
 std::string const &Server::getPing(void) const
 {
 	return this->_ping;
+}
+
+std::string const &Server::getTimeout(void) const
+{
+	return this->_timeout;
 }
 
 void	Server::setPort(int port)
@@ -223,6 +229,16 @@ void	Server::setServerVersion(std::string serverVersion)
 	this->_serverVersion = serverVersion;
 }
 
+void	Server::setMotd(std::string motd)
+{
+	this->_motd = motd;
+}
+
+void	Server::setInfoConfig(std::string infoConfig)
+{
+	this->_infoConfig = infoConfig;
+}
+
 void	Server::setOperUser(std::string OperUser)
 {
 	this->_operUser = _operUser;
@@ -236,6 +252,11 @@ void	Server::setOperPass(std::string OperPass)
 void	Server::setPing(std::string ping)
 {
 	this->_ping = ping;
+}
+
+void	Server::setTimeout(std::string timeOut)
+{
+	this->_timeout = timeOut;
 }
 
 /* ************************************************************************** */

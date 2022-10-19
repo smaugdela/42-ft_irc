@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/18 17:43:08 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:25:24 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ class Server
 		void	rmUser(Client* user);
 		Client*	getUser(sockfd	fd) const;
 		Client*	getUser(std::string nickname) const;
-		bool	setConfigData(void); // modifier le proto si necessaire
 
 		int										getPort(void) const;
 		std::string	const&						getPassword(void) const;
@@ -35,9 +34,12 @@ class Server
 		std::map<std::string, Channel*> const&	getChans(void) const;
 		std::string const&						getServerName(void) const;
 		std::string const&						getServerVersion(void) const;
+		std::string const&						getMotd(void) const;
+		std::string const&						getInfoConfig(void) const;
 		std::string const&						getOperUSer(void) const;
 		std::string const&						getOperPass(void)	const;
 		std::string const&						getPing(void) const;
+		std::string const&						getTimeout(void) const;
 
 		void									setPort(int port);
 		void									setPassword(std::string password);
@@ -45,9 +47,12 @@ class Server
 		void									setListener(sockfd listener);
 		void									setServerName(std::string serverName);
 		void									setServerVersion(std::string serverVersion);
+		void									setMotd(std::string motd);
+		void									setInfoConfig(std::string infoConfig);
 		void									setOperUser(std::string operUser);
 		void									setOperPass(std::string operPass);
 		void									setPing(std::string ping);
+		void									setTimeout(std::string timeOut);
 
 	private:
 
@@ -63,9 +68,13 @@ class Server
 		std::map<std::string, Channel*>	_chans;
 		std::string						_serverName;
 		std::string						_serverVersion;
+		std::string						_motd;
+		std::string						_infoConfig;
 		std::string						_operUser;
 		std::string						_operPass;
 		std::string						_ping;
+		std::string						_timeout;
+		
 
 };
 
