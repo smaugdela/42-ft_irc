@@ -6,35 +6,11 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:48:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/20 17:36:57 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/20 17:57:08 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libs.hpp"
-
-// static std::list<Message*>	interpret_buffer(sockfd client, Server *server, char *buffer)
-// {
-// 	std::list<Message*> msg_list;
-// 	std::string			buffer_str;
-// 	char				*ptr;
-
-// 	buffer_str = server->getUser(client)->getBuffer() + buffer;
-
-// 	if (buffer_str.find("\r\n", 0) == std::string::npos)
-// 		server->getUser(client)->setBuffer(buffer_str);
-// 	else
-// 	{
-// 		buffer = strdup(buffer_str.c_str());
-// 		ptr = strtok(buffer, "\r\n");
-// 		while(ptr)
-// 		{
-// 			msg_list.push_back(new Message(server->getUser(client), NULL, ptr));
-// 			ptr = strtok(NULL, "\r\n");
-// 		}
-// 		server->getUser(client)->setBuffer("");
-// 	}
-// 	return msg_list;
-// }
 
 /* This function will parse the client's buffer into its commands list. */
 static void	buf_to_cmd(Client *client)
@@ -78,7 +54,7 @@ void	serv_receive(sockfd client, Server *server)
 	}
 	else if (len == 0)
 		server->getUser(client)->setConnected(false);
-	else if (len > 0 && !strncmp(buffer + len - 3, "\r\n", 2))
+	else if (len > 0 && strstr(buffer, "\r\n") != (buffer + len - 2))
 	{
 		std::cout << "Message from client #" << client << ":" << std::endl;
 		std::cout << "Message incomplete! Adding it to the buffer..." << std::endl;
@@ -88,7 +64,6 @@ void	serv_receive(sockfd client, Server *server)
 	{
 		std::cout << "Message from client #" << client << ":" << std::endl;
 		server->getUser(client)->setBuffer(server->getUser(client)->getBuffer() + buffer);
-		// std::cout << "Buffer = [" << server->getUser(client)->getBuffer() << "]" << std::endl;
 		buf_to_cmd(server->getUser(client));
 	}
 }
