@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_utils.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:27:33 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/19 17:16:53 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/20 14:53:46 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,17 +119,23 @@ bool	setData(std::string str, Server *dataConfig)
 	return (true);
 }
 
-//traiter erreur dans le cas ou il n'ya pas de valeur apres le '=' dans le fichier config
 void	setConfigData(Server *dataConfig)
 {
-	std::ifstream	ifs("./config/file.config", std::ifstream::in);
+	std::ifstream	ifs("src/config/file.config", std::ifstream::in);
 
-	if(ifs.good())
+	if (ifs.good())
 	{
 		std::string str;
 		while (getline(ifs, str))
-			if (setData(str, dataConfig) == false)
-				std::cout << "Error file configuration\n";
+		{
+			std::string::iterator it = str.end();
+			it--;
+			if (*it == '=')
+				std::cout << "Error file configuration incomplete\n";
+			else 
+				if (setData(str, dataConfig) == false)
+					std::cout << "Error file configuration. value not found\n";
+		}
 	}
 	else
 		std::cout << "Error. File Configuration not opened\n";
