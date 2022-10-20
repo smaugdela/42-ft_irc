@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:38:00 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/20 14:38:24 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/20 17:04:20 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,11 @@
 //    "#*" or "$*", which would broadcast to all users.  Wildcards are the
 //    '*' and '?'  characters.  This extension to the PRIVMSG command is
 //    only available to operators.
+
+//    Numeric Replies:
+
+//            ERR_NORECIPIENT                 ERR_NOTEXTTOSEND
+//            ERR_CANNOTSENDTOCHAN            ERR_NOTOPLEVEL
+//            ERR_WILDTOPLEVEL                ERR_TOOMANYTARGETS
+//            ERR_NOSUCHNICK
+//            RPL_AWAY
