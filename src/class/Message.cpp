@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/19 17:12:17 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/20 16:53:38 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ Message::Message(Client *sender, Client *receiver, char *message) : _sender(send
 	// {
 	// 	tab_parse.push_back(token);
 	// }
-	
+
 	const char *delim = " ";
 	std::vector<std::string> tab_parse;
-	
+
 	char *token = strtok(_message, delim);
 	while(token != NULL)
 	{

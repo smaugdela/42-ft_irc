@@ -6,13 +6,13 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/19 17:09:57 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/20 17:27:01 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libs.hpp"
 
-void	serv_accept(Server *serv)
+static void	serv_accept(Server *serv, std::vector<pollfd> &fds)
 {
 	sockfd			new_client_fd;
 	struct sockaddr	cs;
@@ -24,32 +24,36 @@ void	serv_accept(Server *serv)
 	Client *new_client = new Client(new_client_fd, cs);
 	serv->addUser(new_client);
 
+	fds.push_back(pollfd());
+	fds.back().fd = new_client_fd;
+	fds.back().events = POLLIN;
+	fds.back().revents = POLLIN;
+
 	std::cout << "New Client on socket #" << new_client_fd << std::endl;
-	serv_receive(new_client_fd, serv);
 }
 
-static void	set_pollfd(Server *serv, struct pollfd *fds, nfds_t nfds)
+static void	set_pollfd(Server *serv, std::vector<struct pollfd> &fds)
 {
-	memset(fds, 0, nfds * sizeof(struct pollfd));
+	fds.clear();
+	fds.push_back(pollfd());
+	fds.back().fd = serv->getListener();
+	fds.back().events = POLLIN;
+	fds.back().revents = 0;
 
-	fds[0].fd = serv->getListener();
-	fds[0].events = POLLIN;
-	fds[0].revents = 0;
-
-	size_t	i = 1;
-	for (std::map<sockfd, Client*>::const_iterator it = serv->getUsers().begin(); it != serv->getUsers().end() && i < serv->getUsers().size() && i < nfds; ++it, i++)
+	for (std::map<sockfd, Client*>::const_iterator it = serv->getUsers().begin(); it != serv->getUsers().end(); ++it)
 	{
-		fds[i].fd = (*it).first;
-		fds[i].events = POLLIN;
-		fds[i].revents = 0;
+		fds.push_back(pollfd());
+		fds.back().fd = it->first;
+		fds.back().events = POLLIN;
+		fds.back().revents = 0;
 	}
 }
 
-static void	remove_unauth_users(Server *serv)
+static void	remove_deco_users(Server *serv)
 {
 	for (std::map<sockfd, Client*>::const_iterator it = serv->getUsers().begin(); it != serv->getUsers().end(); ++it)
 	{
-		if (it->second->getAuthorize() == false)
+		if (it->second->getConnected() == false)
 		{
 			serv->rmUser(it->second);
 			std::cout << "Client at socket #" << it->first << " disconnected." << std::endl;
@@ -62,44 +66,44 @@ static void	remove_unauth_users(Server *serv)
 
 void	server_loop(Server *serv)
 {
-	int				nevents = 0;
-	nfds_t			nfds = 0;
-	struct pollfd	*fds = NULL;
+	std::vector<struct pollfd> fds;
 
 	while (true)
 	{
-		remove_unauth_users(serv);
-		nfds = serv->getUsers().size() + 1;
-		fds = new struct pollfd[nfds];
-		set_pollfd(serv, fds, nfds);
+		set_pollfd(serv, fds);
 
-		std::cout << "Waiting for an event in poll()..." << std::endl;
-		nevents = shield(poll(fds, nfds, TIMEOUT), -1, "poll", __FILE__, __LINE__);
-		std::cout << "Event(s) found!" << std::endl;
-		for (int n = 0; n < nevents; ++n)
+		shield(poll(fds.data(), fds.size(), TIMEOUT), -1, "poll", __FILE__, __LINE__);
+		for (size_t n = 0; n < fds.size(); n++)
 		{
-			std::cout << "n = " << n << " < nevents = " << nevents << std::endl;
 			if (fds[n].revents != 0)
 			{
-				std::cout << "Checking socket #" << fds[n].fd << "..." << std::endl;
-				if (n == 0 && fds[0].revents & POLLIN)	// The listening socket is at index 0.
+				if (fds[n].revents & POLLIN)
 				{
-					std::cout << "There is an incoming connection on the listening socket! (#" << serv->getListener() << ")" << std::endl;
-					serv_accept(serv);
+					if (n == 0)					// The listening socket is at index 0.
+						serv_accept(serv, fds);
+					else
+						serv_receive(fds[n].fd, serv);
 				}
-				if (n != 0 && fds[n].revents & POLLIN)
-				{
-					std::cout << "There is a message on socket #" << fds[n].fd << "!" << std::endl;
-					serv_receive(fds[n].fd, serv);
-				}
+				if (fds[n].revents & POLLOUT && n !=0)
+					serv_send(fds[n].fd, serv);
 				if (fds[n].revents & POLLHUP)
+				{	
 					std::cout << "POLLHUP on socket #" << fds[n].fd << std::endl;
+					serv->getUser(fds[n].fd)->setConnected(false);
+				}
 				if (fds[n].revents & POLLERR)
+				{	
 					std::cout << "POLLERR on socket #" << fds[n].fd << std::endl;
+					serv->getUser(fds[n].fd)->setConnected(false);
+				}
 				if (fds[n].revents & POLLNVAL)
+				{	
 					std::cout << "POLLNVAL on socket #" << fds[n].fd << std::endl;
+					serv->getUser(fds[n].fd)->setConnected(false);
+				}
 			}
 		}
-		delete [] fds;
+		std::cout << "--------------------------------------------" << std::endl;
+		remove_deco_users(serv);
 	}
 }

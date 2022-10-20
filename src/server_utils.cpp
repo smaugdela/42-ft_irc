@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:27:33 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/19 17:16:53 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/20 14:47:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ bool	setData(std::string str, Server *dataConfig)
 //traiter erreur dans le cas ou il n'ya pas de valeur apres le '=' dans le fichier config
 void	setConfigData(Server *dataConfig)
 {
-	std::ifstream	ifs("./config/file.config", std::ifstream::in);
+	std::ifstream	ifs("src/config/file.config", std::ifstream::in);
 
 	if(ifs.good())
 	{

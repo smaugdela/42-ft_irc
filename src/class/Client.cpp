@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/19 14:22:02 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/20 17:09:43 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ Client::Client( const Client & src )
 	(void)src;
 }
 
-Client::Client(sockfd fd, struct sockaddr addr) : _fd(fd), _addr(addr), _authorize(false), _buffer()
+Client::Client(sockfd fd, struct sockaddr addr) : _fd(fd), _addr(addr), _authorize(false), _connected(true), _buffer()
 {
 }
 
@@ -106,6 +106,11 @@ std::string const&	Client::getBuffer(void) const
 	return this->_buffer;
 }
 
+bool	Client::getConnected(void) const
+{
+	return this->_connected;
+}
+
 void			Client::setNickname(std::string new_nick)
 {
 	this->_nickname = new_nick;
@@ -129,6 +134,16 @@ void	Client::setAdm(bool	new_adm)
 void	Client::setBuffer(std::string new_buffer)
 {
 	this->_buffer = new_buffer;
+}
+
+void	Client::setAuthorize(bool	authorization)
+{
+	this->_authorize = authorization;
+}
+
+void	Client::setConnected(bool state)
+{
+	this->_connected = state;
 }
 
 /* ************************************************************************** */
