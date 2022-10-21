@@ -2,10 +2,8 @@
 By [ajealcat](https://github.com/ajealcat), [fahima8897](https://github.com/fahima8897) and [smaugdela](https://github.com/smaugdela)
 
 ## TODO
-- Handle signals (especially to terminate server)
+- Is serv_send() really to be used in that way (send a buffered list of message, resulting from the execution of the commands of the clients)? Or maybe should we send each time a command needs to send, provided that the client is writeable?
 - Check leaks
-- Write functions buf_to_cmd that will parse a client's buffer into its list of commands that will be executed, and serv_send that will send all messages that have been put in its list attribute to be sent.
-- Finish to parse the Message class in its constructor
 - Implement the execution of messages
 - Implement channels
 
