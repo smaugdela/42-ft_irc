@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:48:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/20 17:57:08 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:53:47 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,23 @@
 /* This function will parse the client's buffer into its commands list. */
 static void	buf_to_cmd(Client *client)
 {
-	// std::list<Message*> msg_list;
+	std::vector<char*>	vect;
+	std::list<Message>	msg_list;
 	char	*buffer = strdup(client->getBuffer().c_str());
-	char	*ptr = NULL;
 
-	ptr = strtok(buffer, "\r\n");
-	while(ptr)
-	{
-		std::cout << "Message: [" << ptr << "]" << std::endl;
-		// msg_list.push_back(new Message(client, NULL, strdup(ptr)));
-		ptr = strtok(NULL, "\r\n");
-	}
-
+	vect = split(buffer, "\r\n");
 	delete buffer;
 	client->setBuffer("");
 
-	// std::cout << "Here1" << std::endl;
-	// for (std::list<Message*>::iterator it = msg_list.begin(); it != msg_list.end(); ++it)
-	// {
-	//	std::cout << "Here2" << std::endl;
-	// 	std::cout << "Message: [" << (*it)->getMessage() << "]" << std::endl;
-	// }
-	// std::cout << "Here3" << std::endl;
+	for (std::vector<char*>::const_iterator it = vect.begin(); it != vect.end(); ++it)
+	{
+		Message new_msg(client, NULL, *it);
+		if (new_msg.parse_msg())
+			msg_list.push_back(new_msg);
+	}
+
+	for (std::list<Message>::const_iterator it = msg_list.begin(); it != msg_list.end(); ++it)
+		std::cout << "Message:\n" << *it << std::endl;
 }
 
 void	serv_receive(sockfd client, Server *server)
@@ -46,6 +41,7 @@ void	serv_receive(sockfd client, Server *server)
 
 	memset(buffer, 0, BUFFER_SIZE + 1);
 	len = recv(client, buffer, BUFFER_SIZE, MSG_DONTWAIT);
+	std::string	buf_str(buffer);
 
 	if (len < 0 && errno != EAGAIN && errno != EWOULDBLOCK)
 	{
@@ -54,7 +50,7 @@ void	serv_receive(sockfd client, Server *server)
 	}
 	else if (len == 0)
 		server->getUser(client)->setConnected(false);
-	else if (len > 0 && strstr(buffer, "\r\n") != (buffer + len - 2))
+	else if (len > 0 && (buf_str.rfind("\r\n") != buf_str.size() - 2))
 	{
 		std::cout << "Message from client #" << client << ":" << std::endl;
 		std::cout << "Message incomplete! Adding it to the buffer..." << std::endl;

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/20 17:27:01 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:50:08 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	serv_accept(Server *serv, std::vector<pollfd> &fds)
 	fds.back().events = POLLIN;
 	fds.back().revents = POLLIN;
 
-	std::cout << "New Client on socket #" << new_client_fd << std::endl;
+	std::cout << "New Client on socket #" << new_client_fd << "." << std::endl;
 }
 
 static void	set_pollfd(Server *serv, std::vector<struct pollfd> &fds)
@@ -68,11 +68,11 @@ void	server_loop(Server *serv)
 {
 	std::vector<struct pollfd> fds;
 
-	while (true)
+	while (server_running)
 	{
 		set_pollfd(serv, fds);
 
-		shield(poll(fds.data(), fds.size(), TIMEOUT), -1, "poll", __FILE__, __LINE__);
+		poll(fds.data(), fds.size(), TIMEOUT);
 		for (size_t n = 0; n < fds.size(); n++)
 		{
 			if (fds[n].revents != 0)
@@ -88,22 +88,21 @@ void	server_loop(Server *serv)
 					serv_send(fds[n].fd, serv);
 				if (fds[n].revents & POLLHUP)
 				{	
-					std::cout << "POLLHUP on socket #" << fds[n].fd << std::endl;
+					std::cout << "POLLHUP on socket #" << fds[n].fd << "." << std::endl;
 					serv->getUser(fds[n].fd)->setConnected(false);
 				}
 				if (fds[n].revents & POLLERR)
 				{	
-					std::cout << "POLLERR on socket #" << fds[n].fd << std::endl;
+					std::cout << "POLLERR on socket #" << fds[n].fd << "." << std::endl;
 					serv->getUser(fds[n].fd)->setConnected(false);
 				}
 				if (fds[n].revents & POLLNVAL)
 				{	
-					std::cout << "POLLNVAL on socket #" << fds[n].fd << std::endl;
+					std::cout << "POLLNVAL on socket #" << fds[n].fd << "." << std::endl;
 					serv->getUser(fds[n].fd)->setConnected(false);
 				}
 			}
 		}
-		std::cout << "--------------------------------------------" << std::endl;
 		remove_deco_users(serv);
 	}
 }

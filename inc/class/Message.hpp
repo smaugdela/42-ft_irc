@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/20 16:57:33 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/21 16:15:55 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,29 @@ class Message
 		Message(Client *sender, Client *receiver, char *message);
 		~Message();
 
-		char *getMessage(void) const;
-		std::string const& getCommand(void) const;
-		std::string const& getPrefix(void) const;
-		std::string const& getParams(void) const;
+		Message	&operator=( Message const & rhs );
+
+		bool	parse_msg(void);
+		bool	Check_command(std::string str);
+
+		char					*getMessage(void) const;
+		std::string const&		getCommand(void) const;
+		std::string const&		getPrefix(void) const;
+		std::vector<std::string> const& getParams(void) const;
+		Client*		getSender(void) const;
+		Client*		getReceiver(void) const;
 		void	setCommand(std::string command);
 		void	setPrefix(std::string prefix);
-		void	setParams(std::string params);
-
-		bool	Check_prefix(std::string str);
-		bool	Check_command(std::string str);
+		void	setParams(std::vector<std::string> params);
 
 	private:
 
-		Message &		operator=( Message const & rhs );
-
-		Client*		_sender;
-		Client*		_receiver;
-		char		*_message;
-		std::string	_command;
-		std::string _prefix;
-		std::string _params;
+		Client*						_sender;
+		Client*						_receiver;
+		char*						_message;
+		std::string					_command;
+		std::string 				_prefix;
+		std::vector<std::string>	_params;
 
 };
 

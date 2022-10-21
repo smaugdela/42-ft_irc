@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/20 16:54:33 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/21 17:39:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include <sstream>
 # include <fstream>
 # include <algorithm>
+# include <signal.h>
 
 //colors 
 # define GREEN "\033[0;32m"
@@ -47,6 +48,8 @@
 # define BUFFER_SIZE	512
 
 typedef int	sockfd;
+
+extern bool server_running;
 
 # include "class/Message.hpp"
 # include "class/Client.hpp"

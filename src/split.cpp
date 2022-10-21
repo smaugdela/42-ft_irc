@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   split.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/09 13:40:31 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/21 17:40:41 by smagdela         ###   ########.fr       */
+/*   Created: 2022/10/21 16:53:22 by smagdela          #+#    #+#             */
+/*   Updated: 2022/10/21 17:24:13 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libs.hpp"
 
-bool server_running = true;
-
-static void sig_handler(int lol)
+std::vector<char*> split(char *str, const char *delim)
 {
-	(void)lol;
-	server_running = false;
-}
+	char 	*ptr = strtok(str, delim);
+	std::vector<char*> vect;
 
-int	main(int ac, const char **av)
-{
-	Server serv(ac, av);
-	signal(SIGINT, sig_handler);
-
-	server_loop(&serv);
-
-	return EXIT_SUCCESS;
+	while (ptr)
+	{
+		vect.push_back(strdup(ptr));
+		ptr = strtok(NULL, delim);
+	}
+	return vect;
 }
