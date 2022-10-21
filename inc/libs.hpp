@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libs.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/19 12:33:16 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/20 16:54:33 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@
 
 typedef int	sockfd;
 
-# include "class/Client.hpp"
 # include "class/Message.hpp"
+# include "class/Client.hpp"
 # include "class/Channel.hpp"
 # include "class/Server.hpp"
 # include "proto.hpp"

@@ -24,7 +24,7 @@ Message::Message(Client *sender, Client *receiver, char *message) : _sender(send
 {
 	const char *delim = " ";
 	std::vector<std::string> tab_parse;
-	
+
 	char *token = strtok(_message, delim);
 	while(token != NULL)
 	{

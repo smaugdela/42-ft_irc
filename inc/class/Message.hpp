@@ -6,12 +6,14 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/19 17:18:51 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/20 16:57:33 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MESSAGE_HPP
 # define MESSAGE_HPP
+
+class Client;
 
 class Message
 {
