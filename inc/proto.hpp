@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:41:25 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/21 17:14:16 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/22 01:18:16 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	serv_receive(sockfd client, Server *server);
 void	setConfigData(Server *dataConfig);
 bool	setData(std::string str, Server *dataConfig);
 void	serv_send(sockfd clientfd, Server *server);
-std::vector<char*> split(char *str, const char *delim);
+std::list<std::string> split(char *str, const char *delim);
 
 #endif

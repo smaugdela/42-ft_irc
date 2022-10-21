@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/21 16:15:55 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/22 01:15:25 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ class Message
 
 		Message();
 		Message( Message const & src );
-		Message(Client *sender, Client *receiver, char *message);
+		Message(Client *sender, Client *receiver, std::string message);
 		~Message();
 
 		Message	&operator=( Message const & rhs );
@@ -30,7 +30,7 @@ class Message
 		bool	parse_msg(void);
 		bool	Check_command(std::string str);
 
-		char					*getMessage(void) const;
+		std::string				getMessage(void) const;
 		std::string const&		getCommand(void) const;
 		std::string const&		getPrefix(void) const;
 		std::vector<std::string> const& getParams(void) const;
@@ -44,7 +44,7 @@ class Message
 
 		Client*						_sender;
 		Client*						_receiver;
-		char*						_message;
+		std::string					_message;
 		std::string					_command;
 		std::string 				_prefix;
 		std::vector<std::string>	_params;

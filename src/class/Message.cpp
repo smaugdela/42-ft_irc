@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/21 17:22:19 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/22 01:26:33 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Message::Message() : _sender(NULL), _receiver(NULL), _message(NULL), _command(),
 {
 }
 
-Message::Message(Client *sender, Client *receiver, char *message) : _sender(sender), _receiver(receiver), _message(message), _command(), _prefix(), _params()
+Message::Message(Client *sender, Client *receiver, std::string message) : _sender(sender), _receiver(receiver), _message(message), _command(), _prefix(), _params()
 {
 }
 
@@ -70,15 +70,17 @@ std::ostream &			operator<<( std::ostream & o, Message const & i )
 bool	Message::parse_msg(void)
 {
 	const char *delim = " ";
+	char*	tmp = strdup(_message.c_str());
 	std::vector<std::string> 			tab_parse;
 	std::vector<std::string>::iterator	str;
 
-	char *token = strtok(_message, delim);
+	char *token = strtok(tmp, delim);
 	while(token != NULL)
 	{
 		tab_parse.push_back(std::string(token));
 		token = strtok(NULL, delim);
 	}
+	free(tmp);
 
 	if (tab_parse.size() < 1)
 		return false;
@@ -107,6 +109,8 @@ bool	Message::parse_msg(void)
 
 bool Message::Check_command(std::string str)
 {
+	if (str.size() == 0)
+		return false;
 	if (str.size() == 3 && isdigit(str[0]) == true)
 	{
 		for(int i = 0; i < 3; i++)
@@ -128,7 +132,7 @@ bool Message::Check_command(std::string str)
 ** --------------------------------- ACCESSOR ---------------------------------
 */
 
-char *Message::getMessage(void) const
+std::string Message::getMessage(void) const
 {
 	return (this->_message);
 }

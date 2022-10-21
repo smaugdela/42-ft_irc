@@ -6,21 +6,21 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 16:53:22 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/21 17:24:13 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/22 01:19:42 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libs.hpp"
 
-std::vector<char*> split(char *str, const char *delim)
+std::list<std::string> split(char *str, const char *delim)
 {
 	char 	*ptr = strtok(str, delim);
-	std::vector<char*> vect;
+	std::list<std::string> list;
 
 	while (ptr)
 	{
-		vect.push_back(strdup(ptr));
+		list.push_back(std::string(ptr));
 		ptr = strtok(NULL, delim);
 	}
-	return vect;
+	return list;
 }

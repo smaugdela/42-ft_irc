@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:48:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/21 17:53:47 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/22 01:33:39 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,19 @@
 /* This function will parse the client's buffer into its commands list. */
 static void	buf_to_cmd(Client *client)
 {
-	std::vector<char*>	vect;
-	std::list<Message>	msg_list;
 	char	*buffer = strdup(client->getBuffer().c_str());
+	std::list<std::string>	buf_list(split(buffer, "\r\n"));
 
-	vect = split(buffer, "\r\n");
-	delete buffer;
+	free(buffer);
 	client->setBuffer("");
 
-	for (std::vector<char*>::const_iterator it = vect.begin(); it != vect.end(); ++it)
+	for (std::list<std::string>::const_iterator it = buf_list.begin(); it != buf_list.end(); ++it)
 	{
+		std::cout << "Message from client #" << client->getFd() << ": [" << *it << "]" << std::endl;
 		Message new_msg(client, NULL, *it);
 		if (new_msg.parse_msg())
-			msg_list.push_back(new_msg);
+			client->commands.push_back(new_msg);
 	}
-
-	for (std::list<Message>::const_iterator it = msg_list.begin(); it != msg_list.end(); ++it)
-		std::cout << "Message:\n" << *it << std::endl;
 }
 
 void	serv_receive(sockfd client, Server *server)
@@ -52,13 +48,11 @@ void	serv_receive(sockfd client, Server *server)
 		server->getUser(client)->setConnected(false);
 	else if (len > 0 && (buf_str.rfind("\r\n") != buf_str.size() - 2))
 	{
-		std::cout << "Message from client #" << client << ":" << std::endl;
-		std::cout << "Message incomplete! Adding it to the buffer..." << std::endl;
+		std::cout << "Message from client #" << client << " incomplete! Adding it to the buffer..." << std::endl;
 		server->getUser(client)->setBuffer(server->getUser(client)->getBuffer() + buffer);
 	}
 	else
 	{
-		std::cout << "Message from client #" << client << ":" << std::endl;
 		server->getUser(client)->setBuffer(server->getUser(client)->getBuffer() + buffer);
 		buf_to_cmd(server->getUser(client));
 	}

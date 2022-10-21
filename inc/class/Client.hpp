@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/20 17:18:24 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/22 01:32:40 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ class Client
 		Client();
 		Client(int fd, struct sockaddr addr);
 		~Client();
+
+		std::list<Message>	commands;
+		std::list<Message>	to_send;
 
 		sockfd						getFd(void) const;
 		struct sockaddr const&		getAddr(void) const;
@@ -52,8 +55,6 @@ class Client
 		std::string			_realname; // real name - this is just additional information about you
 		bool				_adm;	// Operator or not
 		std::string			_buffer;
-		std::list<Message>	_commands;
-		std::list<Message>	_to_send;
 
 		Client( Client const & src );
 		Client &	operator=( Client const & rhs );

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/21 17:50:08 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/22 00:42:53 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ static void	remove_deco_users(Server *serv)
 	{
 		if (it->second->getConnected() == false)
 		{
-			serv->rmUser(it->second);
 			std::cout << "Client at socket #" << it->first << " disconnected." << std::endl;
+			serv->rmUser(it->second);
 			it = serv->getUsers().begin();
 			if (it == serv->getUsers().end())
 				return ;
