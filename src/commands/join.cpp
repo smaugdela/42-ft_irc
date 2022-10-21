@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:01:46 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/18 16:03:24 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/20 14:45:21 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,3 +33,11 @@
 //    of.  The server will process this message as if the user had sent
 //    a PART command (See Section 3.2.2) for each channel he is a member
 //    of.
+//    Numeric Replies:
+
+//            ERR_NEEDMOREPARAMS              ERR_BANNEDFROMCHAN
+//            ERR_INVITEONLYCHAN              ERR_BADCHANNELKEY
+//            ERR_CHANNELISFULL               ERR_BADCHANMASK
+//            ERR_NOSUCHCHANNEL               ERR_TOOMANYCHANNELS
+//            ERR_TOOMANYTARGETS              ERR_UNAVAILRESOURCE
+//            RPL_TOPIC

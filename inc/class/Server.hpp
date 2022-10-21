@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/19 16:25:24 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/20 17:30:51 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,12 @@ class Server
 		Server( Server const & src );
 		Server &		operator=( Server const & rhs );
 
+
 		int								_port;
 		std::string						_password;
 		size_t							_max_backlogs;
 		sockfd							_listener;
+		std::vector<std::string>		_cmdList;   // a init
 		std::map<sockfd, Client*>		_users;
 		std::map<std::string, Channel*>	_chans;
 		std::string						_serverName;
