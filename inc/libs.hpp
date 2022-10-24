@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libs.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/21 17:39:56 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 14:00:50 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include <fstream>
 # include <algorithm>
 # include <signal.h>
+# include <stdlib.h>
 
 //colors 
 # define GREEN "\033[0;32m"
@@ -55,6 +56,7 @@ extern bool server_running;
 # include "class/Client.hpp"
 # include "class/Channel.hpp"
 # include "class/Server.hpp"
+# include "class/Configuration.hpp"
 # include "proto.hpp"
 # include "err_def.hpp"
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Message.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/22 01:15:25 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:37:12 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ class Message
 		bool	parse_msg(void);
 		bool	Check_command(std::string str);
 
-		std::string				getMessage(void) const;
-		std::string const&		getCommand(void) const;
-		std::string const&		getPrefix(void) const;
-		std::vector<std::string> const& getParams(void) const;
-		Client*		getSender(void) const;
-		Client*		getReceiver(void) const;
-		void	setCommand(std::string command);
-		void	setPrefix(std::string prefix);
-		void	setParams(std::vector<std::string> params);
+		std::string					getMessage(void) const;
+		std::string const&			getCommand(void) const;
+		std::string const&			getPrefix(void) const;
+		std::vector<std::string>	const& getParams(void) const;
+		Client*						getSender(void) const;
+		Client*						getReceiver(void) const;
+		void						setCommand(std::string command);
+		void						setPrefix(std::string prefix);
+		void						setParams(std::vector<std::string> params);
 
 	private:
 
