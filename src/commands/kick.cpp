@@ -34,3 +34,6 @@
 //            ERR_NEEDMOREPARAMS              ERR_NOSUCHCHANNEL
 //            ERR_BADCHANMASK                 ERR_CHANOPRIVSNEEDED
 //            ERR_USERNOTINCHANNEL            ERR_NOTONCHANNEL
+
+void kick(Server *serv, Message &msg)
+{}

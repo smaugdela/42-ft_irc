@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 10:57:35 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/20 17:05:51 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:05:03 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,3 +33,6 @@
 //    When a server sends a received ERROR message to its operators, the
 //    message SHOULD be encapsulated inside a NOTICE message, indicating
 //    that the client was not responsible for the error.
+
+void error(Server *serv, Message &msg)
+{}

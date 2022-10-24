@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:07:50 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/19 11:13:24 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:06:13 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,3 +51,6 @@
 //    the identify of the KILLer, the comment also shows a 'kill-path'
 //    which is updated by each server it passes through, each prepending
 //    its name to the path.
+
+void my_kill(Server *serv, Message &msg)
+{}

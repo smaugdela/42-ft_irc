@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:19:43 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/20 16:19:56 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:06:44 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,5 @@
 //            ERR_TOOMANYMATCHES              ERR_NOSUCHSERVER
 //            RPL_NAMREPLY                    RPL_ENDOFNAMES
 
+void names(Server *serv, Message &msg)
+{}

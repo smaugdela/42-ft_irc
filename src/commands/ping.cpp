@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:10:15 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/18 16:10:37 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:07:32 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,6 @@
 //    as soon as possible.  If the <server2> parameter is specified, it
 //    represents the target of the ping, and the message gets forwarded
 //    there.
+
+void ping(Server *serv, Message &msg)
+{}

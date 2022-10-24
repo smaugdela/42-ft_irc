@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:01:46 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/20 14:45:21 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:05:42 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,6 @@
 //            ERR_NOSUCHCHANNEL               ERR_TOOMANYCHANNELS
 //            ERR_TOOMANYTARGETS              ERR_UNAVAILRESOURCE
 //            RPL_TOPIC
+
+void join(Server *serv, Message &msg)
+{}

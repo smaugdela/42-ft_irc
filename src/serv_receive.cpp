@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   serv_receive.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:48:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 10:45:37 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:33:43 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libs.hpp"
 
 /* This function will parse the client's buffer into its commands list. */
-static void	buf_to_cmd(Client *client)
+static void	buf_to_cmd(Server *server, Client *client)
 {
 	char	*buffer = strdup(client->getBuffer().c_str());
 	std::list<std::string>	buf_list(split(buffer, "\r\n"));
@@ -27,6 +27,11 @@ static void	buf_to_cmd(Client *client)
 		Message new_msg(client, NULL, *it);
 		if (new_msg.parse_msg())
 			client->commands.push_back(new_msg);
+	}
+	for (std::list<Message>::const_iterator it = client->commands.begin(); it != client->commands.end(); ++it)
+	{
+		std::map<std::string, void (*)(Server*, Message&)>	cmdlist = server->getCmdList();
+		cmdlist[];
 	}
 }
 
@@ -54,6 +59,6 @@ void	serv_receive(sockfd client, Server *server)
 	else
 	{
 		server->getUser(client)->setBuffer(server->getUser(client)->getBuffer() + buffer);
-		buf_to_cmd(server->getUser(client));
+		buf_to_cmd(server->getUser(server, client));
 	}
 }

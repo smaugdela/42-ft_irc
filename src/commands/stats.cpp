@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:02:15 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/19 11:03:22 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:08:30 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,3 +43,6 @@
 
 //    It is also RECOMMENDED that client and server access configuration be
 //    published this way.
+
+void stats(Server *serv, Message &msg)
+{}

@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:11:33 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/18 16:11:52 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:07:41 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,3 +19,6 @@
 //    given, this message MUST be forwarded to given target.  The <server>
 //    parameter is the name of the entity who has responded to PING message
 //    and generated this message.
+
+void pong(Server *serv, Message &msg)
+{}
