@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/21 17:36:28 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 10:34:55 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ Server::Server( const Server & src ) // private
 
 Server::~Server()
 {
+	size_t size = this->_users.size();
+	for (size_t i = 0; i < size ; ++i)
+	{
+		if (this->_users.begin() == this->_users.end())
+			break;
+		rmUser(this->_users.begin()->second);
+	}
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:48:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/22 01:33:39 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 10:45:37 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	serv_receive(sockfd client, Server *server)
 	if (len < 0 && errno != EAGAIN && errno != EWOULDBLOCK)
 	{
 		std::cout << "Error recv(): " << strerror(errno) << std::endl;
-		server->getUser(client)->setConnected(false);
+		server->getUser(client)->disconnect();
 	}
 	else if (len == 0)
-		server->getUser(client)->setConnected(false);
+		server->getUser(client)->disconnect();
 	else if (len > 0 && (buf_str.rfind("\r\n") != buf_str.size() - 2))
 	{
 		std::cout << "Message from client #" << client << " incomplete! Adding it to the buffer..." << std::endl;

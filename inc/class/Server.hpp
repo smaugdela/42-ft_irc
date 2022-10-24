@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/21 17:36:23 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 11:20:17 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ class Server
 
 		Server();
 		Server( Server const & src );
-		Server &		operator=( Server const & rhs );
-
+		Server &operator=( Server const & rhs );
 
 		int								_port;
 		std::string						_password;
