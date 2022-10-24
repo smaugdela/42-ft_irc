@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 14:44:31 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:47:49 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SERVER_HPP
 # define SERVER_HPP
 
-class Configuration; 
+class Configuration;
 
 class Server
 {
@@ -40,7 +40,7 @@ class Server
 		void									setPort(int port);
 		void									setPassword(std::string password);
 		void									setListener(sockfd listener);
-		
+
 	private:
 
 		Server();
@@ -54,7 +54,6 @@ class Server
 		std::map<sockfd, Client*>		_users;
 		std::map<std::string, Channel*>	_chans;
 		Configuration					*_config;
-		
 
 };
 
