@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:32:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/24 14:28:25 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:04:00 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define ERR_BADMASK				"415"		//"<mask> :Bad Server/host mask"
 
 # define ERR_NONICKNAMEGIVEN		"431"		//":No nickname given"						|| when a nickname parameter expected for a command and isn't found.
+# define ERR_NICKNAMEINUSE			"433"		// ":Nickname is already in use"
 # define ERR_PASSWDMISMATCH			"464"		//":Password incorrect"						|| to indicate a failed attempt at registering a connection for which a password was required and was either not given or incorrect.
 # define ERR_YOUREBANNEDCREEP		"465"		//":You are banned from this server"		||  after an attempt to connect and register yourself with a server you are banned from.
 # define ERR_CHANNELISFULL			"471"		//"<channel> :Cannot join channel (+l)"		|| channel is full

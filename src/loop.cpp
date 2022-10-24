@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   loop.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
 /*   Updated: 2022/10/24 18:16:49 by smagdela         ###   ########.fr       */
@@ -37,7 +37,7 @@ static void	serv_accept(Server *serv, std::vector<pollfd> &fds)
 	fds.push_back(pollfd());
 	fds.back().fd = new_client_fd;
 	fds.back().events = POLLIN | POLLOUT;
-	fds.back().revents = POLLIN;
+	fds.back().revents = POLLIN | POLLOUT;
 
 	std::cout << "New Client on socket #" << new_client_fd << "." << std::endl;
 }
