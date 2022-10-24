@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   proto.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:41:25 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 12:11:29 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:53:00 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,5 @@ void squit(Server *serv, Message &msg);
 void stats(Server *serv, Message &msg);
 void topic(Server *serv, Message &msg);
 void user(Server *serv, Message &msg);
-
-
 
 #endif
