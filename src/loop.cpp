@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 15:32:02 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:16:49 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@ static void	serv_accept(Server *serv, std::vector<pollfd> &fds)
 
 	Client *new_client = new Client(new_client_fd, cs);
 	serv->addUser(new_client);
+
+	if (serv->getUsers().size() > serv->getConfig()->getMaxUsers())
+	{
+		new_client->disconnect();
+		fds.push_back(pollfd());
+		fds.back().fd = new_client_fd;
+		fds.back().events = 0;
+		fds.back().revents = 0;
+		return ;
+	}
 
 	fds.push_back(pollfd());
 	fds.back().fd = new_client_fd;
@@ -44,7 +54,7 @@ static void	set_pollfd(Server *serv, std::vector<struct pollfd> &fds)
 	{
 		fds.push_back(pollfd());
 		fds.back().fd = it->first;
-		fds.back().events = POLLIN;
+		fds.back().events = POLLIN | POLLOUT;
 		fds.back().revents = 0;
 	}
 }

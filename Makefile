@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/10/24 14:04:43 by smagdela         ###   ########.fr        #
+#    Updated: 2022/10/24 18:15:25 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ INCS    = 	libs.hpp \
 			class/Channel.hpp \
 			class/Server.hpp \
 			class/Message.hpp \
+			class/Configuration.hpp \
 
 SRCS    =	main.cpp \
 			loop.cpp \
@@ -37,6 +38,7 @@ SRCS    =	main.cpp \
 			class/Channel.cpp \
 			class/Server.cpp \
 			class/Message.cpp \
+			class/Configuration.cpp \
 			commands/error.cpp \
 			commands/info.cpp \
 			commands/join.cpp \

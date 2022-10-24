@@ -6,25 +6,11 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:27:33 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 11:04:52 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:30:52 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "libs.hpp"
-
-static size_t	init_backlog(void)
-{
-	std::ifstream	ifs;
-	size_t			tmp;
-
-	ifs.open("/proc/sys/net/ipv4/tcp_max_syn_backlog");
-	if (ifs.fail())
-		tmp = MAX_BACKLOGS;
-	else
-		ifs >> tmp;
-	ifs.close();
-	return (tmp);
-}
 
 bool	parse_input(int ac, const char **av, Server* serv)
 {
@@ -41,7 +27,6 @@ bool	parse_input(int ac, const char **av, Server* serv)
 		}
 		serv->setPassword(pwrd);
 		serv->setPort(portint);
-		serv->setMaxbacklogs(init_backlog());
 		return true;
 	}
 	else
@@ -65,12 +50,33 @@ sockfd	start_listening(Server *serv)
 
 	shield(bind(sock, reinterpret_cast<struct sockaddr *>(&addr), sizeof(addr)), -1, "bind", __FILE__, __LINE__);
 
-	shield(listen(sock, serv->getMaxbacklogs()), -1, "listen", __FILE__, __LINE__);
+	shield(listen(sock, serv->getConfig()->getMaxBacklogs()), -1, "listen", __FILE__, __LINE__);
 
 	return sock;
 }
 
-bool	setData(std::string str, Server *dataConfig)
+void	error_ConfigFile(void)
+{
+	std::ifstream rules("src/config/rules.txt", std::ifstream::in);
+
+	if (rules.good())
+	{
+		std::string str;
+		while(getline(rules, str))
+		{
+			std::cout << str << std::endl;
+		}
+	}
+	else
+	{
+		std::cout << "Error. File rules of configuration file not opened\n";
+		exit(EXIT_FAILURE);
+	}
+	rules.close();
+	exit(EXIT_FAILURE);
+}
+
+bool	setData(std::string str, Configuration *dataConfig)
 {
 	int							i = 0;
 	const char 					delim = '=';
@@ -83,35 +89,46 @@ bool	setData(std::string str, Server *dataConfig)
 
 	std::vector<std::string>::iterator	it;
 	it = std::find(v.begin(), v.end(), v[0]);
-	std::string tab[8] = {"name", "version", "motd", "info", "oper_user", "oper_password", "ping", "timeout"};
-	for (; i < 8 && *it != tab[i]; i++);
+	std::string tab[10] = {"name", "version", "motd", "info", "oper_user", "oper_password", "ping", "timeout", "max_backlogs", "max_users"};
+	for (; i < 10 && *it != tab[i]; i++)
+	{
+		if (it == v.end())
+			return false;
+	}
 	it++;
-
+	std::string value = *it;
+	
 	switch (i)
 	{
 		case 0 :
-				dataConfig->setServerName(*it);
+				dataConfig->setServerName(value);
 				break ;
 			case 1 :
-				dataConfig->setServerVersion(*it);
+				dataConfig->setServerVersion(value);
 				break ;
 			case 2 :
-				dataConfig->setMotd(*it);
+				dataConfig->setMotd(value);
 				break ;
 			case 3 :
-				dataConfig->setInfoConfig(*it);
+				dataConfig->setInfoConfig(value);
 				break ;
 			case 4 :
-				dataConfig->setOperUser(*it);
+				dataConfig->setOperUser(value);
 				break ;
 			case 5 :
-				dataConfig->setOperPass(*it);
+				dataConfig->setOperPass(value);
 				break ;
 			case 6 :
-				dataConfig->setPing(*it);
+				dataConfig->setPing(strtoul(value.c_str(), NULL, 10));
 				break ;
 			case 7 :
-				dataConfig->setTimeout(*it);
+				dataConfig->setTimeout(strtol(value.c_str(), NULL, 10));
+				break ;
+			case 8 :
+				dataConfig->setMaxBacklogs(strtoul(value.c_str(), NULL, 10));
+				break ;
+			case 9 :
+				dataConfig->setMaxUsers(strtoul(value.c_str(), NULL, 10));
 				break ;
 			default :
 				return (false);
@@ -119,7 +136,7 @@ bool	setData(std::string str, Server *dataConfig)
 	return (true);
 }
 
-void	setConfigData(Server *dataConfig)
+void	setConfigData(Configuration *dataConfig)
 {
 	std::ifstream	ifs("src/config/file.config", std::ifstream::in);
 
@@ -128,16 +145,30 @@ void	setConfigData(Server *dataConfig)
 		std::string str;
 		while (getline(ifs, str))
 		{
-			std::string::iterator it = str.end();
-			it--;
-			if (*it == '=')
-				std::cout << "Error file configuration incomplete\n";
-			else 
-				if (setData(str, dataConfig) == false)
-					std::cout << "Error file configuration. value not found\n";
+			if (!str.empty())
+			{
+				std::string::iterator it = str.end();
+				it--;
+				if (*it == '=')
+					error_ConfigFile();
+				else 
+					if (setData(str, dataConfig) == false)
+						error_ConfigFile();
+			}
+			else
+				getline(ifs, str);
 		}
+		if (dataConfig->getServerName().empty() || dataConfig->getServerVersion().empty() || dataConfig->getMotd().empty()
+			|| dataConfig->getInfoConfig().empty() || dataConfig->getOperUSer().empty() || dataConfig->getOperPass().empty()
+			|| dataConfig->getPing() == 0 || dataConfig->getTimeout() == 0 || dataConfig->getMaxBacklogs() == 0 || dataConfig->getMaxUsers() == 0)
+				error_ConfigFile();
+			
+		std::cout << *dataConfig;
 	}
 	else
+	{
 		std::cout << "Error. File Configuration not opened\n";
+		error_ConfigFile();
+	}
 	ifs.close();
 }

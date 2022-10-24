@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 14:39:01 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 15:01:58 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ Server::Server() //private
 Server::Server(int ac, const char **av) // public
 {
 	shield(parse_input(ac, av, this), false, "Usage: ./ircserv <port> <password>", __FILE__, __LINE__);
+	this->_config = new Configuration();
 	this->_listener = start_listening(this);
-	setConfigData(this);
 	setCmdlist();
 }
 
@@ -47,6 +47,7 @@ Server::~Server()
 			break;
 		rmUser(this->_users.begin()->second);
 	}
+	delete this->_config;
 }
 
 /*
@@ -163,11 +164,6 @@ std::string const 	&Server::getPassword(void) const
 	return this->_password;
 }
 
-size_t				Server::getMaxbacklogs(void) const
-{
-	return this->_max_backlogs;
-}
-
 sockfd				Server::getListener(void) const
 {
 	return this->_listener;
@@ -188,45 +184,11 @@ std::map<std::string, void (*)(Server*, Message&)> const& Server::getCmdList(voi
 	return this->_cmdList;
 }
 
-std::string const &Server::getServerName(void) const
+Configuration* Server::getConfig(void) const
 {
-	return this->_serverName;
+	return this->_config;
 }
 
-std::string const &Server::getServerVersion(void) const
-{
-	return this->_serverVersion;
-}
-
-std::string const &Server::getMotd(void) const
-{
-	return this->_motd;
-}
-
-std::string const &Server::getInfoConfig(void) const
-{
-	return this->_infoConfig;
-}
-
-std::string const &Server::getOperUSer(void) const
-{
-	return this->_operUser;
-}
-
-std::string const &Server::getOperPass(void) const
-{
-	return this->_operPass;
-}
-
-std::string const &Server::getPing(void) const
-{
-	return this->_ping;
-}
-
-std::string const &Server::getTimeout(void) const
-{
-	return this->_timeout;
-}
 
 void	Server::setPort(int port)
 {
@@ -238,54 +200,10 @@ void	Server::setPassword(std::string password)
 	this->_password = password;
 }
 
-void	Server::setMaxbacklogs(size_t log)
-{
-	this->_max_backlogs = log;
-}
-
 void	Server::setListener(sockfd listener)
 {
 	this->_listener = listener;
 }
 
-void	Server::setServerName(std::string serverName)
-{
-	this->_serverName = serverName;
-}
-
-void	Server::setServerVersion(std::string serverVersion)
-{
-	this->_serverVersion = serverVersion;
-}
-
-void	Server::setMotd(std::string motd)
-{
-	this->_motd = motd;
-}
-
-void	Server::setInfoConfig(std::string infoConfig)
-{
-	this->_infoConfig = infoConfig;
-}
-
-void	Server::setOperUser(std::string OperUser)
-{
-	this->_operUser = OperUser;
-}
-
-void	Server::setOperPass(std::string OperPass)
-{
-	this->_operPass = OperPass;
-}
-
-void	Server::setPing(std::string ping)
-{
-	this->_ping = ping;
-}
-
-void	Server::setTimeout(std::string timeOut)
-{
-	this->_timeout = timeOut;
-}
 
 /* ************************************************************************** */
