@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:15:22 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/24 16:07:37 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:24:58 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,6 @@ void user(Server *serv, Message &msg)
 	std::string str;
 
 	str = "lol";
+	(void)serv;
+	(void)msg;
 }
