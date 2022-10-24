@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 11:54:22 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:31:07 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ class Server
 		sockfd									getListener(void) const;
 		std::map<sockfd, Client*> const&		getUsers(void) const;
 		std::map<std::string, Channel*> const&	getChans(void) const;
-		std::map<std::string, void (*f)(Server*, Message&)> const& getCmdList(void) const;
+		std::map<std::string, void (*)(Server*, Message&)> const& getCmdList(void) const;
 		std::string const&						getServerName(void) const;
 		std::string const&						getServerVersion(void) const;
 		std::string const&						getMotd(void) const;
@@ -67,7 +67,7 @@ class Server
 		std::string						_password;
 		size_t							_max_backlogs;
 		sockfd							_listener;
-		std::map<std::string, void (*f)(Server*, Message&)>		_cmdList;   // a init
+		std::map<std::string, void (*)(Server*, Message&)>		_cmdList;   // a init
 		std::map<sockfd, Client*>		_users;
 		std::map<std::string, Channel*>	_chans;
 		std::string						_serverName;

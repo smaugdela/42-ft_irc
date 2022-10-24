@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 12:04:50 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:31:21 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,9 +152,9 @@ Client *Server::getUser(std::string nickname) const
 	return it->second;
 }
 
-std::map<std::string, void (*f)(Server*, Message&)> const& getCmdList(void)
+std::map<std::string, void (*)(Server*, Message&)> const& Server::getCmdList(void) const
 {
-	
+	return this->_cmdList;
 }
 
 std::string const &Server::getServerName(void) const

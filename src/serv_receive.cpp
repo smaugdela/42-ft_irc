@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:48:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 11:42:25 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:33:43 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void	buf_to_cmd(Server *server, Client *client)
 	}
 	for (std::list<Message>::const_iterator it = client->commands.begin(); it != client->commands.end(); ++it)
 	{
-		server->getCmdList[it->getCommand()]->second(server, *it);
+		std::map<std::string, void (*)(Server*, Message&)>	cmdlist = server->getCmdList();
+		cmdlist[];
 	}
 }
 
