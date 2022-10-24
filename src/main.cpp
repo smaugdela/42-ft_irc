@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:40:31 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/21 17:40:41 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 10:49:47 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void sig_handler(int lol)
 int	main(int ac, const char **av)
 {
 	Server serv(ac, av);
+
 	signal(SIGINT, sig_handler);
 
 	server_loop(&serv);

@@ -39,6 +39,13 @@ Server::Server( const Server & src ) // private
 
 Server::~Server()
 {
+	size_t size = this->_users.size();
+	for (size_t i = 0; i < size ; ++i)
+	{
+		if (this->_users.begin() == this->_users.end())
+			break;
+		rmUser(this->_users.begin()->second);
+	}
 }
 
 /*

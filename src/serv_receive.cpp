@@ -47,10 +47,10 @@ void	serv_receive(sockfd client, Server *server)
 	if (len < 0 && errno != EAGAIN && errno != EWOULDBLOCK)
 	{
 		std::cout << "Error recv(): " << strerror(errno) << std::endl;
-		server->getUser(client)->setConnected(false);
+		server->getUser(client)->disconnect();
 	}
 	else if (len == 0)
-		server->getUser(client)->setConnected(false);
+		server->getUser(client)->disconnect();
 	else if (len > 0 && (buf_str.rfind("\r\n") != buf_str.size() - 2))
 	{
 		std::cout << "Message from client #" << client << " incomplete! Adding it to the buffer..." << std::endl;

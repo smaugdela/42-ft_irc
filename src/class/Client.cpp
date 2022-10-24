@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/20 17:09:43 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 11:10:06 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@
 ** ------------------------------- CONSTRUCTOR --------------------------------
 */
 
-Client::Client()
+Client::Client() : _fd(-1), _addr(sockaddr())
 {
 }
 
-Client::Client( const Client & src )
+Client::Client( const Client & src ) : _fd(-1), _addr(sockaddr())
 {
 	(void)src;
 }
 
-Client::Client(sockfd fd, struct sockaddr addr) : _fd(fd), _addr(addr), _authorize(false), _connected(true), _buffer()
+Client::Client(sockfd fd, struct sockaddr addr) : _fd(fd), _addr(addr), _connected(true),  _authorize(false), _adm(false), _nickname(), _username(), _realname(), _buffer()
 {
 }
 
@@ -37,7 +37,6 @@ Client::~Client()
 {
 	close(this->_fd);
 }
-
 
 /*
 ** --------------------------------- OVERLOAD ---------------------------------
@@ -62,6 +61,11 @@ std::ostream &			operator<<( std::ostream & o, Client const & i )
 /*
 ** --------------------------------- METHODS ----------------------------------
 */
+
+void	Client::disconnect(void)
+{
+	this->_connected = false;
+}
 
 /*
 ** --------------------------------- ACCESSOR ---------------------------------
@@ -139,11 +143,6 @@ void	Client::setBuffer(std::string new_buffer)
 void	Client::setAuthorize(bool	authorization)
 {
 	this->_authorize = authorization;
-}
-
-void	Client::setConnected(bool state)
-{
-	this->_connected = state;
 }
 
 /* ************************************************************************** */

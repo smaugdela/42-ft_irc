@@ -60,8 +60,7 @@ class Server
 
 		Server();
 		Server( Server const & src );
-		Server &		operator=( Server const & rhs );
-
+		Server &operator=( Server const & rhs );
 
 		int								_port;
 		std::string						_password;

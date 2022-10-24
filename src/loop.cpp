@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/22 00:42:53 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 10:45:23 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,17 @@ void	server_loop(Server *serv)
 				if (fds[n].revents & POLLHUP)
 				{	
 					std::cout << "POLLHUP on socket #" << fds[n].fd << "." << std::endl;
-					serv->getUser(fds[n].fd)->setConnected(false);
+					serv->getUser(fds[n].fd)->disconnect();
 				}
 				if (fds[n].revents & POLLERR)
 				{	
 					std::cout << "POLLERR on socket #" << fds[n].fd << "." << std::endl;
-					serv->getUser(fds[n].fd)->setConnected(false);
+					serv->getUser(fds[n].fd)->disconnect();
 				}
 				if (fds[n].revents & POLLNVAL)
 				{	
 					std::cout << "POLLNVAL on socket #" << fds[n].fd << "." << std::endl;
-					serv->getUser(fds[n].fd)->setConnected(false);
+					serv->getUser(fds[n].fd)->disconnect();
 				}
 			}
 		}
