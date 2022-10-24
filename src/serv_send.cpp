@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   serv_send.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 17:10:25 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 14:52:50 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 15:27:47 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	serv_send(sockfd clientfd, Server *server)
 {
 	Client *client = server->getUser(clientfd);
 	std::string	packet;
-
-	std::cout << "serv_send() call..." << std::endl;
 
 	while (client->to_send.size() > 0)
 	{
