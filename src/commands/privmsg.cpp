@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:38:00 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/20 17:04:20 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:07:54 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,3 +35,6 @@
 //            ERR_WILDTOPLEVEL                ERR_TOOMANYTARGETS
 //            ERR_NOSUCHNICK
 //            RPL_AWAY
+
+void privmsg(Server *serv, Message &msg)
+{}

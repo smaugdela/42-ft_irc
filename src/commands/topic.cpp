@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:20:53 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/20 14:50:40 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:08:40 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,3 +21,6 @@
 //  in the channel also receive a TOPIC message. For example, if dan and alice are on #v4, and 
 //  dan sets a new topic (or unsets the topic), both of them will receive a TOPIC message
 //  indicating that the topic’s been changed. The examples illustrate this in action.
+
+void topic(Server *serv, Message &msg)
+{}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/21 17:36:28 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:04:50 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,11 @@ Client *Server::getUser(std::string nickname) const
 	return it->second;
 }
 
+std::map<std::string, void (*f)(Server*, Message&)> const& getCmdList(void)
+{
+	
+}
+
 std::string const &Server::getServerName(void) const
 {
 	return this->_serverName;
@@ -250,6 +255,29 @@ void	Server::setPing(std::string ping)
 void	Server::setTimeout(std::string timeOut)
 {
 	this->_timeout = timeOut;
+}
+
+void	Server::setCmdlist()
+{
+	this->_cmdList.insert(std::make_pair("ERROR", error));
+	this->_cmdList.insert(std::make_pair("INFO", info));
+	this->_cmdList.insert(std::make_pair("JOIN", join));
+	this->_cmdList.insert(std::make_pair("KICK", kick));
+	this->_cmdList.insert(std::make_pair("KILL", my_kill));
+	this->_cmdList.insert(std::make_pair("LIST", list));
+	this->_cmdList.insert(std::make_pair("MOTD", motd));
+	this->_cmdList.insert(std::make_pair("NAMES", names));
+	this->_cmdList.insert(std::make_pair("NICK", nick));
+	this->_cmdList.insert(std::make_pair("OPER", oper));
+	this->_cmdList.insert(std::make_pair("PART", part));
+	this->_cmdList.insert(std::make_pair("PING", ping));
+	this->_cmdList.insert(std::make_pair("PONG", pong));
+	this->_cmdList.insert(std::make_pair("PRIVMSG", privmsg));
+	this->_cmdList.insert(std::make_pair("QUIT", quit));
+	this->_cmdList.insert(std::make_pair("SQUIT", squit));
+	this->_cmdList.insert(std::make_pair("STATS", stats));
+	this->_cmdList.insert(std::make_pair("TOPIC", topic));
+	this->_cmdList.insert(std::make_pair("USER", user));
 }
 
 /* ************************************************************************** */

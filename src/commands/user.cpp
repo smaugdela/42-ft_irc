@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:15:22 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/20 14:39:08 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:08:51 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,3 +30,6 @@
 //    Numeric Replies:
 
 //            ERR_NEEDMOREPARAMS              ERR_ALREADYREGISTRED
+
+void user(Server *serv, Message &msg)
+{}

@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:24:21 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/20 17:04:42 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:06:34 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,3 +23,6 @@
 
 //    Numeric Replies:
 //            RPL_MOTDSTART                   RPL_MOTD
+
+void motd(Server *serv, Message &msg)
+{}

@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:06:36 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/18 16:06:56 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 12:05:32 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,3 +21,6 @@
 //    considered to be relevant.
 
 //    Wildcards are allowed in the <target> parameter.
+
+void info(Server *serv, Message &msg)
+{}
