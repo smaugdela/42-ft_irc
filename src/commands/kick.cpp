@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   kick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:12:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/20 17:04:02 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:49:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,6 @@
 //            ERR_NEEDMOREPARAMS              ERR_NOSUCHCHANNEL
 //            ERR_BADCHANMASK                 ERR_CHANOPRIVSNEEDED
 //            ERR_USERNOTINCHANNEL            ERR_NOTONCHANNEL
+
+void kick(Server *serv, Message &msg)
+{(void)serv; (void)msg;}

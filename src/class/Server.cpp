@@ -26,6 +26,7 @@ Server::Server(int ac, const char **av) // public
 	shield(parse_input(ac, av, this), false, "Usage: ./ircserv <port> <password>", __FILE__, __LINE__);
 	this->_config = new Configuration();
 	this->_listener = start_listening(this);
+	setCmdlist();
 }
 
 Server::Server( const Server & src ) // private
@@ -39,6 +40,13 @@ Server::Server( const Server & src ) // private
 
 Server::~Server()
 {
+	size_t size = this->_users.size();
+	for (size_t i = 0; i < size ; ++i)
+	{
+		if (this->_users.begin() == this->_users.end())
+			break;
+		rmUser(this->_users.begin()->second);
+	}
 	delete this->_config;
 }
 
@@ -92,6 +100,56 @@ void Server::rmUser(Client* user)
 	}
 }
 
+Client *Server::getUser(sockfd fd) const
+{
+	Client *ret;
+
+	try
+	{
+		ret = this->_users.at(fd);	
+	}
+	catch(const std::out_of_range &e)
+	{
+		return NULL;
+	}
+	return (ret);
+}
+
+Client *Server::getUser(std::string nickname) const
+{
+	std::map<sockfd, Client*>::const_iterator	it;
+
+	for (it = this->_users.begin(); it != this->_users.end(); ++it)
+		if (it->second->getNickname() == nickname)
+			break ;
+	if (it == this->_users.end())
+		return NULL;
+	return it->second;
+}
+
+void	Server::setCmdlist()
+{
+	this->_cmdList.insert(std::make_pair("ERROR", error));
+	this->_cmdList.insert(std::make_pair("INFO", info));
+	this->_cmdList.insert(std::make_pair("JOIN", join));
+	this->_cmdList.insert(std::make_pair("KICK", kick));
+	this->_cmdList.insert(std::make_pair("KILL", my_kill));
+	this->_cmdList.insert(std::make_pair("LIST", list));
+	this->_cmdList.insert(std::make_pair("MOTD", motd));
+	this->_cmdList.insert(std::make_pair("NAMES", names));
+	this->_cmdList.insert(std::make_pair("NICK", nick));
+	this->_cmdList.insert(std::make_pair("OPER", oper));
+	this->_cmdList.insert(std::make_pair("PART", part));
+	this->_cmdList.insert(std::make_pair("PING", ping));
+	this->_cmdList.insert(std::make_pair("PONG", pong));
+	this->_cmdList.insert(std::make_pair("PRIVMSG", privmsg));
+	this->_cmdList.insert(std::make_pair("QUIT", quit));
+	this->_cmdList.insert(std::make_pair("SQUIT", squit));
+	this->_cmdList.insert(std::make_pair("STATS", stats));
+	this->_cmdList.insert(std::make_pair("TOPIC", topic));
+	this->_cmdList.insert(std::make_pair("USER", user));
+}
+
 /*
 ** --------------------------------- ACCESSOR ---------------------------------
 */
@@ -121,31 +179,9 @@ std::map<std::string, Channel*> const &Server::getChans(void) const
 	return this->_chans;
 }
 
-Client *Server::getUser(sockfd fd) const
+std::map<std::string, void (*)(Server*, Message&)> const& Server::getCmdList(void) const
 {
-	Client *ret;
-
-	try
-	{
-		ret = this->_users.at(fd);	
-	}
-	catch(const std::out_of_range &e)
-	{
-		return NULL;
-	}
-	return (ret);
-}
-
-Client *Server::getUser(std::string nickname) const
-{
-	std::map<sockfd, Client*>::const_iterator	it;
-
-	for (it = this->_users.begin(); it != this->_users.end(); ++it)
-		if (it->second->getNickname() == nickname)
-			break ;
-	if (it == this->_users.end())
-		return NULL;
-	return it->second;
+	return this->_cmdList;
 }
 
 Configuration* Server::getConfig(void) const

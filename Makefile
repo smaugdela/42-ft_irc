@@ -6,7 +6,7 @@
 #    By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/10/24 11:34:54 by fboumell         ###   ########.fr        #
+#    Updated: 2022/10/24 14:04:43 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,9 @@
 
 BIN     =       ircserv
 
-INCS    = 	irc.hpp \
-			libs.hpp \
+INCS    = 	libs.hpp \
+			proto.hpp \
+			err_def.hpp \
 			shield.tpp \
 			class/Client.hpp \
 			class/Channel.hpp \
@@ -37,19 +38,25 @@ SRCS    =	main.cpp \
 			class/Channel.cpp \
 			class/Server.cpp \
 			class/Message.cpp \
-			class/Configuration.cpp \
-			# commands/die.cpp \
 			commands/error.cpp \
 			commands/info.cpp \
 			commands/join.cpp \
 			commands/kick.cpp \
+			commands/kill.cpp \
 			commands/list.cpp \
+			commands/motd.cpp \
+			commands/names.cpp \
 			commands/nick.cpp \
+			commands/oper.cpp \
+			commands/part.cpp \
 			commands/ping.cpp \
 			commands/pong.cpp \
+			commands/privmsg.cpp \
 			commands/quit.cpp \
-			commands/rehash.cpp \
+			commands/squit.cpp \
 			commands/stats.cpp \
+			commands/topic.cpp \
+			commands/user.cpp \
 
 OBJS    =       ${SRCS:.cpp=.o}
 
@@ -106,6 +113,7 @@ ${OBJD}%.o:     ${SRCD}%.cpp
 		@echo "${S_CYAN}➤ Compiling $@...${NC}"
 		@mkdir -p ${OBJD}
 		@mkdir -p ${OBJD}/class
+		@mkdir -p ${OBJD}/commands
 		@${CXX} ${CXXFLAGS} -c -o $@ -I${INCD} $<
 		@echo "${S_GREEN}✔ Object file built!\n${NC}"
 

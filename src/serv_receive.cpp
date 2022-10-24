@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:48:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/22 01:33:39 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 14:58:41 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,46 @@ static void	buf_to_cmd(Client *client)
 	}
 }
 
-void	serv_receive(sockfd client, Server *server)
+static void	execute(Server *server, Client *client)
+{
+	std::map<std::string, void (*)(Server*, Message&)>	cmdlist = server->getCmdList();
+
+	while (client->commands.size() > 0)
+	{
+		Message msg = client->commands.front();
+		std::string cmd = msg.getCommand();
+		if (cmdlist.find(cmd) != cmdlist.end())
+			cmdlist[cmd](server, msg);
+		client->commands.pop_front();
+	}
+}
+
+void	serv_receive(sockfd clientfd, Server *server)
 {
 	char					buffer[BUFFER_SIZE + 1];
 	ssize_t					len;
 
+
 	memset(buffer, 0, BUFFER_SIZE + 1);
-	len = recv(client, buffer, BUFFER_SIZE, MSG_DONTWAIT);
+	len = recv(clientfd, buffer, BUFFER_SIZE, MSG_DONTWAIT);
 	std::string	buf_str(buffer);
 
 	if (len < 0 && errno != EAGAIN && errno != EWOULDBLOCK)
 	{
 		std::cout << "Error recv(): " << strerror(errno) << std::endl;
-		server->getUser(client)->setConnected(false);
+		server->getUser(clientfd)->disconnect();
 	}
 	else if (len == 0)
-		server->getUser(client)->setConnected(false);
+		server->getUser(clientfd)->disconnect();
 	else if (len > 0 && (buf_str.rfind("\r\n") != buf_str.size() - 2))
 	{
-		std::cout << "Message from client #" << client << " incomplete! Adding it to the buffer..." << std::endl;
-		server->getUser(client)->setBuffer(server->getUser(client)->getBuffer() + buffer);
+		std::cout << "Message from client #" << clientfd << " incomplete! Adding it to the buffer..." << std::endl;
+		server->getUser(clientfd)->setBuffer(server->getUser(clientfd)->getBuffer() + buffer);
 	}
 	else
 	{
-		server->getUser(client)->setBuffer(server->getUser(client)->getBuffer() + buffer);
-		buf_to_cmd(server->getUser(client));
+		server->getUser(clientfd)->setBuffer(server->getUser(clientfd)->getBuffer() + buffer);
+		buf_to_cmd(server->getUser(clientfd));
+		execute(server, server->getUser(clientfd));
 	}
 }

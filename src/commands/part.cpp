@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   part.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:50:49 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/20 14:51:17 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:49:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,6 @@
 
 //            ERR_NEEDMOREPARAMS              ERR_NOSUCHCHANNEL
 //            ERR_NOTONCHANNEL
+
+void part(Server *serv, Message &msg)
+{(void)serv; (void)msg;}

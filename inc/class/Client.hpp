@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/22 01:32:40 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 11:10:10 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ class Client
 
 	public:
 
-		Client();
 		Client(int fd, struct sockaddr addr);
 		~Client();
 
 		std::list<Message>	commands;
 		std::list<Message>	to_send;
+
+		void						disconnect(void);
 
 		sockfd						getFd(void) const;
 		struct sockaddr const&		getAddr(void) const;
@@ -42,22 +43,22 @@ class Client
 		void						setAdm(bool	new_adm);
 		void						setBuffer(std::string new_buffer);
 		void						setAuthorize(bool authorization);
-		void						setConnected(bool state);
 
 	private:
 
-		sockfd				_fd;
-		struct sockaddr		_addr;
-		bool				_authorize;
-		bool				_connected;
-		std::string			_nickname; // nickname - name which appears for other users
-		std::string			_username; //username - name you use to login, allows system to identify you
-		std::string			_realname; // real name - this is just additional information about you
-		bool				_adm;	// Operator or not
-		std::string			_buffer;
+		sockfd const			_fd;
+		struct sockaddr const	_addr;
+		bool					_connected;
+		bool					_authorize;
+		bool					_adm;	// Operator or not
+		std::string				_nickname; // nickname - name which appears for other users
+		std::string				_username; //username - name you use to login, allows system to identify you
+		std::string				_realname; // real name - this is just additional information about you
+		std::string				_buffer;
 
+		Client();
 		Client( Client const & src );
-		Client &	operator=( Client const & rhs );
+		Client &operator=( Client const & rhs );
 
 };
 
