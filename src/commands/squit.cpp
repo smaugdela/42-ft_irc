@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   squit.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:44:19 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/24 12:08:18 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:49:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,4 @@
 //            ERR_NEEDMOREPARAMS
 
 void squit(Server *serv, Message &msg)
-{}
+{(void)serv; (void)msg;}

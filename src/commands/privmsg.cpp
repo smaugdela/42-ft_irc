@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   privmsg.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:38:00 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/24 12:07:54 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:49:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,4 @@
 //            RPL_AWAY
 
 void privmsg(Server *serv, Message &msg)
-{}
+{(void)serv; (void)msg;}

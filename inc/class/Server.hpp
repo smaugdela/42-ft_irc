@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 13:31:07 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 14:37:19 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ class Server
 		void	rmUser(Client* user);
 		Client*	getUser(sockfd	fd) const;
 		Client*	getUser(std::string nickname) const;
+		void	setCmdlist(void);
 
 		int										getPort(void) const;
 		std::string	const&						getPassword(void) const;
@@ -54,7 +55,6 @@ class Server
 		void									setOperPass(std::string operPass);
 		void									setPing(std::string ping);
 		void									setTimeout(std::string timeOut);
-		void									setCmdlist(void);
 
 	private:
 

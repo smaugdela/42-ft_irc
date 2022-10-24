@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:12:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/24 13:21:33 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:49:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,4 @@
 //            ERR_USERNOTINCHANNEL            ERR_NOTONCHANNEL
 
 void kick(Server *serv, Message &msg)
-{}
+{(void)serv; (void)msg;}

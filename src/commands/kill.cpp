@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   kill.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:07:50 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/24 12:06:13 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:49:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,4 @@
 //    its name to the path.
 
 void my_kill(Server *serv, Message &msg)
-{}
+{(void)serv; (void)msg;}
