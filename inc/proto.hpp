@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:41:25 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 16:12:21 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:30:27 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	serv_receive(sockfd client, Server *server);
 bool	setData(std::string str, Configuration*dataConfig);
 void	setConfigData(Configuration *dataConfig);
 void	serv_send(sockfd clientfd, Server *server);
+void	error_ConfigFile(void);
 std::list<std::string> split(char *str, const char *delim);
 
 #endif

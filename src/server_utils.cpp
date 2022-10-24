@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:27:33 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 16:17:15 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:30:52 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,27 @@ sockfd	start_listening(Server *serv)
 	shield(listen(sock, serv->getConfig()->getMaxBacklogs()), -1, "listen", __FILE__, __LINE__);
 
 	return sock;
+}
+
+void	error_ConfigFile(void)
+{
+	std::ifstream rules("src/config/rules.txt", std::ifstream::in);
+
+	if (rules.good())
+	{
+		std::string str;
+		while(getline(rules, str))
+		{
+			std::cout << str << std::endl;
+		}
+	}
+	else
+	{
+		std::cout << "Error. File rules of configuration file not opened\n";
+		exit(EXIT_FAILURE);
+	}
+	rules.close();
+	exit(EXIT_FAILURE);
 }
 
 bool	setData(std::string str, Configuration *dataConfig)
@@ -129,10 +150,10 @@ void	setConfigData(Configuration *dataConfig)
 				std::string::iterator it = str.end();
 				it--;
 				if (*it == '=')
-					exit(EXIT_FAILURE);
+					error_ConfigFile();
 				else 
 					if (setData(str, dataConfig) == false)
-						exit(EXIT_FAILURE);
+						error_ConfigFile();
 			}
 			else
 				getline(ifs, str);
@@ -140,14 +161,14 @@ void	setConfigData(Configuration *dataConfig)
 		if (dataConfig->getServerName().empty() || dataConfig->getServerVersion().empty() || dataConfig->getMotd().empty()
 			|| dataConfig->getInfoConfig().empty() || dataConfig->getOperUSer().empty() || dataConfig->getOperPass().empty()
 			|| dataConfig->getPing() == 0 || dataConfig->getTimeout() == 0 || dataConfig->getMaxBacklogs() == 0 || dataConfig->getMaxUsers() == 0)
-				exit(EXIT_FAILURE);
+				error_ConfigFile();
 			
 		std::cout << *dataConfig;
 	}
 	else
 	{
 		std::cout << "Error. File Configuration not opened\n";
-		exit(EXIT_FAILURE);
+		error_ConfigFile();
 	}
 	ifs.close();
 }
