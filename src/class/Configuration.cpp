@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:34:21 by fboumell          #+#    #+#             */
-/*   Updated: 2022/10/24 15:25:09 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/24 15:53:27 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ size_t	Configuration::getPing(void) const
 	return this->_ping;
 }
 
-size_t	Configuration::getTimeout(void) const
+int		Configuration::getTimeout(void) const
 {
 	return this->_timeout;
 }
@@ -159,7 +159,7 @@ void	Configuration::setPing(size_t ping)
 	this->_ping = ping;
 }
 
-void	Configuration::setTimeout(size_t timeOut)
+void	Configuration::setTimeout(int timeOut)
 {
 	this->_timeout = timeOut;
 }

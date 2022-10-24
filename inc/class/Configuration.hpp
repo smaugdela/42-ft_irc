@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:34:10 by fboumell          #+#    #+#             */
-/*   Updated: 2022/10/24 14:30:56 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/24 15:52:25 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ class Configuration
 		std::string const&						getOperUSer(void) const;
 		std::string const&						getOperPass(void)	const;
 		size_t									getPing(void) const;
-		size_t									getTimeout(void) const;
+		int										getTimeout(void) const;
 		size_t									getMaxBacklogs(void) const;
 		size_t									getMaxUsers(void) const;
 
@@ -39,7 +39,7 @@ class Configuration
 		void									setOperUser(std::string operUser);
 		void									setOperPass(std::string operPass);
 		void									setPing(size_t ping);
-		void									setTimeout(size_t timeOut);
+		void									setTimeout(int timeOut);
 		void									setMaxBacklogs(size_t maxBacklogs);
 		void									setMaxUsers(size_t maxUsers);
 
@@ -57,7 +57,7 @@ class Configuration
 		std::string						_operUser;
 		std::string						_operPass;
 		size_t							_ping;
-		size_t							_timeout;
+		int								_timeout;
 		size_t							_maxBacklogs;
 		size_t							_maxUsers;
 		

@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:27:33 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 15:21:58 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:17:15 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,17 +124,30 @@ void	setConfigData(Configuration *dataConfig)
 		std::string str;
 		while (getline(ifs, str))
 		{
-			std::string::iterator it = str.end();
-			it--;
-			if (*it == '=')
-				std::cout << "Error file configuration incomplete\n";
-			else 
-				if (setData(str, dataConfig) == false)
-					std::cout << "Error file configuration. value not found\n";
+			if (!str.empty())
+			{
+				std::string::iterator it = str.end();
+				it--;
+				if (*it == '=')
+					exit(EXIT_FAILURE);
+				else 
+					if (setData(str, dataConfig) == false)
+						exit(EXIT_FAILURE);
+			}
+			else
+				getline(ifs, str);
 		}
+		if (dataConfig->getServerName().empty() || dataConfig->getServerVersion().empty() || dataConfig->getMotd().empty()
+			|| dataConfig->getInfoConfig().empty() || dataConfig->getOperUSer().empty() || dataConfig->getOperPass().empty()
+			|| dataConfig->getPing() == 0 || dataConfig->getTimeout() == 0 || dataConfig->getMaxBacklogs() == 0 || dataConfig->getMaxUsers() == 0)
+				exit(EXIT_FAILURE);
+			
 		std::cout << *dataConfig;
 	}
 	else
+	{
 		std::cout << "Error. File Configuration not opened\n";
+		exit(EXIT_FAILURE);
+	}
 	ifs.close();
 }
