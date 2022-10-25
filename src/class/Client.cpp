@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 11:10:06 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 11:51:00 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ std::ostream &			operator<<( std::ostream & o, Client const & i )
 /*
 ** --------------------------------- METHODS ----------------------------------
 */
+
+void	Client::send_to(const char* msg)
+{
+	std::cout << "Message to client #" << this->_fd << " (" << this->_nickname << ") >> [" << msg << "]" << std::endl;
+	send(this->_fd, msg, strlen(msg), MSG_NOSIGNAL);
+}
 
 void	Client::disconnect(void)
 {

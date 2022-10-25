@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 10:43:24 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 11:06:01 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ class Client
 
 		std::list<Message>	commands;
 
+		void						send_to(const char* msg);
 		void						disconnect(void);
 
 		sockfd						getFd(void) const;

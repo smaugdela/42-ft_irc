@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   libs.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 14:00:50 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/25 11:46:06 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBS_HPP
 # define LIBS_HPP
 
+/* libraries */
 # include <cstdlib>
 # include <string>
 # include <iostream>
@@ -35,7 +36,7 @@
 # include <signal.h>
 # include <stdlib.h>
 
-//colors 
+/* colors */
 # define GREEN "\033[0;32m"
 # define PURPLE "\033[0;35m"
 # define YELLOW "\033[1;33m"
@@ -43,20 +44,29 @@
 # define RED "\033[4;31m"
 # define RESET "\033[0m"
 
+/* defines */
 # define MAX_BACKLOGS	10	// Maximum of pending connection request on listening socket.
 # define MAX_CLIENTS	42	// Maximum of connected clients.
 # define TIMEOUT		-1	// -1 means no timeout. Value in milliseconds.
 # define BUFFER_SIZE	512
 
+/* typedefs */
 typedef int	sockfd;
+class Server;
+class Message;
+typedef void (*ft_cmd)(Server*, Message&);
 
+/* global */
 extern bool server_running;
 
+/* class headers */
 # include "class/Message.hpp"
 # include "class/Client.hpp"
 # include "class/Channel.hpp"
 # include "class/Server.hpp"
 # include "class/Configuration.hpp"
+
+/* headers */
 # include "proto.hpp"
 # include "err_def.hpp"
 

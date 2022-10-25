@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 15:01:58 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/25 11:47:05 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,12 +174,12 @@ std::map<sockfd, Client*> const &Server::getUsers(void) const
 	return this->_users; 
 }
 
-std::map<std::string, Channel*> const &Server::getChans(void) const 
+std::map<std::string, Channel*> const& Server::getChans(void) const 
 {
 	return this->_chans;
 }
 
-std::map<std::string, void (*)(Server*, Message&)> const& Server::getCmdList(void) const
+std::map<std::string, ft_cmd> const& Server::getCmdList(void) const
 {
 	return this->_cmdList;
 }
