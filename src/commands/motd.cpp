@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:24:21 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/24 13:49:44 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:44:58 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@
 
 //    Numeric Replies:
 //            RPL_MOTDSTART                   RPL_MOTD
+// 			  RPL_ENDOFMOTD                   ERR_NOMOTD
 
 void motd(Server *serv, Message &msg)
-{(void)serv; (void)msg;}
+{
+	(void)serv;
+	(void)msg;
+}

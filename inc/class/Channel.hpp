@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:16 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/17 14:16:14 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 17:12:03 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ class Channel
 		Channel(std::string name);
 		~Channel();
 
+		void	broadcast(std::string msg_str) const;
+
 		std::string const& getName(void) const;
 
 	private:
 
 		Channel( Channel const & src );
-		Channel &		operator=( Channel const & rhs );
+		Channel &operator=( Channel const & rhs );
 
 		std::string					_name;
 		std::map<sockfd, Client*>	_members;

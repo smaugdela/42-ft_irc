@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 15:12:41 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:50:20 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,50 @@ std::ostream &			operator<<( std::ostream & o, Client const & i )
 ** --------------------------------- METHODS ----------------------------------
 */
 
-void	Client::send_to(std::string msg) const
+void	Client::send_to(std::string msg_str) const
 {
-	std::cout << "Message to client #" << this->_fd << " (" << this->_nickname << ") >> [" << msg << "]" << std::endl;
-	msg += "\r\n";
-	send(this->_fd, msg.c_str(), strlen(msg.c_str()), MSG_NOSIGNAL);
+	if (_connected == false || _authorize == false)
+		return ;
+
+	if (this->_servername.size())
+		msg_str = ":" + this->_servername + " " + msg_str;
+	std::cout << "Message to client #" << this->_fd << " (" << this->_nickname << ") >> [" << msg_str << "]" << std::endl;
+	msg_str += "\r\n";
+
+	const char*	msg = msg_str.c_str();
+	size_t	init_len = strlen(msg);
+	size_t	actual_len = 0;
+	ssize_t	ret = 0;
+
+	while (actual_len < init_len || (ret == -1 && (errno == EWOULDBLOCK || errno == EAGAIN)))
+	{
+		ret = send(this->_fd, &msg[actual_len], init_len - actual_len, MSG_NOSIGNAL);
+		if (ret >= 0)
+			actual_len += ret;
+	}
 }
 
 void	Client::disconnect(void)
 {
 	this->_connected = false;
+}
+
+void	Client::welcome(Server *serv) const
+{
+	std::string	str;
+
+	str = RPL_WELCOME;
+	str += " Welcome to the Internet Relay Network " + _nickname + "!" + _username + "@" + _servername;
+	send_to(str);
+	str = RPL_YOURHOST;
+	str += " Your host is " + _servername + ", running version " + serv->getConfig()->getServerVersion();
+	send_to(str);
+	str = RPL_CREATED;
+	str += " This server was created " + std::string(ctime(&(serv->getCreateDate())));
+	send_to(str);
+	str = RPL_MYINFO;
+	str += " " + _servername + " " + serv->getConfig()->getServerVersion() + " \"\" \"\"";
+	send_to(str);
 }
 
 /*

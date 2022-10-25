@@ -6,18 +6,18 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:32:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/25 12:01:47 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:05:26 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERR_DEF_HPP
 # define ERR_DEF_HPP
 
-
- // General errors 
+// General errors 
  
 # define ERR_UNKNOWNERROR			"400"
-# define ERR_NEEDMOREPARAMS			"461"
+# define ERR_NEEDMOREPARAMS			"461"		// "<command> :Not enough parameters"
+# define ERR_ALREADYREGISTRED		"462 :Unauthorized command (already registered)"
 
 // Commands errors 
 
@@ -41,7 +41,5 @@
 # define ERR_BANNEDFROMCHAN			"474"		//"<channel> :Cannot join channel (+b)"		|| if you juste got kicked
 # define ERR_NOPRIVILEGES			"481"		//":Permission Denied- You're not an IRC operator"
 # define ERR_CHANOPRIVSNEEDED		"482"		//"<channel> :You're not channel operator"
-
-
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 15:07:01 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:22:22 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ extern bool server_running;
 /* headers */
 # include "proto.hpp"
 # include "err_def.hpp"
+# include "rpl_def.hpp"
 
 #endif
