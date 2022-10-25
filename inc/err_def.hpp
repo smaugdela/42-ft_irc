@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err_def.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:32:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/25 12:01:47 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:22:27 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,5 @@
 # define ERR_BANNEDFROMCHAN			"474"		//"<channel> :Cannot join channel (+b)"		|| if you juste got kicked
 # define ERR_NOPRIVILEGES			"481"		//":Permission Denied- You're not an IRC operator"
 # define ERR_CHANOPRIVSNEEDED		"482"		//"<channel> :You're not channel operator"
-
-
 
 #endif

@@ -1,0 +1,14 @@
+------------------- INFO ------------------
+Project     : ft_irc / 42-Cursus
+Server name : $SERVER_NAME
+Version     : $SERVER_VERSION
+
+$SERVER_NAME compiled on $COMPILATION_TIME
+$SERVER_NAME started on $STARTED_TIME
+
+Brought into the world by :
+    - Anna Jearuth <ajearuth@student.42.fr>
+    - Simon Magdelaine <smagdela@student.42.fr>
+    - Fahima Boumellil <fboumell@student.42.fr>
+
+Thanks for using our server!
