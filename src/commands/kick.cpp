@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   kick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:12:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/24 13:49:44 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:49:01 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,18 @@
 //            ERR_USERNOTINCHANNEL            ERR_NOTONCHANNEL
 
 void kick(Server *serv, Message &msg)
-{(void)serv; (void)msg;}
+{
+	std::string str;
+
+	if ((msg.getParams().size() == 0))
+	{
+		str = ERR_NEEDMOREPARAMS;
+		str += " :Error need more params.";
+	}
+	if (msg.getSender()->getAdm() == false)
+	{
+		str = ERR_CHANOPRIVSNEEDED;
+		str += "chan name";
+		str += " :You're not channel operator";
+	}
+}
