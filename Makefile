@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/10/25 11:24:04 by smagdela         ###   ########.fr        #
+#    Updated: 2022/10/25 14:29:20 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,6 @@ SRCS    =	main.cpp \
 			class/Server.cpp \
 			class/Message.cpp \
 			class/Configuration.cpp \
-			commands/error.cpp \
 			commands/info.cpp \
 			commands/join.cpp \
 			commands/kick.cpp \
@@ -49,14 +48,13 @@ SRCS    =	main.cpp \
 			commands/nick.cpp \
 			commands/oper.cpp \
 			commands/part.cpp \
+			commands/pass.cpp \
 			commands/ping.cpp \
 			commands/pong.cpp \
 			commands/privmsg.cpp \
 			commands/quit.cpp \
-			commands/squit.cpp \
-			commands/stats.cpp \
-			commands/topic.cpp \
 			commands/user.cpp \
+			commands/version.cpp \
 
 OBJS    =       ${SRCS:.cpp=.o}
 

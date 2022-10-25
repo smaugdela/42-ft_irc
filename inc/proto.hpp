@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:41:25 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 11:40:56 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 14:31:13 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ std::list<std::string> split(char *str, const char *delim);
 
 /* Commandes */
 
-void error(Server *serv, Message &msg);
 void info(Server *serv, Message &msg);
 void join(Server *serv, Message &msg);
 void kick(Server *serv, Message &msg);
@@ -43,13 +42,12 @@ void names(Server *serv, Message &msg);
 void nick(Server *serv, Message &msg);
 void oper(Server *serv, Message &msg);
 void part(Server *serv, Message &msg);
+void pass(Server *serv, Message &msg);
 void ping(Server *serv, Message &msg);
 void pong(Server *serv, Message &msg);
 void privmsg(Server *serv, Message &msg);
 void quit(Server *serv, Message &msg);
-void squit(Server *serv, Message &msg);
-void stats(Server *serv, Message &msg);
-void topic(Server *serv, Message &msg);
 void user(Server *serv, Message &msg);
+void version(Server *serv, Message &msg);
 
 #endif

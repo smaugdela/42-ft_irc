@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 11:06:01 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 15:09:29 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ class Client
 
 	public:
 
-		Client(int fd, struct sockaddr addr);
+		Client(int fd, struct sockaddr addr, std::string servername);
 		~Client();
 
 		std::list<Message>	commands;
 
-		void						send_to(const char* msg);
+		void						send_to(std::string msg) const;
 		void						disconnect(void);
 
 		sockfd						getFd(void) const;
@@ -48,6 +48,7 @@ class Client
 
 		sockfd const			_fd;
 		struct sockaddr const	_addr;
+		std::string const		_servername;
 		bool					_connected;
 		bool					_authorize;
 		bool					_adm;	// Operator or not

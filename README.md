@@ -8,5 +8,6 @@ By [ajealcat](https://github.com/ajealcat), [fahima8897](https://github.com/fahi
 - Check leaks
 - Commands
 - Implement channels
+- Prefix
 
 Whoever reads this, have a good day!

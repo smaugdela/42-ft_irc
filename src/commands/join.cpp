@@ -6,12 +6,14 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:01:46 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/24 13:49:54 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 14:24:24 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libs.hpp"
 
+// 		Command: JOIN
+//		Parameters: ( <channel> *( "," <channel> ) [ <key> *( "," <key> ) ] ) / "0"
 // 	  The JOIN command is used by a user to request to start listening to
 //    the specific channel.  Servers MUST be able to parse arguments in the
 //    form of a list of target, but SHOULD NOT use lists when sending JOIN

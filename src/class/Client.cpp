@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 11:51:00 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 15:12:41 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ Client::Client( const Client & src ) : _fd(-1), _addr(sockaddr())
 	(void)src;
 }
 
-Client::Client(sockfd fd, struct sockaddr addr) : _fd(fd), _addr(addr), _connected(true),  _authorize(false), _adm(false), _nickname(), _username(), _realname(), _buffer()
+Client::Client(sockfd fd, struct sockaddr addr, std::string servername) : _fd(fd), _addr(addr), _servername(servername), _connected(true),  _authorize(false), _adm(false), _nickname(), _username(), _realname(), _buffer()
 {
 }
 
@@ -62,10 +62,11 @@ std::ostream &			operator<<( std::ostream & o, Client const & i )
 ** --------------------------------- METHODS ----------------------------------
 */
 
-void	Client::send_to(const char* msg)
+void	Client::send_to(std::string msg) const
 {
 	std::cout << "Message to client #" << this->_fd << " (" << this->_nickname << ") >> [" << msg << "]" << std::endl;
-	send(this->_fd, msg, strlen(msg), MSG_NOSIGNAL);
+	msg += "\r\n";
+	send(this->_fd, msg.c_str(), strlen(msg.c_str()), MSG_NOSIGNAL);
 }
 
 void	Client::disconnect(void)
