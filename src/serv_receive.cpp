@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:48:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 11:51:42 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 14:34:00 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	serv_receive(sockfd clientfd, Server *server)
 		server->getUser(clientfd)->disconnect();
 	else if (len > 0 && (buf_str.rfind("\r\n") != buf_str.size() - 2))
 	{
-		std::cout << "Message from client #" << clientfd << " incomplete! Adding it to the buffer..." << std::endl;
+		std::cout << "Message from client #" << clientfd << " (" << server->getUser(clientfd)->getNickname() << ") incomplete! Adding it to the buffer..." << std::endl;
 		server->getUser(clientfd)->setBuffer(server->getUser(clientfd)->getBuffer() + buffer);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 10:51:18 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 15:09:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	serv_accept(Server *serv, std::vector<pollfd> &fds)
 	new_client_fd = shield(accept(serv->getListener(), &cs, &cs_len), -1, "accept", __FILE__, __LINE__);
 	shield(fcntl(new_client_fd, F_SETFL, O_NONBLOCK), -1, "fcntl", __FILE__, __LINE__);
 
-	Client *new_client = new Client(new_client_fd, cs);
+	Client *new_client = new Client(new_client_fd, cs, serv->getConfig()->getServerName());
 	serv->addUser(new_client);
 
 	if (serv->getUsers().size() > serv->getConfig()->getMaxUsers())

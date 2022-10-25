@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   part.cpp                                           :+:      :+:    :+:   */
+/*   pass.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 14:30:34 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 14:31:08 by smagdela         ###   ########.fr       */
+/*   Created: 2022/10/25 14:12:17 by smagdela          #+#    #+#             */
+/*   Updated: 2022/10/25 14:32:04 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libs.hpp"
 
-void part(Server *serv, Message &msg)
+void pass(Server *serv, Message &msg)
 {
 	(void)serv;
 	(void)msg;

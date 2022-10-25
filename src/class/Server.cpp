@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 11:47:05 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 14:42:45 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ std::ostream &			operator<<( std::ostream & o, Server const & i )
 	return o;
 }
 
-
 /*
 ** --------------------------------- METHODS ----------------------------------
 */
@@ -129,7 +128,6 @@ Client *Server::getUser(std::string nickname) const
 
 void	Server::setCmdlist()
 {
-	this->_cmdList.insert(std::make_pair("ERROR", error));
 	this->_cmdList.insert(std::make_pair("INFO", info));
 	this->_cmdList.insert(std::make_pair("JOIN", join));
 	this->_cmdList.insert(std::make_pair("KICK", kick));
@@ -140,14 +138,13 @@ void	Server::setCmdlist()
 	this->_cmdList.insert(std::make_pair("NICK", nick));
 	this->_cmdList.insert(std::make_pair("OPER", oper));
 	this->_cmdList.insert(std::make_pair("PART", part));
+	this->_cmdList.insert(std::make_pair("PASS", pass));
 	this->_cmdList.insert(std::make_pair("PING", ping));
 	this->_cmdList.insert(std::make_pair("PONG", pong));
 	this->_cmdList.insert(std::make_pair("PRIVMSG", privmsg));
 	this->_cmdList.insert(std::make_pair("QUIT", quit));
-	this->_cmdList.insert(std::make_pair("SQUIT", squit));
-	this->_cmdList.insert(std::make_pair("STATS", stats));
-	this->_cmdList.insert(std::make_pair("TOPIC", topic));
 	this->_cmdList.insert(std::make_pair("USER", user));
+	this->_cmdList.insert(std::make_pair("VERSION", version));
 }
 
 /*
@@ -188,7 +185,6 @@ Configuration* Server::getConfig(void) const
 {
 	return this->_config;
 }
-
 
 void	Server::setPort(int port)
 {
