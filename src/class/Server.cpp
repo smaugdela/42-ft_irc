@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 14:42:45 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:37:15 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ Server::Server() //private
 
 Server::Server(int ac, const char **av) // public
 {
+	_create_date = time(0);
 	shield(parse_input(ac, av, this), false, "Usage: ./ircserv <port> <password>", __FILE__, __LINE__);
 	this->_config = new Configuration();
 	this->_listener = start_listening(this);
@@ -101,29 +102,42 @@ void Server::rmUser(Client* user)
 
 Client *Server::getUser(sockfd fd) const
 {
-	Client *ret;
+	std::map<sockfd, Client*>::const_iterator	ret;
 
-	try
-	{
-		ret = this->_users.at(fd);	
-	}
-	catch(const std::out_of_range &e)
-	{
+	ret = _users.find(fd);
+	if (ret == _users.end())
 		return NULL;
-	}
-	return (ret);
+	return ret->second;
 }
 
 Client *Server::getUser(std::string nickname) const
 {
 	std::map<sockfd, Client*>::const_iterator	it;
 
-	for (it = this->_users.begin(); it != this->_users.end(); ++it)
+	for (it = _users.begin(); it != _users.end(); ++it)
 		if (it->second->getNickname() == nickname)
 			break ;
-	if (it == this->_users.end())
+	if (it == _users.end())
 		return NULL;
 	return it->second;
+}
+
+Channel*	Server::getChannel(std::string name) const
+{
+	std::map<std::string, Channel*>::const_iterator	ret;
+
+	ret = _chans.find(name);
+	if (ret == _chans.end())
+		return NULL;
+	return ret->second;
+}
+
+void	Server::broadcast(std::string msg_str) const
+{
+	std::map<sockfd, Client*>::const_iterator it;
+
+	for (it = _users.begin(); it != _users.end(); ++it)
+		it->second->send_to(msg_str);
 }
 
 void	Server::setCmdlist()
@@ -181,9 +195,14 @@ std::map<std::string, ft_cmd> const& Server::getCmdList(void) const
 	return this->_cmdList;
 }
 
-Configuration* Server::getConfig(void) const
+Configuration*	Server::getConfig(void) const
 {
 	return this->_config;
+}
+
+time_t const&	Server::getCreateDate(void) const
+{
+	return (this->_create_date);
 }
 
 void	Server::setPort(int port)
@@ -200,6 +219,5 @@ void	Server::setListener(sockfd listener)
 {
 	this->_listener = listener;
 }
-
 
 /* ************************************************************************** */

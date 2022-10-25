@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 11:31:17 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:36:20 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ class Server
 		Server(int ac, const char **av);
 		~Server();
 
-		bool	addUser(Client* new_user);
-		void	rmUser(Client* user);
-		Client*	getUser(sockfd	fd) const;
-		Client*	getUser(std::string nickname) const;
-		void	setCmdlist(void);
+		bool		addUser(Client* new_user);
+		void		rmUser(Client* user);
+		Client*		getUser(sockfd	fd) const;
+		Client*		getUser(std::string nickname) const;
+		Channel*	getChannel(std::string name) const;
+		void		setCmdlist(void);
+		void		broadcast(std::string msg_str) const;
 
 		int										getPort(void) const;
 		std::string	const&						getPassword(void) const;
@@ -36,6 +38,7 @@ class Server
 		std::map<std::string, Channel*> const&	getChans(void) const;
 		std::map<std::string, ft_cmd> const& 	getCmdList(void) const;
 		Configuration* 							getConfig(void) const;
+		time_t const&							getCreateDate(void) const;
 
 		void									setPort(int port);
 		void									setPassword(std::string password);
@@ -54,6 +57,7 @@ class Server
 		std::map<sockfd, Client*>		_users;
 		std::map<std::string, Channel*>	_chans;
 		Configuration					*_config;
+		time_t							_create_date;
 
 };
 

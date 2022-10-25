@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/17 14:58:19 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:50:37 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,13 @@ std::ostream &			operator<<( std::ostream & o, Channel const & i )
 ** --------------------------------- METHODS ----------------------------------
 */
 
+void	Channel::broadcast(std::string msg_str) const
+{
+	std::map<sockfd, Client*>::const_iterator it;
+
+	for (it = _members.begin(); it != _members.end(); ++it)
+		it->second->send_to(msg_str);
+}
 
 /*
 ** --------------------------------- ACCESSOR ---------------------------------
