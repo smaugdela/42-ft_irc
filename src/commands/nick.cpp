@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:27:06 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/25 18:17:26 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:48:07 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static bool special_char(std::string to_check)
 
 void nick(Server *serv, Message &msg)
 {
-	std::string str;
+	std::string 	str;
+	Client* const	client = msg.getSender();
 
 	if ((msg.getParams().size() > 1))
 	{
@@ -67,4 +68,7 @@ void nick(Server *serv, Message &msg)
 		}
 	}
 	msg.getSender()->send_to(str.c_str());
+
+	if (client->getAuthorize() && client->getNickname().size() && client->getUsername().size())
+		client->welcome(serv);
 }

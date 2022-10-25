@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:15:22 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/24 18:24:58 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:48:40 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,33 @@
 
 void user(Server *serv, Message &msg)
 {
-	std::string str;
+	std::string 	str;
+	Client* const	client = msg.getSender();
 
-	str = "lol";
-	(void)serv;
-	(void)msg;
+	if (msg.getParams().size() < 4)
+	{
+		str = ERR_NEEDMOREPARAMS;
+		str += "USER :Not enough parameters";
+		client->send_to(str);
+	}
+	else if (client->getUsername().size())
+	{
+		str = ERR_ALREADYREGISTRED;
+		client->send_to(str);
+	}
+	else if (msg.getParams().size() >= 4)
+	{
+		std::vector<std::string>::const_iterator it = msg.getParams().begin();
+		client->setUsername(*it);
+		std::string realname;
+		if ((*it)[0] == ':')
+			realname =it->substr(1);
+		else
+			realname = *it;
+		for (; it != msg.getParams().end(); ++it)
+			realname += " " + *it;
+		client->setRealname(realname);
+	}
+	if (client->getAuthorize() && client->getNickname().size() && client->getUsername().size())
+		client->welcome(serv);
 }

@@ -13,11 +13,11 @@
 #ifndef ERR_DEF_HPP
 # define ERR_DEF_HPP
 
-
- // General errors 
+// General errors 
  
 # define ERR_UNKNOWNERROR			"400"
-# define ERR_NEEDMOREPARAMS			"461"
+# define ERR_NEEDMOREPARAMS			"461"		// "<command> :Not enough parameters"
+# define ERR_ALREADYREGISTRED		"462 :Unauthorized command (already registered)"
 
 // Commands errors 
 
@@ -42,7 +42,5 @@
 # define ERR_BANNEDFROMCHAN			"474"		//"<channel> :Cannot join channel (+b)"		|| if you juste got kicked
 # define ERR_NOPRIVILEGES			"481"		//":Permission Denied- You're not an IRC operator"
 # define ERR_CHANOPRIVSNEEDED		"482"		//"<channel> :You're not channel operator"
-
-
 
 #endif

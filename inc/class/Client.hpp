@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 15:09:29 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:31:12 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ class Client
 		Client(int fd, struct sockaddr addr, std::string servername);
 		~Client();
 
-		std::list<Message>	commands;
-
-		void						send_to(std::string msg) const;
+		void						send_to(std::string msg_str) const;
 		void						disconnect(void);
+		void						welcome(Server *serv) const;
 
 		sockfd						getFd(void) const;
 		struct sockaddr const&		getAddr(void) const;
@@ -37,6 +36,7 @@ class Client
 		bool						getAuthorize(void) const;
 		bool						getConnected(void) const;
 		std::string const&			getBuffer(void) const;
+
 		void						setNickname(std::string new_nick);
 		void						setUsername(std::string new_nick);
 		void						setRealname(std::string new_nick);
