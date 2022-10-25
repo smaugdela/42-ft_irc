@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/10/24 18:15:25 by smagdela         ###   ########.fr        #
+#    Updated: 2022/10/25 10:52:10 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ INCS    = 	libs.hpp \
 SRCS    =	main.cpp \
 			loop.cpp \
 			serv_receive.cpp \
-			serv_send.cpp \
+			my_send.cpp \
 			server_utils.cpp \
 			split.cpp \
 			class/Client.cpp \

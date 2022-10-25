@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   proto.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:41:25 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 16:30:27 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/25 10:51:58 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	server_loop(Server *serv);
 void	serv_receive(sockfd client, Server *server);
 bool	setData(std::string str, Configuration*dataConfig);
 void	setConfigData(Configuration *dataConfig);
-void	serv_send(sockfd clientfd, Server *server);
+void	my_send(Client *client, const char *msg);
 void	error_ConfigFile(void);
 std::list<std::string> split(char *str, const char *delim);
 

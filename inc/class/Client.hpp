@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 11:10:10 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 10:43:24 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ class Client
 		~Client();
 
 		std::list<Message>	commands;
-		std::list<Message>	to_send;
 
 		void						disconnect(void);
 

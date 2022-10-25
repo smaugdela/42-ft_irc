@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:27:06 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/24 18:24:22 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 10:53:11 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ void nick(Server *serv, Message &msg)
 			str +=  " :Nickname is already in use.";
 		}
 	}
-	msg.getSender()->to_send.push_back(Message(NULL, msg.getSender(), str));
+	my_send(msg.getSender(), str.c_str());
 }

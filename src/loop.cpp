@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 18:16:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/25 10:51:18 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static void	serv_accept(Server *serv, std::vector<pollfd> &fds)
 
 	fds.push_back(pollfd());
 	fds.back().fd = new_client_fd;
-	fds.back().events = POLLIN | POLLOUT;
-	fds.back().revents = POLLIN | POLLOUT;
+	fds.back().events = POLLIN;
+	fds.back().revents = POLLIN;
 
 	std::cout << "New Client on socket #" << new_client_fd << "." << std::endl;
 }
@@ -54,7 +54,7 @@ static void	set_pollfd(Server *serv, std::vector<struct pollfd> &fds)
 	{
 		fds.push_back(pollfd());
 		fds.back().fd = it->first;
-		fds.back().events = POLLIN | POLLOUT;
+		fds.back().events = POLLIN;
 		fds.back().revents = 0;
 	}
 }
@@ -94,21 +94,9 @@ void	server_loop(Server *serv)
 					else
 						serv_receive(fds[n].fd, serv);
 				}
-				if (fds[n].revents & POLLOUT && n !=0)
-					serv_send(fds[n].fd, serv);
-				if (fds[n].revents & POLLHUP)
+				if (fds[n].revents & POLLHUP || fds[n].revents & POLLERR || fds[n].revents & POLLNVAL)
 				{	
-					std::cout << "POLLHUP on socket #" << fds[n].fd << "." << std::endl;
-					serv->getUser(fds[n].fd)->disconnect();
-				}
-				if (fds[n].revents & POLLERR)
-				{	
-					std::cout << "POLLERR on socket #" << fds[n].fd << "." << std::endl;
-					serv->getUser(fds[n].fd)->disconnect();
-				}
-				if (fds[n].revents & POLLNVAL)
-				{	
-					std::cout << "POLLNVAL on socket #" << fds[n].fd << "." << std::endl;
+					std::cout << "Invalid event on socket #" << fds[n].fd << "." << std::endl;
 					serv->getUser(fds[n].fd)->disconnect();
 				}
 			}
