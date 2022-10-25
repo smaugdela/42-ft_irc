@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   err_def.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:32:03 by ajearuth          #+#    #+#             */
 /*   Updated: 2022/10/25 18:05:26 by smagdela         ###   ########.fr       */
