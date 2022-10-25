@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err_def.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:32:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/24 16:04:00 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/25 12:01:47 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define ERR_NOORIGIN				"409"		//":No origin specified"					|| PING or PONG message missing the originator parameter.
 # define ERR_UNKNOWNCOMMAND			"421"		//"<command> :Unknown command"				|| to a registered client to indicate that the command sent is unknown by the server.
 
-# define ERR_NORECIPIENT			"411"		//":No recipient given (<command>)"
+# define ERR_NORECIPIENT			"411" 		//:No recipient given (<command>)"
 # define ERR_NOTEXTTOSEND			"412"		//":No text to send"
 # define ERR_BADMASK				"415"		//"<mask> :Bad Server/host mask"
 
