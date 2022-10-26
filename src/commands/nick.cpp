@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:27:06 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/26 11:11:30 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:44:47 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@
 //    NICK command is used to give user a nickname or change the existing
 //    one.
 
-
 static bool special_char(std::string to_check)
 {
 	int i = 0;
 	while (to_check[i])
 	{
-		if (isalnum(to_check[i]) && to_check[i] != '-' && to_check[i] != '_' && to_check[i] != '['
+		if (!isalnum(to_check[i]) && to_check[i] != '-' && to_check[i] != '_' && to_check[i] != '['
 		&& to_check[i] != ']' && to_check[i] != '{' && to_check[i] != '}'
 		&& to_check[i] != '\\' &&to_check[i] != '`' && to_check[i] != '|')
 			return false;
@@ -48,8 +47,8 @@ void nick(Server *serv, Message &msg)
 		std::string new_nick = msg.getParams()[0];
 		if (new_nick.length() > 9 || special_char(new_nick) == false)
 		{
-			str = ERR_NONICKNAMEGIVEN;
-			str += " :Invalid nickname parameter(s).";
+			str = ERR_ERRONEUSNICKNAME;
+			str += " " + new_nick + " :Invalid nickname parameter(s).";
 		}
 		if (serv->getUser(new_nick) == NULL && special_char(new_nick) == true)
 		{

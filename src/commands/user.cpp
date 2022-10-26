@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:15:22 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/26 11:26:06 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:38:27 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void user(Server *serv, Message &msg)
 			str += client->getNickname();
 		else
 			str += "*";
-		str += ":Unauthorized command (already registered)";
+		str += " :Unauthorized command (already registered)";
 		client->send_to(str);
 	}
 	else if (msg.getParams().size() >= 4)
