@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   kick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:12:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/26 17:35:34 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:55:51 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@
 void kick(Server *serv, Message &msg)
 {
 	std::string str;
-	int i = 0;
 
 	if ((msg.getParams().size() == 0))
 	{
@@ -50,46 +49,46 @@ void kick(Server *serv, Message &msg)
 			char *tmp = strdup(msg.getParams()[0].c_str());
 			std::list<std::string> channels = split(tmp, ",");
 			free(tmp);
-			char *tmp = strdup(msg.getParams()[1].c_str());
+			tmp = strdup(msg.getParams()[1].c_str());
 			std::list<std::string> users = split(tmp, ",");
 			free(tmp);
 			for (std::list<std::string>::iterator it = channels.begin(); it != channels.end(); ++it)
 			{
-					if (!serv->getChannel(*it))
-					{
-							str =  ERR_NOSUCHCHANNEL;
-							str += " ";
-							str += *it;
-							str += ": No such channel.";
-							msg.getSender()->send_to(str.c_str());
+				if (!serv->getChannel(*it))
+				{
+						str =  ERR_NOSUCHCHANNEL;
+						str += " ";
+						str += *it;
+						str += ": No such channel.";
+						msg.getSender()->send_to(str.c_str());
 
-					}
-					if (msg.getSender()->getAdm() == false) // verifier dans le channel
-					{
-							str = ERR_CHANOPRIVSNEEDED;
-							str += *it;
-							str += " :You're not channel operator";
-							msg.getSender()->send_to(str.c_str());
+				}
+				if (msg.getSender()->getAdm() == false) // verifier dans le channel
+				{
+						str = ERR_CHANOPRIVSNEEDED;
+						str += *it;
+						str += " :You're not channel operator";
+						msg.getSender()->send_to(str.c_str());
 
-					}
-					for (std::list<std::string>::iterator it2 = users.begin(); it2 != users.end(); ++it2)
+				}
+				for (std::list<std::string>::iterator it2 = users.begin(); it2 != users.end(); ++it2)
+				{
+					if (!serv->getUser(*it))
 					{
-						if (!serv->getUser(*it))
-						{
-							str = ERR_USERNOTINCHANNEL;
-							str += " ";
-							str += *it2 + *it;
-							str += " :They aren't on that channel.";
-							msg.getSender()->send_to(str.c_str());
-						}
-						else 
-						{
-							str = "KICK " + *it + " " + *it2 + " :" + msg.getParams()[2];
-							Channel *tmp = serv->getChannel(*it);
-							tmp->erase(*it2); // ???
-						}
+						str = ERR_USERNOTINCHANNEL;
+						str += " ";
+						str += *it2 + *it;
+						str += " :They aren't on that channel.";
+						msg.getSender()->send_to(str.c_str());
 					}
+					else 
+					{
+						str = "KICK " + *it + " " + *it2 + " :" + msg.getParams()[2];
+						std::map<sockfd, Client*> tmp2 = serv->getChannel(*it)->getMembers();
+						tmp2.erase(tmp2.find(serv->getUser(*it2)->getFd()));
+					}
+				}
+			}
 	}
-
 	msg.getSender()->send_to(str.c_str());
 }

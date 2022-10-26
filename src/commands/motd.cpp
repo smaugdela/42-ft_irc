@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   motd.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:24:21 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/26 17:42:16 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:57:41 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void motd(Server *serv, Message &msg)
 {
 	std::string	str;
 
-	if (msg.getParam().size() > 1)
+	if (msg.getParams().size() > 1)
 	{
 		str = ERR_NOMOTD;
-		str += " " + " :Invalid nickname parameter(s).";
+		str += " " + msg.getSender()->getNickname() + " :Invalid nickname parameter(s).";
 	}
 	else
 	{
-		
+		(void)serv;		
 	}
 	msg.getSender()->send_to(str.c_str());
 }
