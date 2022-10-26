@@ -3,30 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   motd.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:24:21 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/25 18:44:58 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:42:16 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "libs.hpp"
 
-//       Command: MOTD
-//    Parameters: [ <target> ]
+/*	Command: MOTD
+	Parameters: [ <target> ]
 
-//    The MOTD command is used to get the "Message Of The Day" of the given
-//    server, or current server if <target> is omitted.
+	The MOTD command is used to get the "Message Of The Day" of the given
+	server, or current server if <target> is omitted.
+	Wildcards are allowed in the <target> parameter.
+	Numeric Replies:
+			RPL_MOTDSTART                   RPL_MOTD
+			RPL_ENDOFMOTD                   ERR_NOMOTD */
 
-//    Wildcards are allowed in the <target> parameter.
-
-//    Numeric Replies:
-//            RPL_MOTDSTART                   RPL_MOTD
-// 			  RPL_ENDOFMOTD                   ERR_NOMOTD
 
 void motd(Server *serv, Message &msg)
 {
-	(void)serv;
-	(void)msg;
+	std::string	str;
+
+	if (msg.getParam().size() > 1)
+	{
+		str = ERR_NOMOTD;
+		str += " " + " :Invalid nickname parameter(s).";
+	}
+	else
+	{
+		
+	}
+	msg.getSender()->send_to(str.c_str());
 }
