@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:12:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/25 18:49:01 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:16:22 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ void kick(Server *serv, Message &msg)
 		str += "chan name";
 		str += " :You're not channel operator";
 	}
+	msg.getSender()->send_to(str.c_str());
 }

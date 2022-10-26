@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:27:06 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/25 18:48:07 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:11:30 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,9 @@ static bool special_char(std::string to_check)
 	int i = 0;
 	while (to_check[i])
 	{
-		if (to_check[i] <= 'A' || to_check[i] >= 'Z' 
-		|| to_check[i] <= 'a' || to_check[i] >= 'z'
-		||  to_check[i] <= 0 || to_check[i] >= 9
-		|| to_check[i] != '-' || to_check[i] != '_' || to_check[i] != '['
-		|| to_check[i] != ']' || to_check[i] != '{' || to_check[i] != '}'
-		|| to_check[i] != '\\' ||to_check[i] != '`' || to_check[i] != '|')
+		if (isalnum(to_check[i]) && to_check[i] != '-' && to_check[i] != '_' && to_check[i] != '['
+		&& to_check[i] != ']' && to_check[i] != '{' && to_check[i] != '}'
+		&& to_check[i] != '\\' &&to_check[i] != '`' && to_check[i] != '|')
 			return false;
 		i++;	
 	}
