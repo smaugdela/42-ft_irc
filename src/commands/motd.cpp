@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   motd.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:24:21 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/26 17:57:41 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/26 18:20:27 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 void motd(Server *serv, Message &msg)
 {
 	std::string	str;
+	
 
 	if (msg.getParams().size() > 1)
 	{
@@ -34,7 +35,7 @@ void motd(Server *serv, Message &msg)
 	}
 	else
 	{
-		(void)serv;		
+			
 	}
 	msg.getSender()->send_to(str.c_str());
 }
