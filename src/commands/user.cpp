@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:15:22 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/25 18:48:40 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:26:06 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,22 @@ void user(Server *serv, Message &msg)
 	if (msg.getParams().size() < 4)
 	{
 		str = ERR_NEEDMOREPARAMS;
-		str += "USER :Not enough parameters";
+		str += "USER ";
+		if (client->getNickname().size())
+			str += client->getNickname();
+		else
+			str += "*";
+		str += " :Not enough parameters";
 		client->send_to(str);
 	}
 	else if (client->getUsername().size())
 	{
 		str = ERR_ALREADYREGISTRED;
+		if (client->getNickname().size())
+			str += client->getNickname();
+		else
+			str += "*";
+		str += ":Unauthorized command (already registered)";
 		client->send_to(str);
 	}
 	else if (msg.getParams().size() >= 4)

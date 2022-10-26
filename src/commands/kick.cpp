@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   kick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:12:03 by ajearuth          #+#    #+#             */
 /*   Updated: 2022/10/26 11:16:22 by ajearuth         ###   ########.fr       */
@@ -37,6 +37,7 @@
 
 void kick(Server *serv, Message &msg)
 {
+	(void)serv;
 	std::string str;
 
 	if ((msg.getParams().size() == 0))

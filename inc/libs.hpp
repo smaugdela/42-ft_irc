@@ -38,6 +38,7 @@
 # include <stdlib.h>
 # include <netinet/in.h>
 # include <arpa/inet.h>
+# include <sys/stat.h>
 
 /* colors */
 # define GREEN "\033[0;32m"
