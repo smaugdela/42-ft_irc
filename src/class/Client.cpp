@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 18:50:20 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:27:01 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,16 +95,16 @@ void	Client::welcome(Server *serv) const
 	std::string	str;
 
 	str = RPL_WELCOME;
-	str += " Welcome to the Internet Relay Network " + _nickname + "!" + _username + "@" + _servername;
+	str += _nickname + " :Welcome to the Internet Relay Network " + _nickname + "!" + _username + "@" + _servername;
 	send_to(str);
 	str = RPL_YOURHOST;
-	str += " Your host is " + _servername + ", running version " + serv->getConfig()->getServerVersion();
+	str += _nickname + " :Your host is " + _servername + ", running version " + serv->getConfig()->getServerVersion();
 	send_to(str);
 	str = RPL_CREATED;
-	str += " This server was created " + std::string(ctime(&(serv->getCreateDate())));
+	str += _nickname + " :This server was created " + std::string(ctime(&(serv->getCreateDate())));
 	send_to(str);
 	str = RPL_MYINFO;
-	str += " " + _servername + " " + serv->getConfig()->getServerVersion() + " \"\" \"\"";
+	str += _nickname + " :" + _servername + " " + serv->getConfig()->getServerVersion() + " \"\" \"\"";
 	send_to(str);
 }
 

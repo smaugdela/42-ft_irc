@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:06:36 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/25 19:15:56 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:03:27 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ std::string get_Time_Compilation()
 
 void info(Server *serv, Message &msg)
 {
-    // (void)serv; (void)msg;
+    (void)serv; (void)msg;
 
     //ajouter End of /INFO list a la fin
 }

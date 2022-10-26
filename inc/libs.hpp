@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 18:22:22 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:02:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # include <stdlib.h>
 # include <netinet/in.h>
 # include <arpa/inet.h>
+# include <sys/stat.h>
 
 /* colors */
 # define GREEN "\033[0;32m"
