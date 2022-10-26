@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:06:36 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/26 15:36:35 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/26 16:03:48 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ std::string get_time_compilation()
     return (time);
 }
 
-std::string parse_file_info(Server *serv)
+std::vector<std::string> parse_file_info(Server *serv)
 {
     std::string     str;
     time_t          time = serv->getCreateDate();
     std::string     time_started = ctime(&time);
     std::string     time_compilation = get_time_compilation();
     std::ifstream   ifs("./src/config/info.txt", std::ifstream::in);
+	std::vector<std::string>	ret;
     
     if (ifs.good())
     {
@@ -72,8 +73,8 @@ std::string parse_file_info(Server *serv)
                 str = line.substr(0, pos) + time_started + line.substr(pos + strlen("$STARTED_TIME"));
                 line = str;
             }
+	        ret.push_back(line);
         }
-        return (line);
     }
     else
     {
@@ -81,40 +82,41 @@ std::string parse_file_info(Server *serv)
         error_ConfigFile();
     }
     ifs.close();
-    return "";    
+    return ret;
 }
 
 void info(Server *serv, Message &msg)
 {
     std::string str;
+	std::vector<std::string>	ret;
     
     if (msg.getParams().size() > 1)
     {
         str = ERR_NOSUCHSERVER;
-        str += " ";
+        str += " " + msg.getSender()->getNickname() + " ";
         str += serv->getConfig()->getServerName();
         str += " :No such server";
     }
-    std::string target = msg.getParams()[0];
-    if (target.compare(serv->getConfig()->getServerName()) != 0)
+    else if (msg.getParams().size() && msg.getParams()[0].compare(serv->getConfig()->getServerName()) != 0)
     {
         str = ERR_NOSUCHSERVER;
-        str += " ";
+        str += " " + msg.getSender()->getNickname() + " ";
         str += serv->getConfig()->getServerName();
         str += " :No such server";
     }
     else
     {
-        while(parse_file_info(serv) != "")
-        {
+		ret = parse_file_info(serv);
+		for(std::vector<std::string>::const_iterator it = ret.begin(); it != ret.end(); ++it)
+		{
             str = RPL_INFO;
-            str += " ";
-            str += parse_file_info(serv);
+            str += " " + msg.getSender()->getNickname() + " :";
+            str += *it;
             msg.getSender()->send_to(str.c_str());
-        }
-        str = RPL_ENDOFINFO;
-        str += " ";
+		}
+		str = RPL_ENDOFINFO;
+        str += " " + msg.getSender()->getNickname() + " ";
         str += ":End of INFO list";
-        msg.getSender()->send_to(str.c_str());
     }
+    msg.getSender()->send_to(str.c_str());
 }

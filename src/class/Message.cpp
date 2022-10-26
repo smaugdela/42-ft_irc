@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/22 01:26:33 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:47:58 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,15 @@ std::ostream &			operator<<( std::ostream & o, Message const & i )
 ** --------------------------------- METHODS ----------------------------------
 */
 
+static std::string	capitalize(std::string const& low_str)
+{
+	std::string	upp_str(low_str);
+
+	for (std::string::iterator it = upp_str.begin(); it != upp_str.end(); ++it)
+		*it = toupper(*it);
+	return upp_str;
+}
+
 bool	Message::parse_msg(void)
 {
 	const char *delim = " ";
@@ -92,7 +101,9 @@ bool	Message::parse_msg(void)
 		++str;
 	}
 	if (Check_command(*str))
-		setCommand(*str);
+	{
+		setCommand(capitalize(*str));
+	}
 	else
 	{
 		std::cout << "Invalid command format." << std::endl;
