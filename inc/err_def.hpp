@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err_def.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:32:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/25 18:32:29 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:37:47 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 # define ERR_NOSUCHNICK				"401"		//"<nickname> :No such nick/channel"		|| the nickname parameter supplied to a command is currently unused.
 # define ERR_NOSUCHCHANNEL			"403"		//"<channel name> :No such channel"			|| the given channel name is invalid.
+# define ERR_NOSUCHSERVER           "402"       //"<server name> :No such server"           || Used to indicate the server name given currently does not exist.
 # define ERR_CANNOTSENDTOCHAN		"404"		//"<channel name> :Cannot send to channel"	|| the user is ban from the channel he wants to write 
 # define ERR_WASNOSUCHNICK			"406"		//"<nickname> :There was no such nickname"	|| (IDK IF WE WILL USE THIS) returned by WHOWAS to indicate there is no history information for that nickname.
 # define ERR_NOSUCHSERVICE			"408"		//"<service name> :No such service"			|| (IDK IF WE WILL USE THIS) returned to a client which is attempting to send a SQUERY to a service which does not exist.
