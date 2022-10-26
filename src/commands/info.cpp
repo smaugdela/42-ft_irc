@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:06:36 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/26 16:03:48 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/26 16:17:29 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ std::string get_time_compilation()
 
 std::vector<std::string> parse_file_info(Server *serv)
 {
-    std::string     str;
-    time_t          time = serv->getCreateDate();
-    std::string     time_started = ctime(&time);
-    std::string     time_compilation = get_time_compilation();
-    std::ifstream   ifs("./src/config/info.txt", std::ifstream::in);
+    std::string                 str;
+    time_t                      time = serv->getCreateDate();
+    std::string                 time_started = ctime(&time);
+    std::string                 time_compilation = get_time_compilation();
+    std::ifstream               ifs("./src/config/info.txt", std::ifstream::in);
 	std::vector<std::string>	ret;
     
     if (ifs.good())
@@ -87,7 +87,7 @@ std::vector<std::string> parse_file_info(Server *serv)
 
 void info(Server *serv, Message &msg)
 {
-    std::string str;
+    std::string                 str;
 	std::vector<std::string>	ret;
     
     if (msg.getParams().size() > 1)
