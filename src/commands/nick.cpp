@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:27:06 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/26 14:17:38 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:43:56 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void nick(Server *serv, Message &msg)
 	if (msg.getParams().size() > 1 || msg.getParams().size() == 0)
 	{
 		str = ERR_NONICKNAMEGIVEN;
-		str += " :Invalid nickname parameter(s).";
+		str += " :No nickname given";
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:41:25 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/26 14:42:03 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:04:13 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ bool	                setData(std::string str, Configuration*dataConfig);
 void	                setConfigData(Configuration *dataConfig);
 void	                error_ConfigFile(void);
 std::list<std::string>  split(char *str, const char *delim);
-std::string             get_Time_Compilation();
+std::string             get_time_compilation();
+std::string            parse_file_info(Server *serv);
 
 /* Commandes */
 
