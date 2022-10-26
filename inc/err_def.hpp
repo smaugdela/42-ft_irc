@@ -35,6 +35,7 @@
 # define ERR_BADMASK				"415"		//"<mask> :Bad Server/host mask"
 
 # define ERR_NONICKNAMEGIVEN		"431"		//":No nickname given"						|| when a nickname parameter expected for a command and isn't found.
+# define ERR_ERRONEUSNICKNAME		"432"		//"<nick> :Erroneous nickname"
 # define ERR_NICKNAMEINUSE			"433"		// ":Nickname is already in use"
 # define ERR_NEEDMOREPARAMS 		"461"		// ":Error need more params."
 # define ERR_PASSWDMISMATCH			"464"		//":Password incorrect"						|| to indicate a failed attempt at registering a connection for which a password was required and was either not given or incorrect.
@@ -43,5 +44,6 @@
 # define ERR_BANNEDFROMCHAN			"474"		//"<channel> :Cannot join channel (+b)"		|| if you juste got kicked
 # define ERR_NOPRIVILEGES			"481"		//":Permission Denied- You're not an IRC operator"
 # define ERR_CHANOPRIVSNEEDED		"482"		//"<channel> :You're not channel operator"
+
 
 #endif

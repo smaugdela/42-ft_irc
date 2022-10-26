@@ -37,6 +37,7 @@
 
 void kick(Server *serv, Message &msg)
 {
+	(void)serv;
 	std::string str;
 	(void)serv;
 
@@ -51,4 +52,5 @@ void kick(Server *serv, Message &msg)
 		str += "chan name";
 		str += " :You're not channel operator";
 	}
+	msg.getSender()->send_to(str.c_str());
 }

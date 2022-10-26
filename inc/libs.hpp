@@ -24,6 +24,7 @@
 # include <errno.h>
 # include <sys/types.h>
 # include <sys/socket.h>
+# include <sys/stat.h>
 # include <netdb.h>
 # include <poll.h>
 # include <unistd.h>

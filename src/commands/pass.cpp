@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:12:17 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 18:50:38 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:06:20 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void pass(Server *serv, Message &msg)
 		if (msg.getSender()->getAuthorize())
 		{
 			str = ERR_ALREADYREGISTRED;
+			str += ":Unauthorized command (already registered)";
 			msg.getSender()->send_to(str);
 		}
 		else if (msg.getParams()[0] == serv->getPassword())

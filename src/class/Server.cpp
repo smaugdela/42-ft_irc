@@ -41,6 +41,8 @@ Server::Server( const Server & src ) // private
 
 Server::~Server()
 {
+	close(_listener);
+	broadcast("QUIT :Server shutdown");
 	size_t size = this->_users.size();
 	for (size_t i = 0; i < size ; ++i)
 	{
