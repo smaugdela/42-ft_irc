@@ -6,13 +6,13 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:48:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 14:34:00 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/26 14:11:28 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libs.hpp"
 
-/* This function will parse the client's buffer into its commands list. */
+/* This function will parse the client's buffer into its commands list, and execute each of them */
 static void	buf_to_cmd(Server *server, Client *client)
 {
 	char	*buffer = strdup(client->getBuffer().c_str());
@@ -27,7 +27,10 @@ static void	buf_to_cmd(Server *server, Client *client)
 		Message new_msg(client, NULL, *it);
 		std::cout << "Message from client #" << client->getFd() << " (" << client->getNickname() << ") << [" << *it << "]" << std::endl;
 		if (new_msg.parse_msg() && cmdlist.find(new_msg.getCommand()) != cmdlist.end())
-			cmdlist[new_msg.getCommand()](server, new_msg);
+		{
+			if (client->getAuthorize() || (new_msg.getCommand() == "PASS"))
+				cmdlist[new_msg.getCommand()](server, new_msg);
+		}
 	}
 }
 

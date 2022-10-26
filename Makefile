@@ -6,11 +6,12 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/10/25 14:29:20 by smagdela         ###   ########.fr        #
+#    Updated: 2022/10/26 14:44:56 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./${BIN}
+# valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes	// Check complet de valgrind.
+# lsof -i -a -c ircserv  // Check les leaks de fds associes au reseau (sockets).
 
 #################
 #       Variables       #
@@ -30,6 +31,7 @@ INCS    = 	libs.hpp \
 
 SRCS    =	main.cpp \
 			loop.cpp \
+			serv_accept.cpp \
 			serv_receive.cpp \
 			server_utils.cpp \
 			split.cpp \

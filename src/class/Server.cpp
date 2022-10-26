@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/26 12:20:19 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/26 13:49:21 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ Server::Server( const Server & src ) // private
 
 Server::~Server()
 {
+	close(_listener);
 	broadcast("QUIT :Server shutdown");
 	size_t size = this->_users.size();
 	for (size_t i = 0; i < size ; ++i)
