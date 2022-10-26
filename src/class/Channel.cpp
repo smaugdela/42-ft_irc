@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 16:50:37 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:36:06 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,18 @@ void	Channel::broadcast(std::string msg_str) const
 		it->second->send_to(msg_str);
 }
 
+Client *Channel::getMember(std::string member) const
+{
+	std::map<sockfd, Client*>::const_iterator	it;
+
+	for (it = _members.begin(); it != _members.end(); ++it)
+		if (it->second->getNickname() == member)
+			break ;
+	if (it == _members.end())
+		return NULL;
+	return it->second;
+}
+
 /*
 ** --------------------------------- ACCESSOR ---------------------------------
 */
@@ -78,6 +90,11 @@ void	Channel::broadcast(std::string msg_str) const
 std::string const& Channel::getName(void) const
 {
 	return (this->_name);
+}
+
+std::map<sockfd, Client*> const&	Channel::getMembers(void) const
+{
+ 	return (this->_)
 }
 
 /* ************************************************************************** */
