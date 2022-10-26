@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/26 17:36:06 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:47:29 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ std::string const& Channel::getName(void) const
 	return (this->_name);
 }
 
-std::map<sockfd, Client*> const&	Channel::getMembers(void) const
+std::map<sockfd, Client*> const&	Channel::getMembers(void)
 {
- 	return (this->_)
+ 	return (this->_members);
 }
 
 /* ************************************************************************** */
