@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:41:25 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/26 15:56:52 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/27 12:09:27 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	                setConfigData(Configuration *dataConfig);
 void	                error_ConfigFile(void);
 std::list<std::string>  split(char *str, const char *delim);
 std::string             get_time_compilation();
-std::vector<std::string>         parse_file_info(Server *serv);
+std::vector<std::string>	parse_file_info(Server *serv);
 
 /* Commandes */
 
@@ -47,7 +47,6 @@ void oper(Server *serv, Message &msg);
 void part(Server *serv, Message &msg);
 void pass(Server *serv, Message &msg);
 void ping(Server *serv, Message &msg);
-void pong(Server *serv, Message &msg);
 void privmsg(Server *serv, Message &msg);
 void quit(Server *serv, Message &msg);
 void user(Server *serv, Message &msg);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err_def.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:32:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/26 17:41:54 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/27 12:07:12 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define ERR_NEEDMOREPARAMS			"461"		// "<command> :Not enough parameters"
 # define ERR_ALREADYREGISTRED		"462 :Unauthorized command (already registered)"
 
-// Commands errors 
+// Commands errors
 
 # define ERR_NOSUCHNICK				"401"		// "<nickname> :No such nick/channel"		|| the nickname parameter supplied to a command is currently unused.
 # define ERR_NOSUCHCHANNEL			"403"		// "<channel name> :No such channel"			|| the given channel name is invalid.

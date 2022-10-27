@@ -2,9 +2,8 @@
 By [ajealcat](https://github.com/ajealcat), [fahima8897](https://github.com/fahima8897) and [smaugdela](https://github.com/smaugdela)
 
 ## TODO
-- Check how to really parse parameters of commands (issue with the ':', does it indicate the start of a parameter string with space).
-- Send QUIT to all clients when stopping server.
-- Complete config rules, motd and info files.
+- Implement communication timeout (time since last message attribute in Client class, and send ping at each config->ping value in the loop).
+- Fix PING reception, hostname could be server ip address? Figure that out.
 - Check leaks.
 - Commands.
 - Implement channels.
