@@ -17,6 +17,7 @@
 # define RPL_YOURHOST   "002"		// "Your host is <servername>, running version <ver>"
 # define RPL_CREATED    "003"		// "This server was created <date>"
 # define RPL_MYINFO     "004"		// "<servername> <version> <available user modes> <available channel modes>"
+# define RPL_VERSION    "351"       // "<version>.<debuglevel> <server> :<comments>"
 # define RPL_INFO       "371"       // ":<string>"
 # define RPL_MOTD       "372"       // ":- <text>"
 # define RPL_ENDOFINFO  "374"       // ":End of INFO list"
