@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:31:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 14:59:41 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/27 15:10:22 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void version(Server *serv, Message &msg)
 	else
 	{
 		str = RPL_VERSION;
-		str += " " + msg.getSender()->getNickname() + " Version of TheCatServer: ";
+		str += " " + msg.getSender()->getNickname() + " Version: ";
 		str += serv->getConfig()->getServerVersion();
 	}
 	msg.getSender()->send_to(str.c_str());
