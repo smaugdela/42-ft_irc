@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:10:15 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/24 13:49:44 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/27 12:39:41 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,23 @@
 //    there.
 
 void ping(Server *serv, Message &msg)
-{(void)serv; (void)msg;}
+{
+	std::string	str;
+
+	if (msg.getParams().size() < 1)
+	{
+		str = ERR_NOORIGIN;
+		str += " " + msg.getSender()->getNickname() + " :No origin specified";
+	}
+	else
+	{
+		if (msg.getParams()[0] != serv->getIpaddr())
+		{
+			str = ERR_NOSUCHSERVER;
+			str += " " + msg.getSender()->getNickname() + " " + msg.getParams()[0] + " :No such server";
+		}
+		else
+			str = "PONG " + msg.getSender()->getNickname() + " :" + msg.getParams()[0];
+	}
+	msg.getSender()->send_to(str);
+}

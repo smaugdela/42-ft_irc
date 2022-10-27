@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:48:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/26 14:11:28 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/27 16:59:55 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ void	serv_receive(sockfd clientfd, Server *server)
 	len = recv(clientfd, buffer, BUFFER_SIZE, MSG_DONTWAIT);
 	std::string	buf_str(buffer);
 
-	if (len < 0 && errno != EAGAIN && errno != EWOULDBLOCK)
+	server->getUser(clientfd)->resetTime();
+
+	if (len < 0)
 	{
 		std::cout << "Error recv(): " << strerror(errno) << std::endl;
-		server->getUser(clientfd)->disconnect();
+		server->getUser(clientfd)->setBuffer("");
 	}
 	else if (len == 0)
 		server->getUser(clientfd)->disconnect();

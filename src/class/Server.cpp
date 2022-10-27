@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/26 14:09:11 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/27 12:49:50 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ Server::Server() //private
 	std::cout << "Server hasn't been initialised yet." << std::endl;
 }
 
-Server::Server(int ac, const char **av) // public
+Server::Server(int ac, const char **av)	// public
 {
 	_create_date = time(0);
 	shield(parse_input(ac, av, this), false, "Usage: ./ircserv <port> <password>", __FILE__, __LINE__);
 	this->_config = new Configuration();
 	this->_listener = start_listening(this);
+	std::cout << "Server Port = " << _port << "\nServer Password = " << _password << "\nServer IP address = " << _ipaddr << std::endl;
 	setCmdlist();
 }
 
@@ -156,7 +157,6 @@ void	Server::setCmdlist()
 	this->_cmdList.insert(std::make_pair("PART", part));
 	this->_cmdList.insert(std::make_pair("PASS", pass));
 	this->_cmdList.insert(std::make_pair("PING", ping));
-	this->_cmdList.insert(std::make_pair("PONG", pong));
 	this->_cmdList.insert(std::make_pair("PRIVMSG", privmsg));
 	this->_cmdList.insert(std::make_pair("QUIT", quit));
 	this->_cmdList.insert(std::make_pair("USER", user));
@@ -207,6 +207,11 @@ time_t const&	Server::getCreateDate(void) const
 	return (this->_create_date);
 }
 
+std::string const&	Server::getIpaddr(void) const
+{
+	return this->_ipaddr;
+}
+
 void	Server::setPort(int port)
 {
 	this->_port = port;
@@ -220,6 +225,11 @@ void	Server::setPassword(std::string password)
 void	Server::setListener(sockfd listener)
 {
 	this->_listener = listener;
+}
+
+void	Server::setIpaddr(std::string ipaddr)
+{
+	this->_ipaddr = ipaddr;
 }
 
 /* ************************************************************************** */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Configuration.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:34:21 by fboumell          #+#    #+#             */
-/*   Updated: 2022/10/24 15:53:27 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/27 16:10:21 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ std::ostream &			operator<<( std::ostream & o, Configuration const & i )
 	o << "MaxUsers = " << i.getMaxUsers() << std::endl;
 	return o;
 }
-
 
 /*
 ** --------------------------------- METHODS ----------------------------------

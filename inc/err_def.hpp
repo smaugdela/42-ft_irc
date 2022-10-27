@@ -19,7 +19,7 @@
 # define ERR_NEEDMOREPARAMS			"461"		// "<command> :Not enough parameters"
 # define ERR_ALREADYREGISTRED		"462 :Unauthorized command (already registered)"
 
-// Commands errors 
+// Commands errors
 
 # define ERR_NOSUCHNICK				"401"		// "<nickname> :No such nick/channel"		        || the nickname parameter supplied to a command is currently unused.
 # define ERR_NOSUCHCHANNEL			"403"		// "<channel name> :No such channel"		        || the given channel name is invalid.

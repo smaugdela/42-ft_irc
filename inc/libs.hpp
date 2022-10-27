@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libs.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/26 11:04:58 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/27 15:31:59 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,6 @@
 # define RESET "\033[0m"
 
 /* defines */
-# define MAX_BACKLOGS	10	// Maximum of pending connection request on listening socket.
-# define MAX_CLIENTS	42	// Maximum of connected clients.
-# define TIMEOUT		-1	// -1 means no timeout. Value in milliseconds.
 # define BUFFER_SIZE	512
 
 /* typedefs */

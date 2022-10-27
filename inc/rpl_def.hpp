@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rpl_def.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 18:21:26 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 12:46:32 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/27 11:52:42 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,7 @@
 # define RPL_ENDOFINFO  "374"       // ":End of INFO list"
 # define RPL_MOTDSTART  "375"       // ":- <server> Message of the day - "
 # define RPL_ENDOFMOTD  "376"       // ":End of MOTD command"
+
 #endif
+
+// [<prefix>] RPL/ERR <nickname> [<params>]
