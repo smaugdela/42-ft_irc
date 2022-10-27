@@ -6,12 +6,17 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:32:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/26 17:41:54 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/27 15:29:56 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERR_DEF_HPP
 # define ERR_DEF_HPP
+
+//	Commandes responses
+
+# define RPL_LISTEND				"323"		// ":End of LIST"
+
 
 // General errors 
  
