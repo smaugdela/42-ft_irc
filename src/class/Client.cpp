@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 12:08:43 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/27 16:55:55 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ Client::Client( const Client & src ) : _fd(-1)
 	(void)src;
 }
 
-Client::Client(sockfd fd, struct sockaddr *addr) : _fd(fd), _hostname(std::string(inet_ntoa(*reinterpret_cast<struct in_addr*>(addr)))), _connected(true), _authorize(false), _adm(false), _nickname(), _username(), _realname(), _buffer()
+Client::Client(sockfd fd, std::string serveraddr) : _fd(fd), _hostname(serveraddr), _connected(true), _authorize(false), _adm(false), _nickname(), _username(), _realname(), _buffer(), _last_com(time(0))
 {
 }
 
@@ -62,6 +62,11 @@ std::ostream &			operator<<( std::ostream & o, Client const & i )
 ** --------------------------------- METHODS ----------------------------------
 */
 
+void	Client::disconnect(void)
+{
+	this->_connected = false;
+}
+
 void	Client::send_to(std::string msg_str) const
 {
 	if (_connected == false || _authorize == false)
@@ -77,17 +82,16 @@ void	Client::send_to(std::string msg_str) const
 	size_t	actual_len = 0;
 	ssize_t	ret = 0;
 
-	while (actual_len < init_len || (ret == -1 && (errno == EWOULDBLOCK || errno == EAGAIN)))
+	while (actual_len < init_len)
 	{
 		ret = send(this->_fd, &msg[actual_len], init_len - actual_len, MSG_NOSIGNAL);
-		if (ret >= 0)
-			actual_len += ret;
+		if (ret == -1)
+		{
+			std::cout << "Error send(): " << strerror(errno) << std::endl;
+			return ;
+		}
+		actual_len += ret;
 	}
-}
-
-void	Client::disconnect(void)
-{
-	this->_connected = false;
 }
 
 void	Client::welcome(Server *serv) const
@@ -108,6 +112,16 @@ void	Client::welcome(Server *serv) const
 	send_to(str);
 	Message	msg(serv->getUser(_fd), NULL, "MOTD");
 	motd(serv, msg);
+}
+
+void	Client::resetTime(void)
+{
+	_last_com = time(0);
+}
+
+size_t	Client::getLastcom(void) const
+{
+	return (time(0) - this->_last_com);
 }
 
 /*
