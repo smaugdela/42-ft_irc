@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:24:21 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/27 12:33:15 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/27 14:50:48 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 			RPL_MOTDSTART                   RPL_MOTD
 			RPL_ENDOFMOTD                   ERR_NOMOTD */
 
+
 void motd(Server *serv, Message &msg)
 {
 	std::string					str;
@@ -31,19 +32,19 @@ void motd(Server *serv, Message &msg)
 	if (msg.getParams().size() > 1)
 	{
 		str = ERR_NOMOTD;
-		str += " " + msg.getSender()->getNickname() + " :Invalid nickname parameter(s).";
+		str += " " + msg.getSender()->getNickname() + " :Invalid Motd parameter(s).";
 	}
 	else
 	{
-		str = RPL_MOTDSTART;
-		str += " " + msg.getSender()->getNickname() + " :- ";
-		str += serv->getConfig()->getServerName() + " ";
-		str += "Message of the day - ";
-		msg.getSender()->send_to(str.c_str());
-		
 		std::ifstream	ifs("./src/config/motd.txt", std::ifstream::in);
 		if (ifs.good())
 		{
+			str = RPL_MOTDSTART;
+			str += " " + msg.getSender()->getNickname() + " :- ";
+			str += serv->getConfig()->getServerName() + " ";
+			str += "Message of the day - ";
+			msg.getSender()->send_to(str.c_str());
+			
 			std::string	line;
 			while (getline(ifs, line))
 				ret.push_back(line);

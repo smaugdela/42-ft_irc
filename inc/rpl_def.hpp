@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 18:21:26 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 11:35:46 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/27 12:46:32 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define RPL_YOURHOST   "002"		// "Your host is <servername>, running version <ver>"
 # define RPL_CREATED    "003"		// "This server was created <date>"
 # define RPL_MYINFO     "004"		// "<servername> <version> <available user modes> <available channel modes>"
+# define RPL_VERSION    "351"       // "<version>.<debuglevel> <server> :<comments>"
 # define RPL_INFO       "371"       // ":<string>"
 # define RPL_MOTD       "372"       // ":- <text>"
 # define RPL_ENDOFINFO  "374"       // ":End of INFO list"
