@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:01:46 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/25 14:24:24 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/27 18:48:54 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,41 @@
 
 void join(Server *serv, Message &msg)
 {
-	(void)serv;
-	(void)msg;
+	std::string str;
+
+	if (msg.getParams().size() < 1)
+	{
+		str = ERR_NEEDMOREPARAMS;
+		str += " " + msg.getSender()->getNickname() + " :Error need more params.";
+		msg.getSender()->send_to(str);
+		return ;
+	}
+	char *tmp = strdup(msg.getParams()[0].c_str());
+	std::list<std::string> channels = split(tmp, ",");
+	free(tmp);
+	for (std::list<std::string>::iterator it = channels.begin(); it != channels.end(); ++it)
+	{
+		if (serv->getChannel(*it) == NULL)
+		{
+			str = ERR_NOSUCHCHANNEL;
+			str += " " + *it + " :No such channel";
+			msg.getSender()->send_to(str);
+			return ;
+		}
+	}
+	if (msg.getParams().size() == 1 && msg.getParams()[0] == "0")
+	{
+		for (std::list<std::string>::iterator it = channels.begin(); it != channels.end(); ++it)
+		{
+			if (serv->getChannel(*it)->getMember(msg.getSender()->getNickname()) != NULL)
+			{
+				serv->getChannel(*it)->kickMember(msg.getSender());
+				serv->getChannel(*it)->broadcast();					// Continue from here, broadcast to all users that someone left.
+			}
+		}
+	}
+	else
+	{
+
+	}
 }
