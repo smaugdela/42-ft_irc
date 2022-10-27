@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/10/26 14:44:56 by smagdela         ###   ########.fr        #
+#    Updated: 2022/10/27 16:22:27 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,6 @@ SRCS    =	main.cpp \
 			commands/part.cpp \
 			commands/pass.cpp \
 			commands/ping.cpp \
-			commands/pong.cpp \
 			commands/privmsg.cpp \
 			commands/quit.cpp \
 			commands/user.cpp \

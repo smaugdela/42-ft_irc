@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/25 18:36:20 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/27 12:36:12 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ class Server
 		std::map<std::string, ft_cmd> const& 	getCmdList(void) const;
 		Configuration* 							getConfig(void) const;
 		time_t const&							getCreateDate(void) const;
+		std::string const&						getIpaddr(void) const;
 
 		void									setPort(int port);
 		void									setPassword(std::string password);
 		void									setListener(sockfd listener);
+		void									setIpaddr(std::string ipaddr);
 
 	private:
 
@@ -52,8 +54,9 @@ class Server
 
 		int								_port;
 		std::string						_password;
+		std::string						_ipaddr;
 		sockfd							_listener;
-		std::map<std::string, ft_cmd>	_cmdList;   // a init
+		std::map<std::string, ft_cmd>	_cmdList;
 		std::map<sockfd, Client*>		_users;
 		std::map<std::string, Channel*>	_chans;
 		Configuration					*_config;

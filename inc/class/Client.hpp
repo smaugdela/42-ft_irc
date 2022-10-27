@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/26 15:22:39 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/27 15:50:29 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ class Client
 
 	public:
 
-		Client(int fd, struct sockaddr *addr);
+		Client(int fd, std::string serveraddr);
 		~Client();
 
 		void						send_to(std::string msg_str) const;
 		void						disconnect(void);
 		void						welcome(Server *serv) const;
+		void						resetTime(void);
+		size_t						getLastcom(void) const;
 
 		sockfd						getFd(void) const;
 		std::string const&			getNickname(void) const;
@@ -54,6 +56,7 @@ class Client
 		std::string				_username; //username - name you use to login, allows system to identify you
 		std::string				_realname; // real name - this is just additional information about you
 		std::string				_buffer;
+		time_t					_last_com;
 
 		Client();
 		Client( Client const & src );

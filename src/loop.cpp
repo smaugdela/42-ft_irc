@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/26 14:41:24 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/27 15:58:24 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	set_pollfd(Server *serv, std::vector<struct pollfd> &fds)
 		fds.back().fd = it->first;
 		fds.back().events = POLLIN;
 		fds.back().revents = 0;
+		if (it->second->getLastcom() >= serv->getConfig()->getPing())
+			it->second->send_to("PING " + it->second->getNickname());
 	}
 }
 
@@ -33,7 +35,7 @@ static void	remove_deco_users(Server *serv)
 {
 	for (std::map<sockfd, Client*>::const_iterator it = serv->getUsers().begin(); it != serv->getUsers().end(); ++it)
 	{
-		if (it->second->getConnected() == false)
+		if (it->second->getConnected() == false || it->second->getLastcom() >= serv->getConfig()->getPing() + (serv->getConfig()->getTimeout() / 1000))
 		{
 			std::cout << "Client at socket #" << it->first << " disconnected." << std::endl;
 			serv->rmUser(it->second);
@@ -52,7 +54,7 @@ void	server_loop(Server *serv)
 	{
 		set_pollfd(serv, fds);
 
-		poll(fds.data(), fds.size(), TIMEOUT);
+		poll(fds.data(), fds.size(), serv->getConfig()->getTimeout());
 		for (size_t n = 0; n < fds.size(); n++)
 		{
 			if (fds[n].revents != 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   kick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:12:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/26 17:55:51 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/27 17:23:16 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void kick(Server *serv, Message &msg)
 					else 
 					{
 						str = "KICK " + *it + " " + *it2 + " :" + msg.getParams()[2];
+						msg.getSender()->send_to(str.c_str());
 						std::map<sockfd, Client*> tmp2 = serv->getChannel(*it)->getMembers();
 						tmp2.erase(tmp2.find(serv->getUser(*it2)->getFd()));
 					}

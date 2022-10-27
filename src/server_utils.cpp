@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:27:33 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/24 16:30:52 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/27 16:11:30 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ sockfd	start_listening(Server *serv)
 	memset(addr.sin_zero, 0, sizeof(addr.sin_zero));
 
 	shield(bind(sock, reinterpret_cast<struct sockaddr *>(&addr), sizeof(addr)), -1, "bind", __FILE__, __LINE__);
+
+	serv->setIpaddr(std::string(inet_ntoa(*reinterpret_cast<struct in_addr*>(&addr))));
 
 	shield(listen(sock, serv->getConfig()->getMaxBacklogs()), -1, "listen", __FILE__, __LINE__);
 
@@ -160,7 +162,7 @@ void	setConfigData(Configuration *dataConfig)
 		}
 		if (dataConfig->getServerName().empty() || dataConfig->getServerVersion().empty() || dataConfig->getMotd().empty()
 			|| dataConfig->getInfoConfig().empty() || dataConfig->getOperUSer().empty() || dataConfig->getOperPass().empty()
-			|| dataConfig->getPing() == 0 || dataConfig->getTimeout() == 0 || dataConfig->getMaxBacklogs() == 0 || dataConfig->getMaxUsers() == 0)
+			|| dataConfig->getPing() < 10 || dataConfig->getTimeout() == 0 || dataConfig->getMaxBacklogs() == 0 || dataConfig->getMaxUsers() == 0)
 				error_ConfigFile();
 			
 		std::cout << *dataConfig;
