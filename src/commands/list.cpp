@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:04:06 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/27 17:30:54 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/27 17:51:13 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ void list(Server *serv, Message &msg)
 		free(tmp);
 		for (std::list<std::string>::iterator it = channels.begin(); it != channels.end(); ++it)
 		{
-			if (str)
-			str = *it;
-			str += " ";
-			str += (*it)->getMembers.size();
+			if (serv->getChannel(*it) != NULL)
+			{
+				str = *it;
+				str += " ";
+				// str += (*it)->getMembers.size();
+			}
 		}
 	}
 	str = RPL_LISTEND;
