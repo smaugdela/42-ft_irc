@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   part.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:30:34 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 17:39:09 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/10/28 14:31:08 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void part(Server *serv, Message &msg)
 				str += *it + " :No such channel";
 				msg.getSender()->send_to(str.c_str());
 			}
-			if (!serv->getChannel(*it)->getMember(msg.getSender()->getNickname()))
+			else if (!serv->getChannel(*it)->getMember(msg.getSender()->getNickname()))
 			{
 				str = ERR_NOTONCHANNEL;
 				str += " " + msg.getSender()->getNickname() + " ";

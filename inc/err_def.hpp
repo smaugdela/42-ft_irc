@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   err_def.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:32:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/27 15:29:56 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/28 14:29:27 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERR_DEF_HPP
 # define ERR_DEF_HPP
 
+// [<prefix>] RPL/ERR <nickname> [<params>]
+
+
 //	Commandes responses
 
 # define RPL_LISTEND				"323"		// ":End of LIST"
-
 
 // General errors 
  
