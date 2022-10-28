@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rpl_def.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 18:21:26 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 11:52:42 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 15:38:42 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 # define RPL_CREATED    "003"		// "This server was created <date>"
 # define RPL_MYINFO     "004"		// "<servername> <version> <available user modes> <available channel modes>"
 # define RPL_VERSION    "351"       // "<version>.<debuglevel> <server> :<comments>"
+# define RPL_NAMREPLY   "353"       // "( "=" / "*" / "@" ) <channel> :[ "@" / "+" ] <nick> *( " " [ "@" / "+" ] <nick> )   || "@" is used for secret channels, "*" for private channels, and "=" for others (public channels).
+# define RPL_ENDOFNAMES "366"       // "<channel> :End of NAMES list"   ||  To reply to a NAMES message, a reply pair consisting
+                                                                            /*of RPL_NAMREPLY and RPL_ENDOFNAMES is sent by the
+                                                                            server back to the client.  If there is no channel
+                                                                            found as in the query, then only RPL_ENDOFNAMES is*/
 # define RPL_INFO       "371"       // ":<string>"
 # define RPL_MOTD       "372"       // ":- <text>"
 # define RPL_ENDOFINFO  "374"       // ":End of INFO list"
