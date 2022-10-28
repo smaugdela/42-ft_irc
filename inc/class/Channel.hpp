@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:16 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 18:44:40 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:20:45 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ class Channel
 		~Channel();
 
 		void	broadcast(std::string msg_str) const;
+		void	addMember(Client *member);
 		void	kickMember(Client *member);
 
 		std::string const&					getName(void) const;

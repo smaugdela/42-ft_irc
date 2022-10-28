@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:01:46 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/27 18:48:54 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:30:25 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void join(Server *serv, Message &msg)
 			str = ERR_NOSUCHCHANNEL;
 			str += " " + *it + " :No such channel";
 			msg.getSender()->send_to(str);
-			return ;
 		}
 	}
 	if (msg.getParams().size() == 1 && msg.getParams()[0] == "0")
@@ -75,12 +74,21 @@ void join(Server *serv, Message &msg)
 			if (serv->getChannel(*it)->getMember(msg.getSender()->getNickname()) != NULL)
 			{
 				serv->getChannel(*it)->kickMember(msg.getSender());
-				serv->getChannel(*it)->broadcast();					// Continue from here, broadcast to all users that someone left.
+				serv->getChannel(*it)->broadcast("PART " + *it + " :Left all channels");
 			}
 		}
 	}
 	else
 	{
-
+		for (std::list<std::string>::iterator it = channels.begin(); it != channels.end(); ++it)
+		{
+			if ((*it)[0] != '#' && (*it)[0] != '&' && (*it)[0] != '+' && (*it)[0] != '!')
+				it->insert(it->begin(), '#');
+			it->resize(50);
+			serv->addChan(new Channel(*it));
+			serv->getChannel(*it)->addMember(msg.getSender());
+			serv->getChannel(*it)->broadcast("JOIN " + *it)
+			// Add rpl_topic and rpl_namereply to autheticate the user on this channel.
+		}
 	}
 }

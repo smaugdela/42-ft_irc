@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 18:47:42 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:21:55 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ Client *Channel::getMember(std::string member) const
 	if (it == _members.end())
 		return NULL;
 	return it->second;
+}
+
+void	Channel::addMember(Client *member)
+{
+	_members.insert(std::make_pair(member->getFd(), member));
 }
 
 void	Channel::kickMember(Client *member)

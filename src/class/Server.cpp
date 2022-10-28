@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 12:49:50 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:24:25 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,14 @@ Client *Server::getUser(std::string nickname) const
 	if (it == _users.end())
 		return NULL;
 	return it->second;
+}
+
+void	Server::addChan(Channel *new_chan)
+{
+	if (new_chan && _chans.find(new_chan->getName()) == _chans.end())
+		_chans.insert(std::make_pair(new_chan->getName(), new_chan));
+	else if (new_chan)
+		delete new_chan;
 }
 
 Channel*	Server::getChannel(std::string name) const
