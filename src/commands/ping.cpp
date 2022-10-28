@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:10:15 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/27 12:39:41 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 16:40:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,20 @@ void ping(Server *serv, Message &msg)
 	{
 		str = ERR_NOORIGIN;
 		str += " " + msg.getSender()->getNickname() + " :No origin specified";
+		msg.getSender()->send_to(str);
 	}
 	else
 	{
-		if (msg.getParams()[0] != serv->getIpaddr())
+		Client *receiver = serv->getUser(msg.getParams()[0]);
+
+		if (receiver == NULL)
 		{
 			str = ERR_NOSUCHSERVER;
 			str += " " + msg.getSender()->getNickname() + " " + msg.getParams()[0] + " :No such server";
+			receiver = msg.getSender();
 		}
 		else
-			str = "PONG " + msg.getSender()->getNickname() + " :" + msg.getParams()[0];
+			str = "PONG " + receiver->getNickname() + " :" + msg.getParams()[0];
+		receiver->send_to(str);
 	}
-	msg.getSender()->send_to(str);
 }

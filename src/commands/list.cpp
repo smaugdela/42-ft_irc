@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:04:06 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/27 17:51:13 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 16:55:27 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void list(Server *serv, Message &msg)
 		}
 	}
 	str = RPL_LISTEND;
-	str += " :End of LIST.";
+	str += "" + msg.getSender()->getNickname() + " :End of LIST.";
 	msg.getSender()->send_to(str.c_str());
-
 }
