@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/28 16:36:19 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 19:30:19 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ Client::Client( const Client & src ) : _fd(-1)
 	(void)src;
 }
 
-Client::Client(sockfd fd, struct sockaddr_in addr) : _fd(fd), _connected(true), _authorize(false), _adm(false), _nickname(), _username(), _realname(), _buffer(), _last_com(time(0))
+Client::Client(sockfd fd, struct sockaddr_in addr, std::string servername) : _fd(fd), _connected(true), _servername(servername), _authorize(false), _adm(false), _nickname(), _username(), _realname(), _buffer(), _last_com(time(0))
 {
 	char hostname[NI_MAXHOST];
 
@@ -145,6 +145,8 @@ std::string	Client::getPrefix(void) const
 		else
 			prefix += "@" + _hostaddr;
 	}
+	else
+		prefix = ":" + _servername;
 	return (prefix);
 }
 

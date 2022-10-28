@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/28 11:57:33 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 18:48:35 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ class Server
 		Client*		getUser(std::string nickname) const;
 		void		addChan(Channel* new_chan);
 		Channel*	getChannel(std::string name) const;
+		void		rmChan(Channel *chan);
 		void		setCmdlist(void);
 		void		broadcast(std::string msg_str) const;
 

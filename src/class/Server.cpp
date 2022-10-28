@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/28 12:24:25 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 18:50:45 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@ Server::~Server()
 		if (this->_users.begin() == this->_users.end())
 			break;
 		rmUser(this->_users.begin()->second);
+	}
+	size = _chans.size();
+	for (size_t i = 0; i < size ; ++i)
+	{
+		if (this->_chans.begin() == this->_chans.end())
+			break;
+		rmChan(_chans.begin()->second);
 	}
 	delete this->_config;
 }
@@ -141,6 +148,15 @@ Channel*	Server::getChannel(std::string name) const
 	if (ret == _chans.end())
 		return NULL;
 	return ret->second;
+}
+
+void	Server::rmChan(Channel *chan)
+{
+	if (chan != NULL)
+	{
+		_chans.erase(chan->getName());
+		delete chan;
+	}
 }
 
 void	Server::broadcast(std::string msg_str) const
