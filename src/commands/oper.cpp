@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   oper.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:42:57 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/28 14:55:02 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/10/31 16:16:00 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@
 
 void oper(Server *serv, Message &msg)
 {
-	
+	(void)serv;
+	(void)msg;
 }
