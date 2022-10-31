@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 16:55:55 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 19:30:19 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,16 @@ Client::Client( const Client & src ) : _fd(-1)
 	(void)src;
 }
 
-Client::Client(sockfd fd, std::string serveraddr) : _fd(fd), _hostname(serveraddr), _connected(true), _authorize(false), _adm(false), _nickname(), _username(), _realname(), _buffer(), _last_com(time(0))
+Client::Client(sockfd fd, struct sockaddr_in addr, std::string servername) : _fd(fd), _connected(true), _servername(servername), _authorize(false), _adm(false), _nickname(), _username(), _realname(), _buffer(), _last_com(time(0))
 {
+	char hostname[NI_MAXHOST];
+
+	_hostaddr = inet_ntoa(addr.sin_addr);
+
+	if (getnameinfo((struct sockaddr *)&addr, sizeof(addr), hostname, NI_MAXHOST, NULL, 0, NI_NUMERICSERV) != 0)
+		shield(true, true, "getnameinfo", __FILE__, __LINE__);
+	else
+		_hostname = hostname;
 }
 
 /*
@@ -72,8 +80,7 @@ void	Client::send_to(std::string msg_str) const
 	if (_connected == false || _authorize == false)
 		return ;
 
-	if (this->_hostname.size())
-		msg_str = ":" + this->_hostname + " " + msg_str;
+	msg_str = getPrefix() + " " + msg_str;
 	std::cout << "Message to client #" << this->_fd << " (" << this->_nickname << ") >> [" << msg_str << "]" << std::endl;
 	msg_str += "\r\n";
 
@@ -122,6 +129,25 @@ void	Client::resetTime(void)
 size_t	Client::getLastcom(void) const
 {
 	return (time(0) - this->_last_com);
+}
+
+std::string	Client::getPrefix(void) const
+{
+	std::string	prefix = "";
+
+	if (_nickname.size())
+	{
+		prefix = ":" + _nickname;
+		if (_username.size())
+			prefix += "!" + _username;
+		if (_hostname.size())
+			prefix += "@" + _hostname;
+		else
+			prefix += "@" + _hostaddr;
+	}
+	else
+		prefix = ":" + _servername;
+	return (prefix);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 12:36:12 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 18:48:35 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ class Server
 		void		rmUser(Client* user);
 		Client*		getUser(sockfd	fd) const;
 		Client*		getUser(std::string nickname) const;
+		void		addChan(Channel* new_chan);
 		Channel*	getChannel(std::string name) const;
+		void		rmChan(Channel *chan);
 		void		setCmdlist(void);
 		void		broadcast(std::string msg_str) const;
 
@@ -55,12 +57,12 @@ class Server
 		int								_port;
 		std::string						_password;
 		std::string						_ipaddr;
+		Configuration					*_config;
+		time_t							_create_date;
 		sockfd							_listener;
 		std::map<std::string, ft_cmd>	_cmdList;
 		std::map<sockfd, Client*>		_users;
 		std::map<std::string, Channel*>	_chans;
-		Configuration					*_config;
-		time_t							_create_date;
 
 };
 

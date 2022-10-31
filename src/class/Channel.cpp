@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/26 17:47:29 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 18:45:28 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Channel::Channel()
 {
 }
 
-Channel::Channel(std::string name) : _name(name)
+Channel::Channel(std::string name) : _name(name), _topic(), _members()
 {
 }
 
@@ -58,7 +58,6 @@ std::ostream &			operator<<( std::ostream & o, Channel const & i )
 	return o;
 }
 
-
 /*
 ** --------------------------------- METHODS ----------------------------------
 */
@@ -83,6 +82,19 @@ Client *Channel::getMember(std::string member) const
 	return it->second;
 }
 
+void	Channel::addMember(Client *member)
+{
+	_members.insert(std::make_pair(member->getFd(), member));
+}
+
+void	Channel::kickMember(Client *member)
+{
+	if (member != NULL)
+	{
+		_members.erase(member->getFd());
+	}
+}
+
 /*
 ** --------------------------------- ACCESSOR ---------------------------------
 */
@@ -95,6 +107,16 @@ std::string const& Channel::getName(void) const
 std::map<sockfd, Client*> const&	Channel::getMembers(void)
 {
  	return (this->_members);
+}
+
+std::string	const&	Channel::getTopic(void) const
+{
+	return (this->_topic);
+}
+
+void	Channel::setTopic(std::string topic)
+{
+	_topic = topic;
 }
 
 /* ************************************************************************** */

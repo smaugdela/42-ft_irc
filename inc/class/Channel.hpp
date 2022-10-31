@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:16 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 09:50:12 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 14:10:25 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,27 @@ class Channel
 
 	public:
 
-		Channel();
 		Channel(std::string name);
 		~Channel();
 
 		void	broadcast(std::string msg_str) const;
+		void	addMember(Client *member);
+		void	kickMember(Client *member);
 
 		std::string const&					getName(void) const;
 		Client*								getMember(std::string member) const;
 		std::map<sockfd, Client*> const&	getMembers(void);
+		std::string const&					getTopic(void) const;
+		void								setTopic(std::string topic);
 
 	private:
 
+		Channel();
 		Channel( Channel const & src );
 		Channel &operator=( Channel const & rhs );
 
 		std::string					_name;
+		std::string					_topic;
 		std::map<sockfd, Client*>	_members;
 		// Add attributes for the modes
 

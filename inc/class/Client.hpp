@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 15:50:29 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 19:29:04 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class Client
 
 	public:
 
-		Client(int fd, std::string serveraddr);
+		Client(int fd, struct sockaddr_in addr, std::string servername);
 		~Client();
 
 		void						send_to(std::string msg_str) const;
@@ -28,6 +28,7 @@ class Client
 		void						welcome(Server *serv) const;
 		void						resetTime(void);
 		size_t						getLastcom(void) const;
+		std::string					getPrefix(void) const;
 
 		sockfd						getFd(void) const;
 		std::string const&			getNickname(void) const;
@@ -48,8 +49,10 @@ class Client
 	private:
 
 		sockfd const			_fd;
-		std::string const		_hostname;
+		std::string				_hostaddr;
+		std::string				_hostname;
 		bool					_connected;
+		std::string				_servername;
 		bool					_authorize;
 		bool					_adm;	// Operator or not
 		std::string				_nickname; // nickname - name which appears for other users

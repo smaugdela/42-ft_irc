@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:38:00 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/24 13:49:44 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 19:35:50 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,41 @@
 //            RPL_AWAY
 
 void privmsg(Server *serv, Message &msg)
-{(void)serv; (void)msg;}
+{
+	std::string	str;
+
+	if (msg.getParams().size() == 0)
+	{
+		str = ERR_NORECIPIENT;
+		str += " " + msg.getSender()->getNickname() + " :No recipient given PRIVMSG";
+	}
+	else if (msg.getParams().size() == 1)
+	{
+		str = ERR_NOTEXTTOSEND;
+		str += " " + msg.getSender()->getNickname() + " :No text to send";
+	}
+	else if (msg.getParams()[0].find_first_of("#&+!") != 0 && serv->getUser(msg.getParams()[0]) == NULL)
+	{
+		str = ERR_NOSUCHNICK;
+		str += " " + msg.getSender()->getNickname() + " " + msg.getParams()[0] + " :No such nick/channel";
+	}
+	else if (msg.getParams()[0].find_first_of("#&+!") == 0 && serv->getChannel(msg.getParams()[0]) == NULL)
+	{
+		str = ERR_NOSUCHNICK;
+		str += " " + msg.getSender()->getNickname() + " " + msg.getParams()[0] + " :No such nick/channel";
+	}
+	else
+	{
+		if (msg.getParams()[0].find_first_of("#&+!") == 0)
+		{
+			serv->getChannel(msg.getParams()[0])->broadcast("PRIVMSG " + msg.getParams()[0] + " :" + msg.getParams()[1]);
+			return ;
+		}
+		else
+		{
+			serv->getUser(msg.getParams()[0])->send_to("PRIVMSG " + msg.getParams()[0] + " :" + msg.getParams()[1]);
+			return ;
+		}
+	}
+	msg.getSender()->send_to(str);
+}

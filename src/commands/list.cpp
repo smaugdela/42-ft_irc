@@ -53,7 +53,6 @@ void list(Server *serv, Message &msg)
 			}
 		}
 	str = RPL_LISTEND;
-	str += " :End of LIST.";
+	str += "" + msg.getSender()->getNickname() + " :End of LIST.";
 	msg.getSender()->send_to(str.c_str());
-
 }

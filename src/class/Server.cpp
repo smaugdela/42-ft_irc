@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 12:49:50 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 18:50:45 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@ Server::~Server()
 		if (this->_users.begin() == this->_users.end())
 			break;
 		rmUser(this->_users.begin()->second);
+	}
+	size = _chans.size();
+	for (size_t i = 0; i < size ; ++i)
+	{
+		if (this->_chans.begin() == this->_chans.end())
+			break;
+		rmChan(_chans.begin()->second);
 	}
 	delete this->_config;
 }
@@ -125,6 +132,14 @@ Client *Server::getUser(std::string nickname) const
 	return it->second;
 }
 
+void	Server::addChan(Channel *new_chan)
+{
+	if (new_chan && _chans.find(new_chan->getName()) == _chans.end())
+		_chans.insert(std::make_pair(new_chan->getName(), new_chan));
+	else if (new_chan)
+		delete new_chan;
+}
+
 Channel*	Server::getChannel(std::string name) const
 {
 	std::map<std::string, Channel*>::const_iterator	ret;
@@ -133,6 +148,15 @@ Channel*	Server::getChannel(std::string name) const
 	if (ret == _chans.end())
 		return NULL;
 	return ret->second;
+}
+
+void	Server::rmChan(Channel *chan)
+{
+	if (chan != NULL)
+	{
+		_chans.erase(chan->getName());
+		delete chan;
+	}
 }
 
 void	Server::broadcast(std::string msg_str) const

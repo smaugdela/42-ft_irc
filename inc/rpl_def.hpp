@@ -13,10 +13,13 @@
 #ifndef RPL_DEF_HPP
 # define RPL_DEF_HPP
 
+// [<prefix>] RPL/ERR <nickname> [<params>]
+
 # define RPL_WELCOME    "001"		// "Welcome to the Internet Relay Network <nick>!<user>@<host>"
 # define RPL_YOURHOST   "002"		// "Your host is <servername>, running version <ver>"
 # define RPL_CREATED    "003"		// "This server was created <date>"
 # define RPL_MYINFO     "004"		// "<servername> <version> <available user modes> <available channel modes>"
+# define RPL_TOPIC		"332"		// "<channel> :<topic>"
 # define RPL_VERSION    "351"       // "<version>.<debuglevel> <server> :<comments>"
 # define RPL_NAMREPLY   "353"       // "( "=" / "*" / "@" ) <channel> :[ "@" / "+" ] <nick> *( " " [ "@" / "+" ] <nick> )   || "@" is used for secret channels, "*" for private channels, and "=" for others (public channels).
 # define RPL_ENDOFNAMES "366"       // "<channel> :End of NAMES list"   ||  To reply to a NAMES message, a reply pair consisting
@@ -30,5 +33,3 @@
 # define RPL_ENDOFMOTD  "376"       // ":End of MOTD command"
 
 #endif
-
-// [<prefix>] RPL/ERR <nickname> [<params>]

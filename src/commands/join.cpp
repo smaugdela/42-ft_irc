@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:01:46 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/25 14:24:24 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 16:42:47 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,61 @@
 
 void join(Server *serv, Message &msg)
 {
-	(void)serv;
-	(void)msg;
+	std::string str;
+
+	if (msg.getParams().size() < 1)
+	{
+		str = ERR_NEEDMOREPARAMS;
+		str += " " + msg.getSender()->getNickname() + " :Error need more params.";
+		msg.getSender()->send_to(str);
+		return ;
+	}
+	char *tmp = strdup(msg.getParams()[0].c_str());
+	std::list<std::string> channels = split(tmp, ",");
+	free(tmp);
+	if (msg.getParams().size() == 1 && msg.getParams()[0] == "0")
+	{
+		for (std::list<std::string>::iterator it = channels.begin(); it != channels.end(); ++it)
+		{
+			if (serv->getChannel(*it) == NULL)
+			{
+				str = ERR_NOSUCHCHANNEL;
+				str += " " + *it + " :No such channel";
+				msg.getSender()->send_to(str);
+				it = channels.erase(it);
+				it = channels.begin();
+				if (it == channels.end())
+					break ;
+			}
+		}
+		for (std::list<std::string>::iterator it = channels.begin(); it != channels.end(); ++it)
+		{
+			if (serv->getChannel(*it)->getMember(msg.getSender()->getNickname()) != NULL)
+			{
+				serv->getChannel(*it)->kickMember(msg.getSender());
+				serv->getChannel(*it)->broadcast("PART " + *it + " :Left all channels");
+			}
+		}
+	}
+	else
+	{
+		std::string	str;
+
+		for (std::list<std::string>::iterator it = channels.begin(); it != channels.end(); ++it)
+		{
+			if ((*it)[0] != '#' && (*it)[0] != '&' && (*it)[0] != '+' && (*it)[0] != '!')
+				it->insert(it->begin(), '#');
+			it->resize(50);
+			serv->addChan(new Channel(*it));
+			serv->getChannel(*it)->addMember(msg.getSender());
+			serv->getChannel(*it)->broadcast("JOIN " + *it);
+
+			str = RPL_TOPIC;
+			msg.getSender()->send_to(str + " " + *it + " :" + serv->getChannel(*it)->getTopic());
+
+			Message names_msg(msg.getSender(), NULL, "NAMES " + *it);
+			names_msg.parse_msg();
+			names(serv, names_msg);
+		}
+	}
 }
