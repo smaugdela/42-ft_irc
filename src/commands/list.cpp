@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:04:06 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/28 16:55:27 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/10/28 14:49:38 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,31 @@
 void list(Server *serv, Message &msg)
 {
 	std::string str;
+	char *tmp = strdup(msg.getParams()[0].c_str());
+	std::list<std::string> channels = split(tmp, ",");
+	free(tmp);
 	if ((msg.getParams().size() == 1) && msg.getParams()[0] != "")
 	{
-		char *tmp = strdup(msg.getParams()[0].c_str());
-		std::list<std::string> channels = split(tmp, ",");
-		free(tmp);
 		for (std::list<std::string>::iterator it = channels.begin(); it != channels.end(); ++it)
 		{
 			if (serv->getChannel(*it) != NULL)
 			{
 				str = *it;
 				str += " ";
-				// str += (*it)->getMembers.size();
+				str += serv->getChannel(*it)->getMembers().size();
 			}
 		}
 	}
+	else
+		for (std::list<std::string>::iterator it = channels.begin(); it != channels.end(); ++it)
+		{
+			if (serv->getChannel(*it) != NULL)
+			{
+				str = *it;
+				str += " ";
+				str += serv->getChannel(*it)->getMembers().size();
+			}
+		}
 	str = RPL_LISTEND;
 	str += "" + msg.getSender()->getNickname() + " :End of LIST.";
 	msg.getSender()->send_to(str.c_str());

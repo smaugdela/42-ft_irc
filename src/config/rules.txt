@@ -2,7 +2,7 @@ Rules of the configuration file :
 
     * All the variables must be declared (see file.config).
     * Ping Should not be less than 10 seconds.
-    * Timeout is in microseconds (Cannot be 0 ms, put to -1 if you don't want any timeout).
+    * Timeout is in milliseconds (Cannot be 0 ms, put to -1 if you don't want any timeout).
     * 
     *
 
