@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   names.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:19:43 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/31 16:15:43 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/01 14:53:50 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,21 @@
 void names(Server *serv, Message &msg)
 {
     std::string str;
-
     (void)serv;
-	(void)msg;
+    (void)msg;
+
+    // if (msg.getParams().size() == 0)
+    // {
+    //     std::map<std::string, Channel*> chans = serv->getChans();
+    //     std::map<std::string, Channel*>::iterator it = chans.begin();
+    //     for(; it != chans.end(); it++)
+    //     {
+    //         std::map<sockfd, Client*> members = serv->getChannel(*it)->getMembers();
+    //         std::map<sockfd, Client*>::iterator it2 = members.begin();
+    //         for (; it2 != members.end(); it2++)
+    //         {
+                
+    //         }
+    //     }
+    // }
 }
