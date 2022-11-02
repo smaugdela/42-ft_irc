@@ -2,11 +2,8 @@
 By [ajealcat](https://github.com/ajealcat), [fahima8897](https://github.com/fahima8897) and [smaugdela](https://github.com/smaugdela)
 
 ## TODO
-- Check how to do the full prefix (nick!name@host) and if it is compatible with channel brodacast(), server brodcast() AND Client::send_to().
-- Check how other projects tackle the IP address of hostname (especially how it detects localhost).
-- Implement channels.
-- join.
-- privmsg.
+- Revise well the (full prefix) initialisation of host.
+- Debug privmsg by reformating Channel::broadcast() (probably need to extract the send() part of the Client::send_to() method, and use it with a different way to build prefixes specifically for channels).
 - Check leaks.
 
 Whoever reads this, have a good day!

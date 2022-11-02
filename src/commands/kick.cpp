@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   kick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:12:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/27 17:23:16 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/02 01:52:37 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void kick(Server *serv, Message &msg)
 				if (!serv->getChannel(*it))
 				{
 						str =  ERR_NOSUCHCHANNEL;
+						str += " " + msg.getSender()->getNickname();
 						str += " ";
 						str += *it;
 						str += ": No such channel.";
@@ -66,7 +67,8 @@ void kick(Server *serv, Message &msg)
 				if (msg.getSender()->getAdm() == false) // verifier dans le channel
 				{
 						str = ERR_CHANOPRIVSNEEDED;
-						str += *it;
+						str += " " + msg.getSender()->getNickname();
+						str += " " + *it;
 						str += " :You're not channel operator";
 						msg.getSender()->send_to(str.c_str());
 
@@ -76,8 +78,8 @@ void kick(Server *serv, Message &msg)
 					if (!serv->getUser(*it))
 					{
 						str = ERR_USERNOTINCHANNEL;
-						str += " ";
-						str += *it2 + *it;
+						str += " " + msg.getSender()->getNickname();
+						str += " " + *it2 + " " + *it;
 						str += " :They aren't on that channel.";
 						msg.getSender()->send_to(str.c_str());
 					}
