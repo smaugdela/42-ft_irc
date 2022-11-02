@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:41:25 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 12:09:27 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/02 13:57:53 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	                error_ConfigFile(void);
 std::list<std::string>  split(char *str, const char *delim);
 std::string             get_time_compilation();
 std::vector<std::string>	parse_file_info(Server *serv);
+void					my_send(Client const *client, std::string msg_str);
 
 /* Commandes */
 

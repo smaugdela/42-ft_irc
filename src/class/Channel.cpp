@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/28 18:45:28 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/02 13:59:40 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ Channel::~Channel()
 {
 }
 
-
 /*
 ** --------------------------------- OVERLOAD ---------------------------------
 */
@@ -67,7 +66,7 @@ void	Channel::broadcast(std::string msg_str) const
 	std::map<sockfd, Client*>::const_iterator it;
 
 	for (it = _members.begin(); it != _members.end(); ++it)
-		it->second->send_to(msg_str);
+		my_send(it->second, msg_str);
 }
 
 Client *Channel::getMember(std::string member) const

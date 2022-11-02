@@ -1,3 +1,4 @@
+ 
 ------------------- INFO ------------------
 Project     : ft_irc / 42-Cursus
 Server name : $SERVER_NAME
@@ -12,3 +13,4 @@ Brought into the world by :
     - Fahima Boumellil <fboumell@student.42.fr>
  
 Thanks for using our server!
+ 
