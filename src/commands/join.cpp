@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:01:46 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/28 16:42:47 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/02 14:04:08 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void join(Server *serv, Message &msg)
 			if (serv->getChannel(*it)->getMember(msg.getSender()->getNickname()) != NULL)
 			{
 				serv->getChannel(*it)->kickMember(msg.getSender());
-				serv->getChannel(*it)->broadcast("PART " + *it + " :Left all channels");
+				serv->getChannel(*it)->broadcast(msg.getSender()->getPrefix() + " PART " + *it + " :Left all channels");
 			}
 		}
 	}
@@ -93,7 +93,7 @@ void join(Server *serv, Message &msg)
 			it->resize(50);
 			serv->addChan(new Channel(*it));
 			serv->getChannel(*it)->addMember(msg.getSender());
-			serv->getChannel(*it)->broadcast("JOIN " + *it);
+			serv->getChannel(*it)->broadcast(msg.getSender()->getPrefix() + " JOIN " + *it);
 
 			str = RPL_TOPIC;
 			msg.getSender()->send_to(str + " " + *it + " :" + serv->getChannel(*it)->getTopic());

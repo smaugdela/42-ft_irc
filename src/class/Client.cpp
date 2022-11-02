@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/28 19:30:19 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/02 14:57:07 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ Client::Client(sockfd fd, struct sockaddr_in addr, std::string servername) : _fd
 
 	_hostaddr = inet_ntoa(addr.sin_addr);
 
-	if (getnameinfo((struct sockaddr *)&addr, sizeof(addr), hostname, NI_MAXHOST, NULL, 0, NI_NUMERICSERV) != 0)
+	if (getnameinfo((struct sockaddr *)&addr, sizeof(addr), hostname, NI_MAXHOST, NULL, 0, 0) != 0)
 		shield(true, true, "getnameinfo", __FILE__, __LINE__);
 	else
 		_hostname = hostname;
@@ -77,28 +77,8 @@ void	Client::disconnect(void)
 
 void	Client::send_to(std::string msg_str) const
 {
-	if (_connected == false || _authorize == false)
-		return ;
-
 	msg_str = getPrefix() + " " + msg_str;
-	std::cout << "Message to client #" << this->_fd << " (" << this->_nickname << ") >> [" << msg_str << "]" << std::endl;
-	msg_str += "\r\n";
-
-	const char*	msg = msg_str.c_str();
-	size_t	init_len = strlen(msg);
-	size_t	actual_len = 0;
-	ssize_t	ret = 0;
-
-	while (actual_len < init_len)
-	{
-		ret = send(this->_fd, &msg[actual_len], init_len - actual_len, MSG_NOSIGNAL);
-		if (ret == -1)
-		{
-			std::cout << "Error send(): " << strerror(errno) << std::endl;
-			return ;
-		}
-		actual_len += ret;
-	}
+	my_send(this, msg_str);
 }
 
 void	Client::welcome(Server *serv) const

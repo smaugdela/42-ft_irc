@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/10/27 16:22:27 by smagdela         ###   ########.fr        #
+#    Updated: 2022/11/02 14:39:08 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS    =	main.cpp \
 			serv_receive.cpp \
 			server_utils.cpp \
 			split.cpp \
+			my_send.cpp \
 			class/Client.cpp \
 			class/Channel.cpp \
 			class/Server.cpp \
