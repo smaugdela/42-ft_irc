@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:30:34 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/01 15:03:09 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/02 13:26:14 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void part(Server *serv, Message &msg)
 				msg.getSender()->send_to(str.c_str());
 				std::map<sockfd, Client*> tmp2 = serv->getChannel(*it)->getMembers();
 				tmp2.erase(tmp2.find(serv->getUser(msg.getSender()->getNickname())->getFd()));
+				if (tmp2.size() == 0)
+					serv->rmChan(serv->getChannel(*it));
 			}
 		}
 	}

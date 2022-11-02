@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:19:43 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/01 14:53:50 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/02 16:01:26 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
     By using the NAMES command, a user can list all nicknames that are
     visible to him. For more details on what is visible and what is not,
-    see "Internet Relay Chat: Channel Management" [IRC-CHAN].  The
-    <channel> parameter specifies which channel(s) to return information
+    see "Internet Relay Chat: Channel Management" [IRC-CHAN].  
+    The <channel> parameter specifies which channel(s) to return information
     about.  There is no error reply for bad channel names.
     If no <channel> parameter is given, a list of all channels and their
     occupants is returned.  At the end of this list, a list of users who
@@ -36,21 +36,48 @@
 void names(Server *serv, Message &msg)
 {
     std::string str;
-    (void)serv;
-    (void)msg;
 
-    // if (msg.getParams().size() == 0)
-    // {
-    //     std::map<std::string, Channel*> chans = serv->getChans();
-    //     std::map<std::string, Channel*>::iterator it = chans.begin();
-    //     for(; it != chans.end(); it++)
-    //     {
-    //         std::map<sockfd, Client*> members = serv->getChannel(*it)->getMembers();
-    //         std::map<sockfd, Client*>::iterator it2 = members.begin();
-    //         for (; it2 != members.end(); it2++)
-    //         {
-                
-    //         }
-    //     }
-    // }
+    if (msg.getParams().size() == 0)
+    {
+        std::map<std::string, Channel*> chans = serv->getChans();
+        std::map<std::string, Channel*>::iterator it = chans.begin();
+        for(; it != chans.end(); it++)
+        {
+            std::map<sockfd, Client*> members = serv->getChannel(it->first)->getMembers();
+            std::map<sockfd, Client*>::iterator it2 = members.begin();
+            str = RPL_NAMREPLY;
+            str += " " + msg.getSender()->getNickname() + " =" + it->first + " :";
+            for (; it2 != members.end(); it2++)
+                str += it2->second->getNickname() + " ";
+            msg.getSender()->send_to(str.c_str());
+        }
+        str = RPL_ENDOFNAMES;
+        str += " " + msg.getSender()->getNickname() + " ";
+        str += it->first + ":End of NAMES list";
+        msg.getSender()->send_to(str.c_str());
+    }
+    else
+    {
+        char *tmp = strdup(msg.getParams()[0].c_str());
+        std::list<std::string> channels = split(tmp, ",");
+        free(tmp);
+        std::list<std::string>::iterator it = channels.begin();
+        for (; it != channels.end(); it++)
+        {
+            if (serv->getChannel(*it) != NULL)
+            {
+                std::map<sockfd, Client*> members = serv->getChannel(*it)->getMembers();
+                std::map<sockfd, Client*>::iterator it2 = members.begin();
+                str = RPL_NAMREPLY;
+                str += " " + msg.getSender()->getNickname() + " =" + *it + " :";
+                for (; it2 != members.end(); it2++)
+                    str += it2->second->getNickname() + " ";
+                msg.getSender()->send_to(str.c_str());
+            }
+        }
+        str = RPL_ENDOFNAMES;
+        str += " " + msg.getSender()->getNickname() + " ";
+        str += *it + ":End of NAMES list";
+        msg.getSender()->send_to(str.c_str());
+    }
 }
