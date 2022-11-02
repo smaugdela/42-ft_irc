@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/11/02 14:39:08 by smagdela         ###   ########.fr        #
+#    Updated: 2022/11/02 15:37:55 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 #       Variables       #
 #################
 
-BIN     =       ircserv
+BIN     =	ircserv
 
 INCS    = 	libs.hpp \
 			proto.hpp \
