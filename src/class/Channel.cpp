@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/02 13:59:40 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:03:53 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ Client *Channel::getMember(std::string member) const
 	std::map<sockfd, Client*>::const_iterator	it;
 
 	for (it = _members.begin(); it != _members.end(); ++it)
+	{
 		if (it->second->getNickname() == member)
 			break ;
+	}
 	if (it == _members.end())
 		return NULL;
 	return it->second;

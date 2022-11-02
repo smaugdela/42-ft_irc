@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   names.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:19:43 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/02 16:01:26 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:55:31 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
             RPL_NAMREPLY                    RPL_ENDOFNAMES
 */
 
-
+// Check for '@' addition in the packet for the first member.
 void names(Server *serv, Message &msg)
 {
     std::string str;
@@ -50,34 +50,34 @@ void names(Server *serv, Message &msg)
             for (; it2 != members.end(); it2++)
                 str += it2->second->getNickname() + " ";
             msg.getSender()->send_to(str.c_str());
+			str = RPL_ENDOFNAMES;
+			str += " " + msg.getSender()->getNickname() + " ";
+			str += it->first + ":End of NAMES list";
+			msg.getSender()->send_to(str.c_str());
         }
-        str = RPL_ENDOFNAMES;
-        str += " " + msg.getSender()->getNickname() + " ";
-        str += it->first + ":End of NAMES list";
-        msg.getSender()->send_to(str.c_str());
     }
     else
     {
         char *tmp = strdup(msg.getParams()[0].c_str());
         std::list<std::string> channels = split(tmp, ",");
         free(tmp);
-        std::list<std::string>::iterator it = channels.begin();
-        for (; it != channels.end(); it++)
+
+	    for (std::list<std::string>::iterator it = channels.begin(); it != channels.end(); it++)
         {
             if (serv->getChannel(*it) != NULL)
             {
-                std::map<sockfd, Client*> members = serv->getChannel(*it)->getMembers();
+	            std::map<sockfd, Client*> members = serv->getChannel(*it)->getMembers();
                 std::map<sockfd, Client*>::iterator it2 = members.begin();
                 str = RPL_NAMREPLY;
-                str += " " + msg.getSender()->getNickname() + " =" + *it + " :";
+                str += " " + msg.getSender()->getNickname() + " = " + *it + " :";
                 for (; it2 != members.end(); it2++)
                     str += it2->second->getNickname() + " ";
-                msg.getSender()->send_to(str.c_str());
+				msg.getSender()->send_to(str.c_str());
+				str = RPL_ENDOFNAMES;
+				str += " " + msg.getSender()->getNickname() + " ";
+				str += *it + " :End of NAMES list";
+				msg.getSender()->send_to(str.c_str());
             }
         }
-        str = RPL_ENDOFNAMES;
-        str += " " + msg.getSender()->getNickname() + " ";
-        str += *it + ":End of NAMES list";
-        msg.getSender()->send_to(str.c_str());
     }
 }

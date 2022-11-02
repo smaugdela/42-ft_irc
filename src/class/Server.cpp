@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/28 18:50:45 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:43:03 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,10 @@ Client *Server::getUser(std::string nickname) const
 	std::map<sockfd, Client*>::const_iterator	it;
 
 	for (it = _users.begin(); it != _users.end(); ++it)
+	{
 		if (it->second->getNickname() == nickname)
 			break ;
+	}
 	if (it == _users.end())
 		return NULL;
 	return it->second;
@@ -134,9 +136,11 @@ Client *Server::getUser(std::string nickname) const
 
 void	Server::addChan(Channel *new_chan)
 {
-	if (new_chan && _chans.find(new_chan->getName()) == _chans.end())
+	if (new_chan == NULL)
+		return ;
+	else if (_chans.find(new_chan->getName()) == _chans.end())
 		_chans.insert(std::make_pair(new_chan->getName(), new_chan));
-	else if (new_chan)
+	else
 		delete new_chan;
 }
 
@@ -144,8 +148,13 @@ Channel*	Server::getChannel(std::string name) const
 {
 	std::map<std::string, Channel*>::const_iterator	ret;
 
-	ret = _chans.find(name);
-	if (ret == _chans.end())
+	for (ret = this->_chans.begin(); ret != this->_chans.end(); ret++)
+	{
+		if (ret->second->getName() == name && ret->first == name)
+			break ;
+	}
+
+	if (ret == this->_chans.end())
 		return NULL;
 	return ret->second;
 }
