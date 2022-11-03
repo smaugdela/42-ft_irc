@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:04:06 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/03 14:57:54 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/11/03 16:19:27 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@
 void list(Server *serv, Message &msg)
 {
 	std::string str;
+
 	if (msg.getParams().size() == 0)
 	{
 		for (std::map<std::string, Channel*>::const_iterator it = serv->getChans().begin(); it != serv->getChans().end(); ++it)
 		{
 			str = RPL_LIST;
-			str += " " + it->second->getName() + " " + std::to_string(it->second->getMembers().size());
+			char *tmp = ft_utoa(it->second->getMembers().size());
+			str += " " + msg.getSender()->getNickname() + " " + it->second->getName() + " " + tmp;
+			free(tmp);
 			msg.getSender()->send_to(str);
 		}
 	}
@@ -46,12 +49,14 @@ void list(Server *serv, Message &msg)
 			if (serv->getChannel(*it) != NULL)
 			{
 				str = RPL_LIST;
-				str += " " + *it;
-				str += " " + std::to_string(serv->getChannel(*it)->getMembers().size());
+				char *tmp = ft_utoa(serv->getChannel(*it)->getMembers().size());
+				str += " " + msg.getSender()->getNickname() + " " + *it + " " + tmp;
+				free(tmp);
+				msg.getSender()->send_to(str);
 			}
 		}
 	}
 	str = RPL_LISTEND;
-	str += "" + msg.getSender()->getNickname() + " :End of LIST.";
+	str += " " + msg.getSender()->getNickname() + " :End of LIST.";
 	msg.getSender()->send_to(str);
 }

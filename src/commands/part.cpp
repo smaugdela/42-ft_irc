@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   part.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:30:34 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/03 14:35:26 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/03 16:24:07 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void part(Server *serv, Message &msg)
 		str = ERR_NEEDMOREPARAMS;
 		str += " " + msg.getSender()->getNickname() + " ";
 		str += ":Error need more params.";
+		msg.getSender()->send_to(str);
 	}
 	else
 	{
@@ -52,25 +53,27 @@ void part(Server *serv, Message &msg)
 				str = ERR_NOSUCHCHANNEL;
 				str += " " + msg.getSender()->getNickname() + " ";
 				str += *it + " :No such channel";
-				msg.getSender()->send_to(str.c_str());
+				msg.getSender()->send_to(str);
 			}
 			else if (!serv->getChannel(*it)->getMember(msg.getSender()->getNickname()))
 			{
 				str = ERR_NOTONCHANNEL;
 				str += " " + msg.getSender()->getNickname() + " ";
 				str += *it + " " + ":You're not on that channel";
-				msg.getSender()->send_to(str.c_str());
+				msg.getSender()->send_to(str);
 			}
 			else
 			{
-				str = "PART " + *it + " " + msg.getParams()[1];
-				msg.getSender()->send_to(str.c_str());
-				std::map<sockfd, Client*> tmp2 = serv->getChannel(*it)->getMembers();
-				tmp2.erase(tmp2.find(serv->getUser(msg.getSender()->getNickname())->getFd()));
-				// if (tmp2.size() == 0)
-				// 	serv->rmChan(serv->getChannel(*it));
+				str = "PART " + *it;
+				if (msg.getParams().size() == 2)
+					str += " " + msg.getParams()[1];
+				msg.getSender()->send_to(str);
+				serv->getChannel(*it)->kickMember(msg.getSender());
+				serv->getChannel(*it)->broadcast(msg.getSender(), str);
+				if (serv->getChannel(*it)->getMembers().size() == 0)
+					serv->rmChan(serv->getChannel(*it));
+				return ;
 			}
 		}
 	}
-	msg.getSender()->send_to(str.c_str());
 }
