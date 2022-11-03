@@ -62,7 +62,7 @@ void join(Server *serv, Message &msg)
 			if (it->second->getMember(msg.getSender()->getNickname()) != NULL)
 			{
 				it->second->kickMember(msg.getSender());
-				it->second->broadcast(msg.getSender()->getPrefix() + " PART " + msg.getSender()->getNickname() + " :Left all channels");
+				it->second->broadcast(msg.getSender(), "PART " + msg.getSender()->getNickname() + " :Left all channels");
 			}
 		}
 	}
@@ -89,6 +89,7 @@ void join(Server *serv, Message &msg)
 			names_msg.parse_msg();
 			names(serv, names_msg);
 
+			serv->getChannel(*it)->broadcast(msg.getSender(), "JOIN " + *it);
 		}
 	}
 }

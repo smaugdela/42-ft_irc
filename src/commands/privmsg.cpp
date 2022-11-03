@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:38:00 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/02 17:45:42 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/03 14:30:07 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,17 @@ void privmsg(Server *serv, Message &msg)
 	}
 	else
 	{
+		size_t start = msg.getMessage().find(':', msg.getPrefix().size() + msg.getCommand().size() + msg.getParams()[0].size());
+		std::string	text(msg.getMessage().substr(start));
+
 		if (msg.getParams()[0].find_first_of("#&+!") == 0)
 		{
-			serv->getChannel(msg.getParams()[0])->broadcast(msg.getSender()->getPrefix() + " PRIVMSG " + msg.getParams()[0] + " " + msg.getParams()[1]);
+			serv->getChannel(msg.getParams()[0])->broadcast(msg.getSender(), "PRIVMSG " + msg.getParams()[0] + " " + text);
 			return ;
 		}
 		else
 		{
-			serv->getUser(msg.getParams()[0])->send_to("PRIVMSG " + msg.getParams()[0] + " :" + msg.getParams()[1]);
+			serv->getUser(msg.getParams()[0])->send_to("PRIVMSG " + msg.getParams()[0] + " " + text);
 			return ;
 		}
 	}

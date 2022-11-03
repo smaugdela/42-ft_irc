@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/02 17:03:53 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/03 14:29:45 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,23 @@ std::ostream &			operator<<( std::ostream & o, Channel const & i )
 ** --------------------------------- METHODS ----------------------------------
 */
 
-void	Channel::broadcast(std::string msg_str) const
+/*
+Will send to all the members of this channel a message from Client 'sender' with the correct prefix,
+except himself (as he does not need to receive its own messages).
+*/
+void	Channel::broadcast(Client *sender, std::string msg_str) const
 {
+	if (sender == NULL)
+		return ;
+
 	std::map<sockfd, Client*>::const_iterator it;
+	msg_str = sender->getPrefix() + " " + msg_str;
 
 	for (it = _members.begin(); it != _members.end(); ++it)
-		my_send(it->second, msg_str);
+	{
+		if (it->second != sender)
+			my_send(it->second, msg_str);
+	}
 }
 
 Client *Channel::getMember(std::string member) const
