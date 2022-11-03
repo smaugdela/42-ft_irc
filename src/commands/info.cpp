@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:06:36 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/26 16:17:29 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/03 11:48:41 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void info(Server *serv, Message &msg)
 		}
 		str = RPL_ENDOFINFO;
         str += " " + msg.getSender()->getNickname() + " ";
-        str += ":End of INFO list";
+        str += ":End of /INFO list";
     }
     msg.getSender()->send_to(str.c_str());
 }

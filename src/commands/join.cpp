@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:01:46 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/03 14:29:34 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/03 14:41:07 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void join(Server *serv, Message &msg)
 			serv->addChan(new Channel(*it));
 			serv->getChannel(*it)->addMember(msg.getSender());
 
+			serv->getChannel(*it)->broadcast(msg.getSender()->getPrefix() + " JOIN " + *it);
 			str = RPL_TOPIC;
 			msg.getSender()->send_to(str + " " + *it + " :" + serv->getChannel(*it)->getTopic());
 
