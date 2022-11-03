@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:01:46 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/02 17:42:14 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/03 14:29:34 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void join(Server *serv, Message &msg)
 			if (it->second->getMember(msg.getSender()->getNickname()) != NULL)
 			{
 				it->second->kickMember(msg.getSender());
-				it->second->broadcast(msg.getSender()->getPrefix() + " PART " + msg.getSender()->getNickname() + " :Left all channels");
+				it->second->broadcast(msg.getSender(), "PART " + msg.getSender()->getNickname() + " :Left all channels");
 			}
 		}
 	}
@@ -88,7 +88,7 @@ void join(Server *serv, Message &msg)
 			names_msg.parse_msg();
 			names(serv, names_msg);
 
-			serv->getChannel(*it)->broadcast(msg.getSender()->getPrefix() + " JOIN " + *it);
+			serv->getChannel(*it)->broadcast(msg.getSender(), "JOIN " + *it);
 		}
 	}
 }
