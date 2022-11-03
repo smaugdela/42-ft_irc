@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:38:00 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/03 14:30:07 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/03 16:56:55 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void privmsg(Server *serv, Message &msg)
 		}
 		else
 		{
-			serv->getUser(msg.getParams()[0])->send_to("PRIVMSG " + msg.getParams()[0] + " " + text);
+			my_send(serv->getUser(msg.getParams()[0]), msg.getSender()->getPrefix() + " PRIVMSG " + msg.getParams()[0] + " " + text);
 			return ;
 		}
 	}

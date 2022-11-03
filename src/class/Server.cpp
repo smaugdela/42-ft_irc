@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/02 17:43:03 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/03 16:36:34 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ void	Server::setCmdlist()
 	this->_cmdList.insert(std::make_pair("QUIT", quit));
 	this->_cmdList.insert(std::make_pair("USER", user));
 	this->_cmdList.insert(std::make_pair("VERSION", version));
+	this->_cmdList.insert(std::make_pair("NOTICE", notice));
 }
 
 /*

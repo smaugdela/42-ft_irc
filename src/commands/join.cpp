@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:01:46 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/03 16:03:07 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/03 17:25:26 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ void join(Server *serv, Message &msg)
 			serv->addChan(new Channel(*it));
 			serv->getChannel(*it)->addMember(msg.getSender());
 
+			msg.getSender()->send_to("JOIN " + *it);
+			serv->getChannel(*it)->broadcast(msg.getSender(), "JOIN " + *it);
+
 			Message names_msg(msg.getSender(), NULL, "NAMES " + *it);
 			names_msg.parse_msg();
 			names(serv, names_msg);
-
-			msg.getSender()->send_to("JOIN " + *it);
-			serv->getChannel(*it)->broadcast(msg.getSender(), "JOIN " + *it);
 		}
 	}
 }

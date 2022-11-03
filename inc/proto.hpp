@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:41:25 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/03 15:32:30 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/03 16:36:13 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void privmsg(Server *serv, Message &msg);
 void quit(Server *serv, Message &msg);
 void user(Server *serv, Message &msg);
 void version(Server *serv, Message &msg);
+void notice(Server *serv, Message &msg);
 
 #endif

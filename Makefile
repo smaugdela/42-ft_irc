@@ -6,7 +6,7 @@
 #    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/11/03 15:38:22 by smagdela         ###   ########.fr        #
+#    Updated: 2022/11/03 16:36:51 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRCS    =	main.cpp \
 			commands/quit.cpp \
 			commands/user.cpp \
 			commands/version.cpp \
+			commands/notice.cpp \
 
 OBJS    =       ${SRCS:.cpp=.o}
 
