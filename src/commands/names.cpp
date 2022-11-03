@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   names.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:19:43 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/02 17:55:31 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/03 11:48:27 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void names(Server *serv, Message &msg)
             msg.getSender()->send_to(str.c_str());
 			str = RPL_ENDOFNAMES;
 			str += " " + msg.getSender()->getNickname() + " ";
-			str += it->first + ":End of NAMES list";
+			str += it->first + ":End of /NAMES list";
 			msg.getSender()->send_to(str.c_str());
         }
     }
@@ -75,7 +75,7 @@ void names(Server *serv, Message &msg)
 				msg.getSender()->send_to(str.c_str());
 				str = RPL_ENDOFNAMES;
 				str += " " + msg.getSender()->getNickname() + " ";
-				str += *it + " :End of NAMES list";
+				str += *it + " :End of /NAMES list";
 				msg.getSender()->send_to(str.c_str());
             }
         }

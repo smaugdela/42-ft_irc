@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:24:21 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/27 14:50:48 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/03 11:48:48 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void motd(Server *serv, Message &msg)
 		
 		str = RPL_ENDOFMOTD;
 		str += " " + msg.getSender()->getNickname() + " ";
-		str += ":End of MOTD command";
+		str += ":End of /MOTD command";
 	}
 	msg.getSender()->send_to(str.c_str());
 }
