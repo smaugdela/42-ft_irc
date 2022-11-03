@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:04:06 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/28 14:49:38 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/11/03 14:57:54 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,31 @@
 void list(Server *serv, Message &msg)
 {
 	std::string str;
-	char *tmp = strdup(msg.getParams()[0].c_str());
-	std::list<std::string> channels = split(tmp, ",");
-	free(tmp);
-	if ((msg.getParams().size() == 1) && msg.getParams()[0] != "")
+	if (msg.getParams().size() == 0)
 	{
-		for (std::list<std::string>::iterator it = channels.begin(); it != channels.end(); ++it)
+		for (std::map<std::string, Channel*>::const_iterator it = serv->getChans().begin(); it != serv->getChans().end(); ++it)
 		{
-			if (serv->getChannel(*it) != NULL)
-			{
-				str = *it;
-				str += " ";
-				str += serv->getChannel(*it)->getMembers().size();
-			}
+			str = RPL_LIST;
+			str += " " + it->second->getName() + " " + std::to_string(it->second->getMembers().size());
+			msg.getSender()->send_to(str);
 		}
 	}
 	else
+	{
+		char *tmp = strdup(msg.getParams()[0].c_str());
+		std::list<std::string> channels = split(tmp, ",");
+		free(tmp);
 		for (std::list<std::string>::iterator it = channels.begin(); it != channels.end(); ++it)
 		{
 			if (serv->getChannel(*it) != NULL)
 			{
-				str = *it;
-				str += " ";
-				str += serv->getChannel(*it)->getMembers().size();
+				str = RPL_LIST;
+				str += " " + *it;
+				str += " " + std::to_string(serv->getChannel(*it)->getMembers().size());
 			}
 		}
+	}
 	str = RPL_LISTEND;
 	str += "" + msg.getSender()->getNickname() + " :End of LIST.";
-	msg.getSender()->send_to(str.c_str());
+	msg.getSender()->send_to(str);
 }
