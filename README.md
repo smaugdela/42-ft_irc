@@ -2,7 +2,9 @@
 By [ajealcat](https://github.com/ajealcat), [fahima8897](https://github.com/fahima8897) and [smaugdela](https://github.com/smaugdela)
 
 ## TODO
-- Add channel brodacst of quitting client.
+- Mode command WIP.
+- Reformat commands that are affected by modes (privmsg, names, list, etc...).
+- Implement at least one bonus? (file transfer for example).
 - Test correction scale.
 - Check leaks.
 
