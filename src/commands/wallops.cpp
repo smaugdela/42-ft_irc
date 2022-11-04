@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:22:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/04 18:36:10 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/04 18:41:36 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void wallops(Server *serv, Message &msg)
 		str += " " + msg.getSender()->getNickname() + ":Error need more params.";
 		msg.getSender()->send_to(str);
 	}
-	else if (msg.getSender().getAdm() == true)
+	else if (msg.getSender()->getAdm() == true)
 	{
 		size_t start = msg.getMessage().find(':', msg.getPrefix().size() + msg.getCommand().size());
 		std::string	text = "";
 		if (start != std::string::npos)
 			text = msg.getMessage().substr(start);
 		
-		str = msg.getSender().getPrefix() + " WALLOPS " + text;
+		str = msg.getSender()->getPrefix() + " WALLOPS " + text;
 
 		std::map<sockfd, Client *>::const_iterator it;
 		for (it = serv->getUsers().begin(); it != serv->getUsers().end(); ++it)
