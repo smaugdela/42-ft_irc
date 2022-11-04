@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/02 14:57:07 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:21:48 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ Client::Client( const Client & src ) : _fd(-1)
 	(void)src;
 }
 
-Client::Client(sockfd fd, struct sockaddr_in addr, std::string servername) : _fd(fd), _connected(true), _servername(servername), _authorize(false), _adm(false), _nickname(), _username(), _realname(), _buffer(), _last_com(time(0))
+Client::Client(sockfd fd, struct sockaddr_in addr, std::string servername) : _fd(fd), _connected(true), _servername(servername), _authorize(false), _adm(false), _nickname(), _username(), _realname(), _buffer(), _last_com(time(0)), _mode("w")
 {
 	char hostname[NI_MAXHOST];
 
@@ -130,6 +130,22 @@ std::string	Client::getPrefix(void) const
 	return (prefix);
 }
 
+void Client::addMode(char mode)
+{
+	if (this->_mode.find(mode))
+		return ;
+	else
+		this->_mode += mode;
+}
+
+void Client::rmMode(char mode)
+{
+	if (this->_mode.find(mode))
+		this->_mode.erase(this->_mode.find(mode));
+	else
+		return ;
+}
+
 /*
 ** --------------------------------- ACCESSOR ---------------------------------
 */
@@ -172,6 +188,11 @@ std::string const&	Client::getBuffer(void) const
 bool	Client::getConnected(void) const
 {
 	return this->_connected;
+}
+
+std::string const &Client::getMode(void) const
+{
+	return this->_mode;
 }
 
 void			Client::setNickname(std::string new_nick)

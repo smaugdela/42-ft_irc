@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
+#    By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/11/03 16:36:51 by smagdela         ###   ########.fr        #
+#    Updated: 2022/11/04 17:41:45 by fboumell         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS    =	main.cpp \
 			commands/kick.cpp \
 			commands/kill.cpp \
 			commands/list.cpp \
+			commands/mode.cpp \
 			commands/motd.cpp \
 			commands/names.cpp \
 			commands/nick.cpp \

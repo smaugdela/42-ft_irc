@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/28 19:29:04 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:21:31 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ class Client
 		void						resetTime(void);
 		size_t						getLastcom(void) const;
 		std::string					getPrefix(void) const;
+		void						addMode(char mode);
+		void						rmMode(char mode);
 
 		sockfd						getFd(void) const;
 		std::string const&			getNickname(void) const;
@@ -38,6 +40,7 @@ class Client
 		bool						getAuthorize(void) const;
 		bool						getConnected(void) const;
 		std::string const&			getBuffer(void) const;
+		std::string const&			getMode(void) const;
 
 		void						setNickname(std::string new_nick);
 		void						setUsername(std::string new_nick);
@@ -60,6 +63,7 @@ class Client
 		std::string				_realname; // real name - this is just additional information about you
 		std::string				_buffer;
 		time_t					_last_com;
+		std::string				_mode;
 
 		Client();
 		Client( Client const & src );
