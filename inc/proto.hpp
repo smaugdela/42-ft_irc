@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:41:25 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/03 16:36:13 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/04 18:23:06 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ void quit(Server *serv, Message &msg);
 void user(Server *serv, Message &msg);
 void version(Server *serv, Message &msg);
 void notice(Server *serv, Message &msg);
+void wallops(Server *serv, Message &msg);
 
 #endif

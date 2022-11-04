@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:12:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/02 01:52:37 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/04 14:23:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void kick(Server *serv, Message &msg)
 	{
 			str = ERR_NEEDMOREPARAMS;
 			str += " :Error need more params.";
+			msg.getSender()->send_to(str.c_str());
 	}
 	else
 	{
@@ -60,38 +61,44 @@ void kick(Server *serv, Message &msg)
 						str += " " + msg.getSender()->getNickname();
 						str += " ";
 						str += *it;
-						str += ": No such channel.";
+						str += " :No such channel.";
 						msg.getSender()->send_to(str.c_str());
-
 				}
-				if (msg.getSender()->getAdm() == false) // verifier dans le channel
+				else if (msg.getSender()->getAdm() == false) // verifier dans le channel
 				{
 						str = ERR_CHANOPRIVSNEEDED;
 						str += " " + msg.getSender()->getNickname();
 						str += " " + *it;
 						str += " :You're not channel operator";
 						msg.getSender()->send_to(str.c_str());
-
 				}
-				for (std::list<std::string>::iterator it2 = users.begin(); it2 != users.end(); ++it2)
+				else
 				{
-					if (!serv->getUser(*it))
+					for (std::list<std::string>::iterator it2 = users.begin(); it2 != users.end(); ++it2)
 					{
-						str = ERR_USERNOTINCHANNEL;
-						str += " " + msg.getSender()->getNickname();
-						str += " " + *it2 + " " + *it;
-						str += " :They aren't on that channel.";
-						msg.getSender()->send_to(str.c_str());
-					}
-					else 
-					{
-						str = "KICK " + *it + " " + *it2 + " :" + msg.getParams()[2];
-						msg.getSender()->send_to(str.c_str());
-						std::map<sockfd, Client*> tmp2 = serv->getChannel(*it)->getMembers();
-						tmp2.erase(tmp2.find(serv->getUser(*it2)->getFd()));
+						if (!serv->getUser(*it2) || !serv->getChannel(*it)->getMember(*it2))
+						{
+							str = ERR_USERNOTINCHANNEL;
+							str += " " + msg.getSender()->getNickname();
+							str += " " + *it2 + " " + *it;
+							str += " :They aren't on that channel.";
+							msg.getSender()->send_to(str.c_str());
+						}
+						else
+						{
+							size_t start = msg.getMessage().find(':', msg.getPrefix().size() + msg.getCommand().size() + msg.getParams()[0].size() + msg.getParams()[1].size());
+							std::string	text = "";
+							if (start != std::string::npos)
+								text = msg.getMessage().substr(start);
+
+							str = "KICK " + *it + " " + *it2 + " " + text;
+							serv->getChannel(*it)->broadcast(msg.getSender(), str);
+							msg.getSender()->send_to(str.c_str());
+
+							serv->getChannel(*it)->kickMember(serv->getUser(*it2));
+						}
 					}
 				}
 			}
 	}
-	msg.getSender()->send_to(str.c_str());
 }

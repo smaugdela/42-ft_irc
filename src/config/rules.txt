@@ -1,9 +1,12 @@
+ 
 Rules of the configuration file :
-
-    * All the variables must be declared (see file.config).
-    * Ping Should not be less than 10 seconds.
-    * Timeout is in milliseconds (Cannot be 0 ms, put to -1 if you don't want any timeout).
-    * 
-    *
-
-If any of these rules is missing, the configuration file is considered incomplete
+ 
+	* All the variables must be declared (see file.config).
+	* 'motd' and 'info' variables are the paths to the motd and info files.
+	* Variables should not contain any spaces.
+	* Ping Should not be less than 10 seconds.
+	* Timeout is in milliseconds (Cannot be 0 ms, put to -1 if you don't want any timeout).
+	* Max backlogs should not be higher than the one indicated for your device (can probably be found in /proc/sys/net/ipv4/tcp_max_syn_backlog).
+ 
+If any of these rules is missing, the configuration file is considered incomplete.
+ 

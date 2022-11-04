@@ -2,8 +2,7 @@
 By [ajealcat](https://github.com/ajealcat), [fahima8897](https://github.com/fahima8897) and [smaugdela](https://github.com/smaugdela)
 
 ## TODO
-- Implement oper.
-- Implement Modes or not?
+- Add channel brodacst of quitting client.
 - Test correction scale.
 - Check leaks.
 
