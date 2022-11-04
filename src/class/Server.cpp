@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/03 16:36:34 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/04 18:10:14 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,7 @@ void	Server::setCmdlist()
 	this->_cmdList.insert(std::make_pair("KICK", kick));
 	this->_cmdList.insert(std::make_pair("KILL", my_kill));
 	this->_cmdList.insert(std::make_pair("LIST", list));
+	this->_cmdList.insert(std::make_pair("MODE", mode));
 	this->_cmdList.insert(std::make_pair("MOTD", motd));
 	this->_cmdList.insert(std::make_pair("NAMES", names));
 	this->_cmdList.insert(std::make_pair("NICK", nick));
