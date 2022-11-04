@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:27:33 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 16:11:30 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:02:01 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ sockfd	start_listening(Server *serv)
 
 void	error_ConfigFile(void)
 {
+	std::cout << "Error: config file incorrect." << std::endl;
+
 	std::ifstream rules("src/config/rules.txt", std::ifstream::in);
 
 	if (rules.good())
@@ -70,12 +72,9 @@ void	error_ConfigFile(void)
 		}
 	}
 	else
-	{
 		std::cout << "Error. File rules of configuration file not opened\n";
-		exit(EXIT_FAILURE);
-	}
 	rules.close();
-	exit(EXIT_FAILURE);
+	throw (std::exception());
 }
 
 bool	setData(std::string str, Configuration *dataConfig)
@@ -152,25 +151,36 @@ void	setConfigData(Configuration *dataConfig)
 				std::string::iterator it = str.end();
 				it--;
 				if (*it == '=')
+				{
+					ifs.close();
 					error_ConfigFile();
-				else 
+				}
+				else
+				{
 					if (setData(str, dataConfig) == false)
+					{
+						ifs.close();
 						error_ConfigFile();
+					}
+				}
 			}
-			else
-				getline(ifs, str);
 		}
 		if (dataConfig->getServerName().empty() || dataConfig->getServerVersion().empty() || dataConfig->getMotd().empty()
 			|| dataConfig->getInfoConfig().empty() || dataConfig->getOperUSer().empty() || dataConfig->getOperPass().empty()
 			|| dataConfig->getPing() < 10 || dataConfig->getTimeout() == 0 || dataConfig->getMaxBacklogs() == 0 || dataConfig->getMaxUsers() == 0)
-				error_ConfigFile();
-			
+		{
+			ifs.close();
+			error_ConfigFile();
+		}
 		std::cout << *dataConfig;
 	}
 	else
 	{
 		std::cout << "Error. File Configuration not opened\n";
-		error_ConfigFile();
+		{
+			ifs.close();
+			error_ConfigFile();
+		}
 	}
 	ifs.close();
 }

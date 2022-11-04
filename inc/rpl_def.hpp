@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   rpl_def.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 18:21:26 by smagdela          #+#    #+#             */
 /*   Updated: 2022/11/04 16:39:07 by fboumell         ###   ########.fr       */
@@ -36,5 +36,7 @@
               
 
         
+
+# define RPL_YOUREOPER	"381"		// ":You are now an IRC operator"
 
 #endif

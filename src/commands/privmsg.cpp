@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:38:00 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/03 16:56:55 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/04 14:23:45 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ void privmsg(Server *serv, Message &msg)
 	else
 	{
 		size_t start = msg.getMessage().find(':', msg.getPrefix().size() + msg.getCommand().size() + msg.getParams()[0].size());
-		std::string	text(msg.getMessage().substr(start));
+		std::string	text = "";
+		if (start != std::string::npos)
+			text = msg.getMessage().substr(start);
 
 		if (msg.getParams()[0].find_first_of("#&+!") == 0)
 		{

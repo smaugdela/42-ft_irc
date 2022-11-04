@@ -55,5 +55,6 @@ void user(Server *serv, Message &msg);
 void version(Server *serv, Message &msg);
 void mode(Server *serv, Message &msg);
 void notice(Server *serv, Message &msg);
+void wallops(Server *serv, Message &msg);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 13:40:31 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/26 15:36:28 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/04 18:05:01 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,16 @@ static void sig_handler(int lol)
 
 int	main(int ac, const char **av)
 {
-	Server serv(ac, av);
-
 	signal(SIGINT, sig_handler);
 
-	server_loop(&serv);
+	try {
+		Server serv(ac, av);
+		server_loop(&serv);
+	}
+	catch(std::exception &e) {
+		std::cout << "Bad configuration file." << std::endl;
+		return EXIT_FAILURE;
+	}
 
 	return EXIT_SUCCESS;
 }

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:42:57 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/31 16:16:00 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/04 13:49:47 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,25 @@
 
 void oper(Server *serv, Message &msg)
 {
-	(void)serv;
-	(void)msg;
+	std::string str;
+
+	if (msg.getParams().size() < 2)
+	{
+		str = ERR_NEEDMOREPARAMS;
+		str += " " + msg.getSender()->getNickname() + " :Error need more params.";
+		msg.getSender()->send_to(str);
+	}
+	else if (msg.getParams()[0] != serv->getConfig()->getOperUSer() || msg.getParams()[1] != serv->getConfig()->getOperPass())
+	{
+		str = ERR_PASSWDMISMATCH;
+		str += " " + msg.getSender()->getNickname() + " :Password incorrect";
+		msg.getSender()->send_to(str);
+	}
+	else
+	{
+		msg.getSender()->setAdm(true);
+		str = RPL_YOUREOPER;
+		str += " " + msg.getSender()->getNickname() + " :You are now an IRC operator";
+		msg.getSender()->send_to(str);
+	}
 }

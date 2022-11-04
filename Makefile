@@ -60,6 +60,7 @@ SRCS    =	main.cpp \
 			commands/user.cpp \
 			commands/version.cpp \
 			commands/notice.cpp \
+			commands/wallops.cpp \
 
 OBJS    =       ${SRCS:.cpp=.o}
 

@@ -196,6 +196,7 @@ void	Server::setCmdlist()
 	this->_cmdList.insert(std::make_pair("USER", user));
 	this->_cmdList.insert(std::make_pair("VERSION", version));
 	this->_cmdList.insert(std::make_pair("NOTICE", notice));
+	this->_cmdList.insert(std::make_pair("WALLOPS", wallops));
 }
 
 /*
