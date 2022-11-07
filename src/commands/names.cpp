@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:19:43 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/07 18:03:03 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:42:24 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void names(Server *serv, Message &msg)
                 str += " " + msg.getSender()->getNickname() + " = " + *it + " :";
                 for (; it2 != members.end(); it2++)
 				{
-					if (it2->second->getMode().find('i') == std::string::npos)
+					if (it2->second->getMode().find('i') == std::string::npos || it2->second == msg.getSender())
 					{
 						if (it2->second == serv->getChannel(*it)->getCreator())
 							str += "@";

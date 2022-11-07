@@ -2,9 +2,9 @@
 By [ajealcat](https://github.com/ajealcat), [fahima8897](https://github.com/fahima8897) and [smaugdela](https://github.com/smaugdela)
 
 ## TODO
-- Mode command WIP.
-- Reformat commands that are affected by modes (privmsg, names, list, etc...).
-- Implement at least one bonus? (file transfer for example).
+- Fix names not working well with 'i' mode when joining.
+- Implement kill command.
+- Implement bot bonus.
 - Test correction scale.
 - Check leaks.
 
