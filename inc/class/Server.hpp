@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 15:57:04 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:49:09 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ class Server
 		Server();
 		Server( Server const & src );
 		Server &operator=( Server const & rhs );
+
+		void _callbot(Channel *channel, Client *user, char *message);
 
 		int								_port;
 		std::string						_password;

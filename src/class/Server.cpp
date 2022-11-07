@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 17:07:59 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:25:21 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ Server::Server() //private
 Server::Server(int ac, const char **av)	// public
 {
 	_create_date = time(0);
+	srand(time(NULL));
 	shield(parse_input(ac, av, this), false, "Usage: ./ircserv <port> <password>", __FILE__, __LINE__);
 	this->_config = new Configuration();
 	this->_listener = start_listening(this);
-	std::cout << "Server Port = " << _port << "\nServer Password = " << _password << "\nServer IP address = " << _ipaddr << std::endl;
+	std::cout << "\033[36m" << "Server IP address" << "\033[0m" << "|" << " " << "\033[34m" << _ipaddr << "\033[0m\n" << std::endl;
 	setCmdlist();
 }
 
@@ -197,6 +198,74 @@ void	Server::setCmdlist()
 	this->_cmdList.insert(std::make_pair("VERSION", version));
 	this->_cmdList.insert(std::make_pair("NOTICE", notice));
 	this->_cmdList.insert(std::make_pair("WALLOPS", wallops));
+}
+
+void Server::_callbot(Channel *channel, Client *user, char *message)
+{
+	std::string bot = "DistinguichCatBot";
+	std::string str;
+	
+
+	 // Proteger channel user et message 
+	 
+	if (message[0] != '!')
+	{
+		str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Invalid request," + user->getNickname() + "use !help for more informations.";
+		std::map<sockfd, Client *>::const_iterator it2;
+		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
+			my_send(it2->second, str);
+	}
+	std::list<std::string> args = split(message, " ");
+	std::list<std::string>::iterator it = args.begin();
+	if ((*it).compare("!love") == 0)
+	{
+		unsigned int nbr = rand()%100;
+		it++;
+		char *tmp = ft_utoa(nbr);
+		str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : There is " + tmp + "%" + " love between " + user->getNickname() + " and " + *it + ".";
+		free(tmp);
+		std::map<sockfd, Client *>::const_iterator it2;
+		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
+			my_send(it2->second, str);
+	}
+	else if ((*it).compare("!zodiac") == 0)
+	{
+		it++;
+		if ((*it).compare("aries") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : If only you could convert all that stress into energy ! You'd be rich right now !";
+		else if ((*it).compare("taurus") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Stop spending all your money on food, you're already broke.";
+		else if ((*it).compare("gemini") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : ";
+		else if ((*it).compare("cancer") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Stop being such a drama queen !";
+		else if ((*it).compare("leo") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : I know you won't believe it, but you're NOT a Diva";
+		else if ((*it).compare("virgo") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Never seen such a control-freak ! You're scaring people !!";
+		else if ((*it).compare("libra") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : If you like coffee then you are a Slytherin otherwise you're a Hufflepuff";
+		else if ((*it).compare("scorpio") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Did you know your parents had s*x on Valentine's day ?";
+		else if ((*it).compare("sagittarius") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : ";
+		else if ((*it).compare("capricorn") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Only one present for your birthday AND christmas ??? What a childhood trauma ! You should talk about it.";
+		else if ((*it).compare("aquarius") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : If you were wondering if you should leave sooner today - The answer is YES.";
+		else if ((*it).compare("pisces") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Binge watching TVshows is NOT a goal in life you know ??";
+		else 
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Please enter your sign after the command.";
+		std::map<sockfd, Client *>::const_iterator it2;
+		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
+			my_send(it2->second, str);
+	}
+	if("!help") 
+	{
+		
+	}
+	
 }
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 17:57:45 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/07 16:23:55 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ class Client
 		bool					_connected;
 		std::string				_servername;
 		bool					_authorize;
-		std::string				_nickname; // nickname - name which appears for other users
-		std::string				_username; //username - name you use to login, allows system to identify you
-		std::string				_realname; // real name - this is just additional information about you
+		std::string				_nickname;	// nickname - name which appears for other users
+		std::string				_username;	// username - name you use to login, allows system to identify you
+		std::string				_realname;	// real name - this is just additional information about you
 		std::string				_buffer;
 		time_t					_last_com;
 		std::string				_mode;
