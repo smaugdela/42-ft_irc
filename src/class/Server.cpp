@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 19:02:13 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:25:21 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ Server::Server(int ac, const char **av)	// public
 	shield(parse_input(ac, av, this), false, "Usage: ./ircserv <port> <password>", __FILE__, __LINE__);
 	this->_config = new Configuration();
 	this->_listener = start_listening(this);
-	std::cout << "Server Port = " << _port << "\nServer Password = " << _password << "\nServer IP address = " << _ipaddr << std::endl;
+	std::cout << "\033[36m" << "Server IP address" << "\033[0m" << "|" << " " << "\033[34m" << _ipaddr << "\033[0m\n" << std::endl;
 	setCmdlist();
 }
 

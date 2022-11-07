@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Configuration.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 11:34:21 by fboumell          #+#    #+#             */
-/*   Updated: 2022/10/27 16:10:21 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/07 16:48:46 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,31 @@ Configuration &				Configuration::operator=( Configuration const & rhs ) //priva
 
 std::ostream &			operator<<( std::ostream & o, Configuration const & i )
 {
-	o << "ServerName = " << i.getServerName() << std::endl;
-	o << "ServerVersion = " << i.getServerVersion() << std::endl;
-	o << "Motd = " << i.getMotd() << std::endl;
-	o << "InfoConfig = " << i.getInfoConfig() << std::endl;
-	o << "OperUser = " << i.getOperUSer() << std::endl;
-	o << "OperPass = " << i.getOperPass() << std::endl;
-	o << "Ping = " << i.getPing() << std::endl;
-	o << "Timeout = " << i.getTimeout() << std::endl;
-	o << "Backlogs = " << i.getMaxBacklogs() << std::endl;
-	o << "MaxUsers = " << i.getMaxUsers() << std::endl;
+	o << "___________________________________" << std::endl;
+	o << std::endl;
+	o << "\033[35m" << "	Configuration Infos" << "\033[0m" << std::endl;
+	o << "___________________________________" << std::endl;
+	o << std::endl;
+	o << "\033[36m" << "ServerName	" << "\033[0m" << " |"  << " " << "\033[34m" << i.getServerName() << "\033[0m" << std::endl;
+	o << "-----------------------------------" << std::endl;
+	o << "\033[36m" << "ServerVersion	" << "\033[0m" << " |" << " " << "\033[34m" << i.getServerVersion() << "\033[0m" << std::endl;
+	o << "-----------------------------------" << std::endl;
+	o << "\033[36m" << "Motd		" << "\033[0m" << " |" << " " <<  "\033[34m" << i.getMotd() << "\033[0m" << std::endl;
+	o << "-----------------------------------" << std::endl;
+	o << "\033[36m" << "InfoConfig	" << "\033[0m" << " |" << " " << "\033[34m" << i.getInfoConfig() << "\033[0m" << std::endl;
+	o << "-----------------------------------" << std::endl;
+	o << "\033[36m" << "OperUser	" << "\033[0m" << " |" << " " << "\033[34m" << i.getOperUSer() << "\033[0m" << std::endl;
+	o << "-----------------------------------" << std::endl;
+	o << "\033[36m" << "OperPass	" << "\033[0m" << " |" << " " << "\033[34m" << i.getOperPass() << "\033[0m" << std::endl;
+	o << "-----------------------------------" << std::endl;
+	o << "\033[36m" << "Ping		" << "\033[0m" << " |" << " " << "\033[34m" << i.getPing() << "\033[0m" << std::endl;
+	o << "-----------------------------------" << std::endl;
+	o << "\033[36m" << "Timeout		" << "\033[0m" << " |" << " " << "\033[34m" << i.getTimeout() << "\033[0m" << std::endl;
+	o << "-----------------------------------" << std::endl;
+	o << "\033[36m" << "Backlogs	" << "\033[0m" << " |" << " " << "\033[34m" << i.getMaxBacklogs() << "\033[0m" << std::endl;
+	o << "-----------------------------------" << std::endl;
+	o << "\033[36m" << "MaxUsers	" << "\033[0m" << " |"  << " " << "\033[34m" << i.getMaxUsers() << "\033[0m" << std::endl;
+	o << "-----------------------------------" << std::endl;
 	return o;
 }
 
