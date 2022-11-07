@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mode.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:32:08 by fboumell          #+#    #+#             */
-/*   Updated: 2022/11/07 12:03:44 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:18:25 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ void mode(Server *serv, Message &msg)
         str += " " + msg.getSender()->getNickname() + " ";
         str += ":Cannot change mode for other users";
     }
+	else if (msg.getParams().size() == 1)
+	{
+		str = RPL_UMODEIS;
+        str += " " + msg.getSender()->getNickname() + " ";
+        str += "+" + serv->getUser(msg.getSender()->getNickname())->getMode();
+	}
     else
     {
         std::string mode = msg.getParams()[1];

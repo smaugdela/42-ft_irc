@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 12:18:13 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:29:38 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	Client::welcome(Server *serv) const
 	str += " " + _nickname + " This server was created " + std::string(ctime(&(serv->getCreateDate())));
 	send_to(str);
 	str = RPL_MYINFO;
-	str += " " + _nickname + " " + serv->getConfig()->getServerName() + " " + serv->getConfig()->getServerVersion() + " *none* *none*";
+	str += " " + _nickname + " " + serv->getConfig()->getServerName() + " " + serv->getConfig()->getServerVersion() + " Oowi *none*";
 	send_to(str);
 	Message	msg(serv->getUser(_fd), NULL, "MOTD");
 	motd(serv, msg);
@@ -141,7 +141,7 @@ void Client::addMode(char mode)
 void Client::rmMode(char mode)
 {
 	if (this->_mode.find(mode) != std::string::npos)
-		this->_mode.erase(this->_mode.find(mode));
+		this->_mode.erase(this->_mode.find(mode), 1);
 	else
 		return ;
 }
