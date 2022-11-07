@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:07:50 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/24 13:49:44 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/07 19:12:26 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,43 @@
 //    which is updated by each server it passes through, each prepending
 //    its name to the path.
 
+//    Numeric Replies:
+
+//            ERR_NOPRIVILEGES              ERR_NEEDMOREPARAMS
+//            ERR_NOSUCHNICK                ERR_CANTKILLSERVER
+
 void my_kill(Server *serv, Message &msg)
-{(void)serv; (void)msg;}
+{
+	std::string	str;
+
+	if (msg.getParams().size() < 2)
+	{
+		str = ERR_NEEDMOREPARAMS;
+		str += " " + msg.getSender()->getNickname() + " :Error need more params.";
+	}
+	else if (serv->getUser(msg.getParams()[0]) == NULL)
+	{
+		str = ERR_NOSUCHNICK;
+		str += " " + msg.getSender()->getNickname() + " " + msg.getParams()[0] + " :No such nick";
+	}
+	else if (msg.getSender()->getMode().find('o') == std::string::npos)
+	{
+		str = ERR_NOPRIVILEGES;
+		str += " :Permission Denied- You're not an IRC operator";
+	}
+	else
+	{
+		size_t start = msg.getMessage().find(':', msg.getPrefix().size() + msg.getCommand().size() + msg.getParams()[0].size());
+		std::string	text = "";
+		if (start != std::string::npos)
+			text = msg.getMessage().substr(start);
+
+		str = msg.getSender()->getPrefix() + " KILL :" + text;
+		my_send(serv->getUser(msg.getParams()[0]), str);
+
+		Message quit_msg(serv->getUser(msg.getParams()[0]), NULL, "QUIT " + text);
+		quit_msg.parse_msg();
+		quit(serv, quit_msg);
+
+	}
+}

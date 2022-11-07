@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 15:58:24 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:16:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	set_pollfd(Server *serv, std::vector<struct pollfd> &fds)
 	}
 }
 
-static void	remove_deco_users(Server *serv)
+static void	rm_deco_users(Server *serv)
 {
 	for (std::map<sockfd, Client*>::const_iterator it = serv->getUsers().begin(); it != serv->getUsers().end(); ++it)
 	{
@@ -41,6 +41,20 @@ static void	remove_deco_users(Server *serv)
 			serv->rmUser(it->second);
 			it = serv->getUsers().begin();
 			if (it == serv->getUsers().end())
+				return ;
+		}
+	}
+}
+
+static void	rm_empty_chans(Server *serv)
+{
+	for (std::map<std::string, Channel *>::const_iterator it = serv->getChans().begin(); it != serv->getChans().end(); ++it)
+	{
+		if (it->second->getMembers().size() <= 0)
+		{
+			serv->rmChan(it->second);
+			it = serv->getChans().begin();
+			if (it == serv->getChans().end())
 				return ;
 		}
 	}
@@ -73,6 +87,7 @@ void	server_loop(Server *serv)
 				}
 			}
 		}
-		remove_deco_users(serv);
+		rm_deco_users(serv);
+		rm_empty_chans(serv);
 	}
 }

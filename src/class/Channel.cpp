@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/03 16:11:17 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:21:25 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Channel::Channel()
 {
 }
 
-Channel::Channel(std::string name) : _name(name), _members()
+Channel::Channel(std::string name, Client *creator) : _name(name), _members(), _creator(creator)
 {
 }
 
@@ -86,12 +86,10 @@ Client *Channel::getMember(std::string member) const
 
 	for (it = _members.begin(); it != _members.end(); ++it)
 	{
-		if (it->second->getNickname() == member)
-			break ;
+		if (it->second && it->second->getNickname() == member)
+			return it->second;
 	}
-	if (it == _members.end())
-		return NULL;
-	return it->second;
+	return NULL;
 }
 
 void	Channel::addMember(Client *member)
@@ -115,9 +113,14 @@ std::string const& Channel::getName(void) const
 	return (this->_name);
 }
 
-std::map<sockfd, Client*> const&	Channel::getMembers(void)
+std::map<sockfd, Client*> const&	Channel::getMembers(void) const
 {
  	return (this->_members);
+}
+
+Client*	Channel::getCreator(void) const
+{
+	return (this->_creator);
 }
 
 /* ************************************************************************** */

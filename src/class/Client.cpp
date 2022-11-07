@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 15:29:38 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:20:05 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ Client::Client( const Client & src ) : _fd(-1)
 	(void)src;
 }
 
-Client::Client(sockfd fd, struct sockaddr_in addr, std::string servername) : _fd(fd), _connected(true), _servername(servername), _authorize(false), _adm(false), _nickname(), _username(), _realname(), _buffer(), _last_com(time(0)), _mode("w")
+Client::Client(sockfd fd, struct sockaddr_in addr, std::string servername) : _fd(fd), _connected(true), _servername(servername), _authorize(false), _nickname(), _username(), _realname(), _buffer(), _last_com(time(0)), _mode("w")
 {
 	char hostname[NI_MAXHOST];
 
@@ -170,11 +170,6 @@ std::string const &Client::getRealname(void) const
 	return this->_realname;
 }
 
-bool			Client::getAdm(void) const
-{
-	return this->_adm;
-}
-
 bool			Client::getAuthorize(void) const
 {
 	return this->_authorize;
@@ -208,11 +203,6 @@ void			Client::setUsername(std::string new_nick)
 void	Client::setRealname(std::string new_nick)
 {
 	this->_realname = new_nick;
-}
-
-void	Client::setAdm(bool	new_adm)
-{
-	this->_adm = new_adm;
 }
 
 void	Client::setBuffer(std::string new_buffer)

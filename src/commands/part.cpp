@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:30:34 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/03 16:24:07 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/07 16:43:44 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,8 @@ void part(Server *serv, Message &msg)
 				if (msg.getParams().size() == 2)
 					str += " " + msg.getParams()[1];
 				msg.getSender()->send_to(str);
-				serv->getChannel(*it)->kickMember(msg.getSender());
 				serv->getChannel(*it)->broadcast(msg.getSender(), str);
-				if (serv->getChannel(*it)->getMembers().size() == 0)
-					serv->rmChan(serv->getChannel(*it));
+				serv->getChannel(*it)->kickMember(msg.getSender());
 				return ;
 			}
 		}

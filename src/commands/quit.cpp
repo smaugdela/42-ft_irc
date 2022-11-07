@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:27:44 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/04 18:16:12 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/07 16:43:47 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,16 @@ void quit(Server *serv, Message &msg)
 	if (msg.getParams().size() == 0)
 		str += " :Client quit";
 
-	msg.getSender()->send_to(str);
-	
 	std::map<std::string, Channel*>::const_iterator it;
 	for (it = serv->getChans().begin(); it != serv->getChans().end(); ++it)
 	{
 		if (it->second->getMember(msg.getSender()->getNickname()) != NULL)
+		{
 			it->second->broadcast(msg.getSender(), str);
+			it->second->kickMember(msg.getSender());
+		}
 	}
 
+	msg.getSender()->send_to(str);
 	serv->rmUser(msg.getSender());
 }
