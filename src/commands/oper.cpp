@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:42:57 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/04 13:49:47 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:38:09 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void oper(Server *serv, Message &msg)
 	}
 	else
 	{
-		msg.getSender()->setAdm(true);
+		msg.getSender()->addMode('o');
 		str = RPL_YOUREOPER;
 		str += " " + msg.getSender()->getNickname() + " :You are now an IRC operator";
 		msg.getSender()->send_to(str);

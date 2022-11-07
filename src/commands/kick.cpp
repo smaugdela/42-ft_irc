@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:12:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/04 14:23:56 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:11:17 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void kick(Server *serv, Message &msg)
 	{
 			str = ERR_NEEDMOREPARAMS;
 			str += " :Error need more params.";
-			msg.getSender()->send_to(str.c_str());
+			msg.getSender()->send_to(str);
 	}
 	else
 	{
@@ -62,15 +62,15 @@ void kick(Server *serv, Message &msg)
 						str += " ";
 						str += *it;
 						str += " :No such channel.";
-						msg.getSender()->send_to(str.c_str());
+						msg.getSender()->send_to(str);
 				}
-				else if (msg.getSender()->getAdm() == false) // verifier dans le channel
+				else if (msg.getSender()->getMode().find('o') == std::string::npos) // verifier dans le channel
 				{
 						str = ERR_CHANOPRIVSNEEDED;
 						str += " " + msg.getSender()->getNickname();
 						str += " " + *it;
 						str += " :You're not channel operator";
-						msg.getSender()->send_to(str.c_str());
+						msg.getSender()->send_to(str);
 				}
 				else
 				{
@@ -82,7 +82,7 @@ void kick(Server *serv, Message &msg)
 							str += " " + msg.getSender()->getNickname();
 							str += " " + *it2 + " " + *it;
 							str += " :They aren't on that channel.";
-							msg.getSender()->send_to(str.c_str());
+							msg.getSender()->send_to(str);
 						}
 						else
 						{
@@ -93,7 +93,7 @@ void kick(Server *serv, Message &msg)
 
 							str = "KICK " + *it + " " + *it2 + " " + text;
 							serv->getChannel(*it)->broadcast(msg.getSender(), str);
-							msg.getSender()->send_to(str.c_str());
+							msg.getSender()->send_to(str);
 
 							serv->getChannel(*it)->kickMember(serv->getUser(*it2));
 						}

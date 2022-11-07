@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/04 18:10:14 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:07:59 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,9 +161,9 @@ Channel*	Server::getChannel(std::string name) const
 
 void	Server::rmChan(Channel *chan)
 {
-	if (chan != NULL)
+	if (chan != NULL && _chans.find(chan->getName()) != _chans.end())
 	{
-		_chans.erase(chan->getName());
+		_chans.erase(_chans.find(chan->getName()));
 		delete chan;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   names.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:19:43 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/03 11:48:27 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:03:03 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void names(Server *serv, Message &msg)
             str += " " + msg.getSender()->getNickname() + " =" + it->first + " :";
             for (; it2 != members.end(); it2++)
                 str += it2->second->getNickname() + " ";
-            msg.getSender()->send_to(str.c_str());
+            msg.getSender()->send_to(str);
 			str = RPL_ENDOFNAMES;
 			str += " " + msg.getSender()->getNickname() + " ";
 			str += it->first + ":End of /NAMES list";
-			msg.getSender()->send_to(str.c_str());
+			msg.getSender()->send_to(str);
         }
     }
     else
@@ -71,12 +71,19 @@ void names(Server *serv, Message &msg)
                 str = RPL_NAMREPLY;
                 str += " " + msg.getSender()->getNickname() + " = " + *it + " :";
                 for (; it2 != members.end(); it2++)
-                    str += it2->second->getNickname() + " ";
-				msg.getSender()->send_to(str.c_str());
+				{
+					if (it2->second->getMode().find('i') == std::string::npos)
+					{
+						if (it2->second == serv->getChannel(*it)->getCreator())
+							str += "@";
+	                    str += it2->second->getNickname() + " ";
+					}
+				}
+				msg.getSender()->send_to(str);
 				str = RPL_ENDOFNAMES;
 				str += " " + msg.getSender()->getNickname() + " ";
 				str += *it + " :End of /NAMES list";
-				msg.getSender()->send_to(str.c_str());
+				msg.getSender()->send_to(str);
             }
         }
     }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/04 17:21:31 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/07 17:57:45 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ class Client
 		std::string const&			getNickname(void) const;
 		std::string const&			getUsername(void) const;
 		std::string const&			getRealname(void) const;
-		bool						getAdm(void) const;
 		bool						getAuthorize(void) const;
 		bool						getConnected(void) const;
 		std::string const&			getBuffer(void) const;
@@ -45,7 +44,6 @@ class Client
 		void						setNickname(std::string new_nick);
 		void						setUsername(std::string new_nick);
 		void						setRealname(std::string new_nick);
-		void						setAdm(bool	new_adm);
 		void						setBuffer(std::string new_buffer);
 		void						setAuthorize(bool authorization);
 
@@ -57,7 +55,6 @@ class Client
 		bool					_connected;
 		std::string				_servername;
 		bool					_authorize;
-		bool					_adm;	// Operator or not
 		std::string				_nickname; // nickname - name which appears for other users
 		std::string				_username; //username - name you use to login, allows system to identify you
 		std::string				_realname; // real name - this is just additional information about you

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:32:08 by fboumell          #+#    #+#             */
-/*   Updated: 2022/11/07 15:18:25 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:11:43 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void mode(Server *serv, Message &msg)
         str += " " + msg.getSender()->getNickname() + " ";
         str += ":Error need more params.";
     }
-    if (msg.getParams()[0] != msg.getSender()->getNickname())
+	else if (msg.getParams()[0].find_first_of("#&+!") == 0)
+		return ;
+    else if (msg.getParams()[0] != msg.getSender()->getNickname())
     {
         str = ERR_USERSDONTMATCH;
         str += " " + msg.getSender()->getNickname() + " ";
@@ -63,9 +65,9 @@ void mode(Server *serv, Message &msg)
             {
                 for (int j = i + 1; isalpha(mode[j]); j++)
                 {
-                    if(mode[j] == 'i' || mode[j] == 'w')
+                    if (mode[j] == 'i' || mode[j] == 'w')
                         msg.getSender()->addMode(mode[j]);
-                    else
+                    else if (mode[j] != 'O' && mode[j] != 'o')
                     {
                         str = ERR_UMODEUNKNOWNFLAG;
                         str += " " + msg.getSender()->getNickname() + " ";
@@ -78,9 +80,9 @@ void mode(Server *serv, Message &msg)
             {
                 for (int j = i + 1; isalpha(mode[j]); j++)
                 {
-                    if(mode[j] == 'i' || mode[j] == 'w')
+                    if (mode[j] == 'i' || mode[j] == 'w' || mode[j] == 'o')
                         msg.getSender()->rmMode(mode[j]);
-                    else
+                    else if (mode[j] != 'O')
                     {
                         str = ERR_UMODEUNKNOWNFLAG;
                         str += " " + msg.getSender()->getNickname() + " ";
