@@ -6,7 +6,7 @@
 /*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 18:19:38 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/11/07 19:02:13 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,9 +228,38 @@ void Server::_callbot(Channel *channel, Client *user, char *message)
 		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
 			my_send(it2->second, str);
 	}
-	else if ((*it).compare("!horoscope") == 0)
+	else if ((*it).compare("!zodiac") == 0)
 	{
-		if ()
+		it++;
+		if ((*it).compare("aries") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : If only you could convert all that stress into energy ! You'd be rich right now !";
+		else if ((*it).compare("taurus") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Stop spending all your money on food, you're already broke.";
+		else if ((*it).compare("gemini") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : ";
+		else if ((*it).compare("cancer") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Stop being such a drama queen !";
+		else if ((*it).compare("leo") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : I know you won't believe it, but you're NOT a Diva";
+		else if ((*it).compare("virgo") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Never seen such a control-freak ! You're scaring people !!";
+		else if ((*it).compare("libra") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : If you like coffee then you are a Slytherin otherwise you're a Hufflepuff";
+		else if ((*it).compare("scorpio") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Did you know your parents had s*x on Valentine's day ?";
+		else if ((*it).compare("sagittarius") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : ";
+		else if ((*it).compare("capricorn") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Only one present for your birthday AND christmas ??? What a childhood trauma ! You should talk about it.";
+		else if ((*it).compare("aquarius") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : If you were wondering if you should leave sooner today - The answer is YES.";
+		else if ((*it).compare("pisces") == 0)
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Binge watching TVshows is NOT a goal in life you know ??";
+		else 
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Please enter your sign after the command.";
+		std::map<sockfd, Client *>::const_iterator it2;
+		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
+			my_send(it2->second, str);
 	}
 	if("!help") 
 	{
