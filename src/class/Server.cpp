@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/04 18:10:14 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/07 18:19:38 by ajearuth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ Server::Server() //private
 Server::Server(int ac, const char **av)	// public
 {
 	_create_date = time(0);
+	srand(time(NULL));
 	shield(parse_input(ac, av, this), false, "Usage: ./ircserv <port> <password>", __FILE__, __LINE__);
 	this->_config = new Configuration();
 	this->_listener = start_listening(this);
@@ -197,6 +198,45 @@ void	Server::setCmdlist()
 	this->_cmdList.insert(std::make_pair("VERSION", version));
 	this->_cmdList.insert(std::make_pair("NOTICE", notice));
 	this->_cmdList.insert(std::make_pair("WALLOPS", wallops));
+}
+
+void Server::_callbot(Channel *channel, Client *user, char *message)
+{
+	std::string bot = "DistinguichCatBot";
+	std::string str;
+	
+
+	 // Proteger channel user et message 
+	 
+	if (message[0] != '!')
+	{
+		str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Invalid request," + user->getNickname() + "use !help for more informations.";
+		std::map<sockfd, Client *>::const_iterator it2;
+		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
+			my_send(it2->second, str);
+	}
+	std::list<std::string> args = split(message, " ");
+	std::list<std::string>::iterator it = args.begin();
+	if ((*it).compare("!love") == 0)
+	{
+		unsigned int nbr = rand()%100;
+		it++;
+		char *tmp = ft_utoa(nbr);
+		str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : There is " + tmp + "%" + " love between " + user->getNickname() + " and " + *it + ".";
+		free(tmp);
+		std::map<sockfd, Client *>::const_iterator it2;
+		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
+			my_send(it2->second, str);
+	}
+	else if ((*it).compare("!horoscope") == 0)
+	{
+		if ()
+	}
+	if("!help") 
+	{
+		
+	}
+	
 }
 
 /*
