@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/04 17:59:56 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/07 12:18:13 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,15 +132,15 @@ std::string	Client::getPrefix(void) const
 
 void Client::addMode(char mode)
 {
-	if (this->_mode.find(mode))
-		return ;
-	else
+	if (this->_mode.find(mode) == std::string::npos)
 		this->_mode += mode;
+	else
+		return ;
 }
 
 void Client::rmMode(char mode)
 {
-	if (this->_mode.find(mode))
+	if (this->_mode.find(mode) != std::string::npos)
 		this->_mode.erase(this->_mode.find(mode));
 	else
 		return ;

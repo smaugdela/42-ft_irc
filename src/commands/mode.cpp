@@ -6,7 +6,7 @@
 /*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:32:08 by fboumell          #+#    #+#             */
-/*   Updated: 2022/11/04 18:06:58 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/07 12:03:44 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,42 +55,40 @@ void mode(Server *serv, Message &msg)
         {
             if (mode[i] == '+')
             {
-                if(mode[i + 1] == 'i' || mode[i + 1] == 'w')
+                for (int j = i + 1; isalpha(mode[j]); j++)
                 {
-                    serv->getUser(msg.getSender()->getNickname())->addMode(mode[i + 1]);
-                    str = RPL_UMODEIS;
-                    str += " " + msg.getSender()->getNickname() + " ";
-                    str += "Your user mode is [+" + serv->getUser(msg.getSender()->getNickname())->getMode() + "]";
-                    msg.getSender()->send_to(str.c_str());
-                }
-                else
-                {
-                    str = ERR_UMODEUNKNOWNFLAG;
-                    str += " " + msg.getSender()->getNickname() + " ";
-                    str += ":Unknown MODE flag";
-                    msg.getSender()->send_to(str.c_str());
+                    if(mode[j] == 'i' || mode[j] == 'w')
+                        msg.getSender()->addMode(mode[j]);
+                    else
+                    {
+                        str = ERR_UMODEUNKNOWNFLAG;
+                        str += " " + msg.getSender()->getNickname() + " ";
+                        str += ":Unknown MODE flag";
+                        msg.getSender()->send_to(str);
+                    }
                 }
             }
             if (mode[i] == '-')
             {
-                if(mode[i + 1] == 'i' || mode[i + 1] == 'w')
+                for (int j = i + 1; isalpha(mode[j]); j++)
                 {
-                    serv->getUser(msg.getSender()->getNickname())->rmMode(mode[i + 1]);
-                    str = RPL_UMODEIS;
-                    str += " " + msg.getSender()->getNickname() + " ";
-                    str += "Your user mode is [+" + serv->getUser(msg.getSender()->getNickname())->getMode() + "]";
-                    msg.getSender()->send_to(str.c_str());
-                }
-                else
-                {
-                    str = ERR_UMODEUNKNOWNFLAG;
-                    str += " " + msg.getSender()->getNickname() + " ";
-                    str += ":Unknown MODE flag";
-                    msg.getSender()->send_to(str.c_str());
+                    if(mode[j] == 'i' || mode[j] == 'w')
+                        msg.getSender()->rmMode(mode[j]);
+                    else
+                    {
+                        str = ERR_UMODEUNKNOWNFLAG;
+                        str += " " + msg.getSender()->getNickname() + " ";
+                        str += ":Unknown MODE flag";
+                        msg.getSender()->send_to(str);
+                    }
                 }
             }
         }
+        str = RPL_UMODEIS;
+        str += " " + msg.getSender()->getNickname() + " ";
+        str += "+" + serv->getUser(msg.getSender()->getNickname())->getMode();
+        msg.getSender()->send_to(str);
+        return ;
     }
-    msg.getSender()->send_to(str.c_str());
-    // std::cout << "Mode is : " << serv->getUser(msg.getSender()->getNickname())->getMode() << std::endl;
+    msg.getSender()->send_to(str);
 }
