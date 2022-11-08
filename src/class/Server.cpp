@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/08 14:04:47 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/08 14:35:09 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,14 @@ void	Server::setCmdlist()
 	this->_cmdList.insert(std::make_pair("WALLOPS", wallops));
 }
 
+void	Server::announceBot(Channel *channel, Client *user) const
+{
+	std::string bot = "DistinguichCatBot";
+	std::string	pref = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName();
+
+	my_send(user, pref + " :Welcome to the " + bot + ". Use !help for more information...");
+}
+
 void Server::callbot(Channel *channel, Client *user, std::vector<std::string> const& params)
 {
 	std::string bot = "DistinguichCatBot";
@@ -212,7 +220,7 @@ void Server::callbot(Channel *channel, Client *user, std::vector<std::string> co
 		return ;
 	else if (params[2][0] != '!')
 	{
-		str = pref + " : Invalid request," + user->getNickname() + "use !help for more informations.";
+		str = pref + " : Invalid request," + user->getNickname() + ". Use !help for more informations.";
 		std::map<sockfd, Client *>::const_iterator it2;
 		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
 			my_send(it2->second, str);
