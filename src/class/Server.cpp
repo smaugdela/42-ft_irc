@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/08 17:34:06 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:54:50 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,6 @@ void	Server::announceBot(Channel *channel, Client *user) const
 
 void Server::callbot(Channel *channel, Client *user, std::vector<std::string> const& params)
 {
-	// std::cout << "size params : " << params.size() << std::endl;
 	std::string bot = "DistinguichCatBot";
 	std::string	pref = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName();
 	std::string str;
@@ -274,10 +273,17 @@ void Server::callbot(Channel *channel, Client *user, std::vector<std::string> co
 		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
 			my_send(it2->second, str);
 	}
+	else if (params[2] == "!fu" && params.size() == 3)
+	{
+		str = pref + " : That's not polite " + user->getNickname() + ".";
+		std::map<sockfd, Client *>::const_iterator it2;
+		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
+			my_send(it2->second, str);
+	}
 	else if (params[2] == "!help" && params.size() != 4)
 	{
-		str = pref + " : With this bot you can ask about your crush, your zodiac sign or more...";
-		str += " For that, use the following command and enjoy! : \"bot !love <insert crush>\", \"bot !zodiac <insert sign>\"";
+		str = pref + " : With this bot you can ask about your crush, your zodiac sign and more...";
+		str += " For that, use the following command and enjoy! : \"bot !love <insert crush>\", \"bot !zodiac <insert sign>\", \"bot !fu\".";
 		std::map<sockfd, Client *>::const_iterator it2;
 		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
 			my_send(it2->second, str);
