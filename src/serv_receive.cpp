@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:48:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 16:59:55 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:33:35 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	buf_to_cmd(Server *server, Client *client)
 
 	for (std::list<std::string>::const_iterator it = buf_list.begin(); it != buf_list.end(); ++it)
 	{
-		Message new_msg(client, NULL, *it);
+		Message new_msg(client, *it);
 		std::cout << "Message from client #" << client->getFd() << " (" << client->getNickname() << ") << [" << *it << "]" << std::endl;
 		if (new_msg.parse_msg() && cmdlist.find(new_msg.getCommand()) != cmdlist.end())
 		{

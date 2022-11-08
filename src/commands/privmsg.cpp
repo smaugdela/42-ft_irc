@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:38:00 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/04 14:23:45 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:54:20 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void privmsg(Server *serv, Message &msg)
 		if (msg.getParams()[0].find_first_of("#&+!") == 0)
 		{
 			serv->getChannel(msg.getParams()[0])->broadcast(msg.getSender(), "PRIVMSG " + msg.getParams()[0] + " " + text);
+			if (msg.getParams()[1] == ":bot")
+				serv->callbot(serv->getChannel(msg.getParams()[0]), msg.getSender(), msg.getParams());
 			return ;
 		}
 		else

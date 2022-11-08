@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/08 11:35:54 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/08 14:04:47 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,73 +200,69 @@ void	Server::setCmdlist()
 	this->_cmdList.insert(std::make_pair("WALLOPS", wallops));
 }
 
-void Server::_callbot(Channel *channel, Client *user, char *message)
+void Server::callbot(Channel *channel, Client *user, std::vector<std::string> const& params)
 {
 	std::string bot = "DistinguichCatBot";
+	std::string	pref = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName();
 	std::string str;
-	
 
-	 // Proteger channel user et message 
-	 
-	if (message[0] != '!')
+	// Proteger channel user et message
+
+	if (params[1] != ":bot")
+		return ;
+	else if (params[2][0] != '!')
 	{
-		str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Invalid request," + user->getNickname() + "use !help for more informations.";
+		str = pref + " : Invalid request," + user->getNickname() + "use !help for more informations.";
 		std::map<sockfd, Client *>::const_iterator it2;
 		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
 			my_send(it2->second, str);
 	}
-	std::list<std::string> args = split(message, " ");
-	std::list<std::string>::iterator it = args.begin();
-	if ((*it).compare("!love") == 0)
+
+	if (params[2] == "!love" && params.size() >= 3)
 	{
-		unsigned int nbr = rand()%100;
-		it++;
-		char *tmp = ft_utoa(nbr);
-		str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : There is " + tmp + "%" + " love between " + user->getNickname() + " and " + *it + ".";
+		char *tmp = ft_utoa(rand() % 100);
+		str = pref + " : There is " + tmp + "%" + " love between " + user->getNickname() + " and " + params[3] + ".";
 		free(tmp);
 		std::map<sockfd, Client *>::const_iterator it2;
 		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
 			my_send(it2->second, str);
 	}
-	else if ((*it).compare("!zodiac") == 0)
+	else if (params[2] == "!zodiac" && params.size() >= 3)
 	{
-		it++;
-		if ((*it).compare("aries") == 0)
-			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : If only you could convert all that stress into energy ! You'd be rich right now !";
-		else if ((*it).compare("taurus") == 0)
-			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Stop spending all your money on food, you're already broke.";
-		else if ((*it).compare("gemini") == 0)
-			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Stop teasing everyone, you're not perfect either!";
-		else if ((*it).compare("cancer") == 0)
-			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Stop being such a drama queen !";
-		else if ((*it).compare("leo") == 0)
-			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : I know you won't believe it, but you're NOT a Diva";
-		else if ((*it).compare("virgo") == 0)
-			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Never seen such a control-freak ! You're scaring people !!";
-		else if ((*it).compare("libra") == 0)
-			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : If you like coffee then you are a Slytherin otherwise you're a Hufflepuff";
-		else if ((*it).compare("scorpio") == 0)
-			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Did you know your parents had s*x on Valentine's day ?";
-		else if ((*it).compare("sagittarius") == 0)
-			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Come back from the moon, the real life is on earth!";
-		else if ((*it).compare("capricorn") == 0)
-			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Only one present for your birthday AND christmas ??? What a childhood trauma ! You should talk about it.";
-		else if ((*it).compare("aquarius") == 0)
-			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : If you were wondering if you should leave sooner today - The answer is YES.";
-		else if ((*it).compare("pisces") == 0)
-			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Binge watching TVshows is NOT a goal in life you know ??";
+		if (params[3] == "aries")
+			str = pref + " : If only you could convert all that stress into energy ! You'd be rich right now !";
+		else if (params[3] == "taurus")
+			str = pref + " : Stop spending all your money on food, you're already broke.";
+		else if (params[3] == "gemini")
+			str = pref + " : Stop teasing everyone, you're not perfect either!";
+		else if (params[3] == "cancer")
+			str = pref + " : Stop being such a drama queen !";
+		else if (params[3] == "leo")
+			str = pref + " : I know you won't believe it, but you're NOT a Diva";
+		else if (params[3] == "virgo")
+			str = pref + " : Never seen such a control-freak ! You're scaring people !!";
+		else if (params[3] == "libra")
+			str = pref + " : If you like coffee then you are a Slytherin otherwise you're a Hufflepuff";
+		else if (params[3] == "scorpio")
+			str = pref + " : Did you know your parents had s*x on Valentine's day ?";
+		else if (params[3] == "sagittarius")
+			str = pref + " : Come back from the moon, the real life is on earth!";
+		else if (params[3] == "capricorn")
+			str = pref + " : Only one present for your birthday AND christmas ??? What a childhood trauma ! You should talk about it.";
+		else if (params[3] == "aquarius")
+			str = pref + " : If you were wondering if you should leave sooner today - The answer is YES.";
+		else if (params[3] == "pisces")
+			str = pref + " : Binge watching TVshows is NOT a goal in life you know ??";
 		else 
-			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Please enter your sign after the command.";
+			str = pref + " : Please enter your sign after the command.";
 		std::map<sockfd, Client *>::const_iterator it2;
 		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
 			my_send(it2->second, str);
 	}
-	
-	if("!help") 
+	else
 	{
 		
 	}
-	
 }
 
 /*

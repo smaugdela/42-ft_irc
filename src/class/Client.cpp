@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 18:20:05 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:33:17 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	Client::welcome(Server *serv) const
 	str = RPL_MYINFO;
 	str += " " + _nickname + " " + serv->getConfig()->getServerName() + " " + serv->getConfig()->getServerVersion() + " Oowi *none*";
 	send_to(str);
-	Message	msg(serv->getUser(_fd), NULL, "MOTD");
+	Message	msg(serv->getUser(_fd), "MOTD");
 	motd(serv, msg);
 }
 

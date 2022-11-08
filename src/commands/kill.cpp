@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:07:50 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/07 19:12:26 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:41:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void my_kill(Server *serv, Message &msg)
 		str = msg.getSender()->getPrefix() + " KILL :" + text;
 		my_send(serv->getUser(msg.getParams()[0]), str);
 
-		Message quit_msg(serv->getUser(msg.getParams()[0]), NULL, "QUIT " + text);
+		Message quit_msg(serv->getUser(msg.getParams()[0]), "QUIT " + text);
 		quit_msg.parse_msg();
 		quit(serv, quit_msg);
 

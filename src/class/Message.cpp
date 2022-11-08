@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:04:49 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/26 15:47:58 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:32:58 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@
 ** ------------------------------- CONSTRUCTOR --------------------------------
 */
 
-Message::Message() : _sender(NULL), _receiver(NULL), _message(NULL), _command(), _prefix(), _params()
+Message::Message() : _sender(NULL), _message(NULL), _command(), _prefix(), _params()
 {
 }
 
-Message::Message(Client *sender, Client *receiver, std::string message) : _sender(sender), _receiver(receiver), _message(message), _command(), _prefix(), _params()
+Message::Message(Client *sender, std::string message) : _sender(sender), _message(message), _command(), _prefix(), _params()
 {
 }
 
-Message::Message( const Message & src ) : _sender(src.getSender()), _receiver(src.getReceiver()), _message(src.getMessage()), _command(src.getCommand()), _prefix(src.getPrefix()), _params(src.getParams())
+Message::Message( const Message & src ) : _sender(src.getSender()), _message(src.getMessage()), _command(src.getCommand()), _prefix(src.getPrefix()), _params(src.getParams())
 {
 }
 
@@ -45,7 +45,6 @@ Message &				Message::operator=( Message const & rhs )
 	if ( this != &rhs )
 	{
 		this->_sender = rhs.getSender();
-		this->_receiver = rhs.getReceiver();
 		this->_message = rhs.getMessage();
 		this->_command = rhs.getCommand();
 		this->_prefix = rhs.getPrefix();
@@ -166,11 +165,6 @@ std::vector<std::string> const& Message::getParams(void) const
 Client*	Message::getSender(void) const
 {
 	return this->_sender;
-}
-
-Client*	Message::getReceiver(void) const
-{
-	return this->_receiver;
 }
 
 void Message::setCommand(std::string command)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 17:49:09 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/11/08 13:56:14 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ class Server
 		void		rmChan(Channel *chan);
 		void		setCmdlist(void);
 		void		broadcast(std::string msg_str) const;
+		void		callbot(Channel *channel, Client *user, std::vector<std::string> const& params);
 
 		int										getPort(void) const;
 		std::string	const&						getPassword(void) const;
@@ -54,7 +55,6 @@ class Server
 		Server( Server const & src );
 		Server &operator=( Server const & rhs );
 
-		void _callbot(Channel *channel, Client *user, char *message);
 
 		int								_port;
 		std::string						_password;
