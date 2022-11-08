@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 17:25:21 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/08 11:35:54 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,7 @@ void Server::_callbot(Channel *channel, Client *user, char *message)
 		else if ((*it).compare("taurus") == 0)
 			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Stop spending all your money on food, you're already broke.";
 		else if ((*it).compare("gemini") == 0)
-			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : ";
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Stop teasing everyone, you're not perfect either!";
 		else if ((*it).compare("cancer") == 0)
 			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Stop being such a drama queen !";
 		else if ((*it).compare("leo") == 0)
@@ -248,7 +248,7 @@ void Server::_callbot(Channel *channel, Client *user, char *message)
 		else if ((*it).compare("scorpio") == 0)
 			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Did you know your parents had s*x on Valentine's day ?";
 		else if ((*it).compare("sagittarius") == 0)
-			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : ";
+			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Come back from the moon, the real life is on earth!";
 		else if ((*it).compare("capricorn") == 0)
 			str = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName() + " : Only one present for your birthday AND christmas ??? What a childhood trauma ! You should talk about it.";
 		else if ((*it).compare("aquarius") == 0)
@@ -261,6 +261,7 @@ void Server::_callbot(Channel *channel, Client *user, char *message)
 		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
 			my_send(it2->second, str);
 	}
+	
 	if("!help") 
 	{
 		
