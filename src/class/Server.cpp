@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/08 14:35:09 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/08 15:45:06 by fboumell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,28 +205,36 @@ void	Server::announceBot(Channel *channel, Client *user) const
 	std::string bot = "DistinguichCatBot";
 	std::string	pref = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName();
 
-	my_send(user, pref + " :Welcome to the " + bot + ". Use !help for more information...");
+	my_send(user, pref + " :Welcome to the channel " + channel->getName() + ". I am the " + bot + ". Use \"bot !help\" for more information...");
 }
 
 void Server::callbot(Channel *channel, Client *user, std::vector<std::string> const& params)
 {
+	// std::cout << "size params : " << params.size() << std::endl;
 	std::string bot = "DistinguichCatBot";
 	std::string	pref = ":" + bot + "!" + bot + "@" + _config->getServerName() + " PRIVMSG " + channel->getName();
 	std::string str;
 
-	// Proteger channel user et message
-
+	if (params.size() <= 2)
+	{
+		str = pref + " : Invalid request, " + user->getNickname() + ". Use !help for more informations.";
+		std::map<sockfd, Client *>::const_iterator it2;
+		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
+			my_send(it2->second, str);
+		return ;
+	}
 	if (params[1] != ":bot")
 		return ;
 	else if (params[2][0] != '!')
 	{
-		str = pref + " : Invalid request," + user->getNickname() + ". Use !help for more informations.";
+		str = pref + " : Invalid request, " + user->getNickname() + ". Use !help for more informations.";
 		std::map<sockfd, Client *>::const_iterator it2;
 		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
 			my_send(it2->second, str);
+		return ;
 	}
 
-	if (params[2] == "!love" && params.size() >= 3)
+	if (params[2] == "!love" && params.size() == 4)
 	{
 		char *tmp = ft_utoa(rand() % 100);
 		str = pref + " : There is " + tmp + "%" + " love between " + user->getNickname() + " and " + params[3] + ".";
@@ -235,7 +243,7 @@ void Server::callbot(Channel *channel, Client *user, std::vector<std::string> co
 		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
 			my_send(it2->second, str);
 	}
-	else if (params[2] == "!zodiac" && params.size() >= 3)
+	else if (params[2] == "!zodiac" && params.size() == 4)
 	{
 		if (params[3] == "aries")
 			str = pref + " : If only you could convert all that stress into energy ! You'd be rich right now !";
@@ -267,9 +275,20 @@ void Server::callbot(Channel *channel, Client *user, std::vector<std::string> co
 		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
 			my_send(it2->second, str);
 	}
+	else if (params[2] == "!help" && params.size() != 4)
+	{
+		str = pref + " : In this bot you can ask about your crush, your zodiac sign or more...";
+		str += " For that, use the following command and enjoy! : \"!love <insert crush>\", \"!zodiac <insert sign>\"";
+		std::map<sockfd, Client *>::const_iterator it2;
+		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
+			my_send(it2->second, str);
+	}
 	else
 	{
-		
+		str = pref + " : Invalid request, " + user->getNickname() + ". Use !help for more informations.";
+		std::map<sockfd, Client *>::const_iterator it2;
+		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
+			my_send(it2->second, str);
 	}
 }
 
