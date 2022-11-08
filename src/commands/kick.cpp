@@ -6,13 +6,13 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:12:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/07 18:11:17 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/08 15:49:45 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libs.hpp"
 
-// La commande /kick te permet de virer quelqu'un du channel. !! OPerator Only !! 
+// La commande /kick te permet de virer quelqu'un du channel. !! Operator Only !! 
 // 	 Command: KICK
 //    Parameters: <channel> *( "," <channel> ) <user> *( "," <user> )
 //                [<comment>]
