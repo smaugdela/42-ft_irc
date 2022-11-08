@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Server.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/08 15:45:06 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:09:54 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,8 +277,8 @@ void Server::callbot(Channel *channel, Client *user, std::vector<std::string> co
 	}
 	else if (params[2] == "!help" && params.size() != 4)
 	{
-		str = pref + " : In this bot you can ask about your crush, your zodiac sign or more...";
-		str += " For that, use the following command and enjoy! : \"!love <insert crush>\", \"!zodiac <insert sign>\"";
+		str = pref + " : With this bot you can ask about your crush, your zodiac sign or more...";
+		str += " For that, use the following command and enjoy! : \"bot !love <insert crush>\", \"bot !zodiac <insert sign>\"";
 		std::map<sockfd, Client *>::const_iterator it2;
 		for (it2 = channel->getMembers().begin(); it2 != channel->getMembers().end(); ++it2)
 			my_send(it2->second, str);
