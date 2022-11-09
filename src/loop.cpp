@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 17:16:56 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/09 17:19:49 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ static void	rm_deco_users(Server *serv)
 		if (it->second->getConnected() == false || it->second->getLastcom() >= serv->getConfig()->getPing() + (serv->getConfig()->getTimeout() / 1000))
 		{
 			std::cout << "Client at socket #" << it->first << " disconnected." << std::endl;
-			serv->rmUser(it->second);
+
+			Message quit_msg(it->second, "QUIT :Client disconnected.");
+			quit_msg.parse_msg();
+			quit(serv, quit_msg);
+
 			it = serv->getUsers().begin();
 			if (it == serv->getUsers().end())
 				return ;

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:06:15 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 18:21:25 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/09 17:07:12 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	Channel::addMember(Client *member)
 
 void	Channel::kickMember(Client *member)
 {
-	if (member != NULL)
+	if (member != NULL && _members.find(member->getFd()) != _members.end())
 		_members.erase(member->getFd());
 }
 
