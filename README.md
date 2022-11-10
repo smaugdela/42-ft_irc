@@ -4,6 +4,15 @@
 42's project to build a custom IRC server. IRC stands for Internet Relay Chat, and is one of the first chat protocol on the internet, made around 1988. Twitch still uses an IRC chat nowadays, and a network of servers still hosts thousands of channels.
 
 ## Mandatory Instructions
+- You have to develop an IRC server in C++ 98.
+- You mustn’t develop a client.
+- You mustn’t handle server-to-server communication.
+- Your executable will be run as follows:
+	./ircserv <port> <password>
+	- port: The port number on which your IRC server will be listening to for incoming
+IRC connections.
+	- password: The connection password. It will be needed by any IRC client that tries
+to connect to your server.
 - The server must be capable of handling multiple clients at the same time and never
 hang.
 - Forking is not allowed. All I/O operations must be non-blocking.
