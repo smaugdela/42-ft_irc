@@ -8,7 +8,7 @@
 - You mustn’t develop a client.
 - You mustn’t handle server-to-server communication.
 - Your executable will be run as follows:
-	./ircserv <port> <password>
+```./ircserv <port> <password>```
 	- port: The port number on which your IRC server will be listening to for incoming
 IRC connections.
 	- password: The connection password. It will be needed by any IRC client that tries
@@ -37,7 +37,8 @@ Clone the repository in the location of your choice, go inside it, then compile 
 cd 42-ft_irc
 make
 ```
-Launch the server. Usage:
+Configure the file.config file inside ```src/config/``` if you want to play with some settings and know what you're doing.
+Then, launch the server. Usage:
 ```
 ./ircserv <port> <password>
 ```
