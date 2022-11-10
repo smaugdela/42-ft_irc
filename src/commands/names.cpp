@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:19:43 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/08 15:45:04 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:22:38 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@
 
 static bool	visible_member(Channel *channel, Client *sender)
 {
-	if (channel == NULL)
+	if (channel == NULL || sender == NULL)
 		return false;
+
 	std::map<sockfd, Client*>::const_iterator it = channel->getMembers().begin();
 	for(; it != channel->getMembers().end(); it++)
 	{
@@ -47,6 +48,9 @@ static bool	visible_member(Channel *channel, Client *sender)
 
 void names(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
 	std::string str;
 
 	if (msg.getParams().size() == 0)

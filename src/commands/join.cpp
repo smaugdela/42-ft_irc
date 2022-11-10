@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:01:46 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/08 14:31:33 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:21:33 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@
 
 void join(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
 	std::string str;
 
 	if (msg.getParams().size() < 1)

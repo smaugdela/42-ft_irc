@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/08 13:33:17 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:19:22 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ void	Client::send_to(std::string msg_str) const
 
 void	Client::welcome(Server *serv) const
 {
+	if (serv == NULL)
+		return ;
+
 	std::string	str;
 
 	str = RPL_WELCOME;

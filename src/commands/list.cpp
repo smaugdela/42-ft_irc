@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:04:06 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/03 16:19:27 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:31:47 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 
 void list(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
 	std::string str;
 
 	if (msg.getParams().size() == 0)
@@ -34,8 +37,13 @@ void list(Server *serv, Message &msg)
 		{
 			str = RPL_LIST;
 			char *tmp = ft_utoa(it->second->getMembers().size());
-			str += " " + msg.getSender()->getNickname() + " " + it->second->getName() + " " + tmp;
-			free(tmp);
+			if (tmp != NULL)
+			{
+				str += " " + msg.getSender()->getNickname() + " " + it->second->getName() + " " + tmp;
+				free(tmp);
+			}
+			else
+				str += " " + msg.getSender()->getNickname() + " " + it->second->getName() + " ?";
 			msg.getSender()->send_to(str);
 		}
 	}
@@ -49,9 +57,16 @@ void list(Server *serv, Message &msg)
 			if (serv->getChannel(*it) != NULL)
 			{
 				str = RPL_LIST;
+
 				char *tmp = ft_utoa(serv->getChannel(*it)->getMembers().size());
-				str += " " + msg.getSender()->getNickname() + " " + *it + " " + tmp;
-				free(tmp);
+				if (tmp != NULL)
+				{
+					str += " " + msg.getSender()->getNickname() + " " + *it + " " + tmp;
+					free(tmp);
+				}
+				else
+					str += " " + msg.getSender()->getNickname() + " " + *it + " ?";
+
 				msg.getSender()->send_to(str);
 			}
 		}

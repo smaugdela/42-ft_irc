@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:27:06 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/26 11:43:56 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:22:43 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ static bool special_char(std::string to_check)
 
 void nick(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
 	std::string 	str;
 	Client* const	client = msg.getSender();
 

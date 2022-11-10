@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:22:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 18:22:06 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:23:39 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void wallops(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
 	std::string	str;
 
 	if (msg.getParams().size() < 1)

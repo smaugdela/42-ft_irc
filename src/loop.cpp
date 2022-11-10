@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:24:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/09 17:19:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:34:06 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 static void	set_pollfd(Server *serv, std::vector<struct pollfd> &fds)
 {
 	fds.clear();
+
+	if (serv == NULL)
+		return ;
+
 	fds.push_back(pollfd());
 	fds.back().fd = serv->getListener();
 	fds.back().events = POLLIN;
@@ -33,6 +37,9 @@ static void	set_pollfd(Server *serv, std::vector<struct pollfd> &fds)
 
 static void	rm_deco_users(Server *serv)
 {
+	if (serv == NULL)
+		return ;
+
 	for (std::map<sockfd, Client*>::const_iterator it = serv->getUsers().begin(); it != serv->getUsers().end(); ++it)
 	{
 		if (it->second->getConnected() == false || it->second->getLastcom() >= serv->getConfig()->getPing() + (serv->getConfig()->getTimeout() / 1000))
@@ -52,6 +59,9 @@ static void	rm_deco_users(Server *serv)
 
 static void	rm_empty_chans(Server *serv)
 {
+	if (serv == NULL)
+		return ;
+
 	for (std::map<std::string, Channel *>::const_iterator it = serv->getChans().begin(); it != serv->getChans().end(); ++it)
 	{
 		if (it->second->getMembers().size() <= 0)
@@ -68,7 +78,7 @@ void	server_loop(Server *serv)
 {
 	std::vector<struct pollfd> fds;
 
-	while (server_running)
+	while (serv != NULL && server_running)
 	{
 		set_pollfd(serv, fds);
 

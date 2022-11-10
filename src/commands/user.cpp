@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:15:22 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/10/26 11:38:27 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:23:26 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 
 void user(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
 	std::string 	str;
 	Client* const	client = msg.getSender();
 

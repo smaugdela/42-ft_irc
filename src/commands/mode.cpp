@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:32:08 by fboumell          #+#    #+#             */
-/*   Updated: 2022/11/07 18:11:43 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:21:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 
 void mode(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
     std::string str;
 
     if (msg.getParams().size() == 0)

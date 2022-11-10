@@ -3,21 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+         #
+#    By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/09 14:22:11 by smagdela          #+#    #+#              #
-#    Updated: 2022/11/04 17:41:45 by fboumell         ###   ########.fr        #
+#    Updated: 2022/11/10 14:40:13 by smagdela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes	// Check complet de valgrind.
+# valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes	// Check complet de valgrind.
 # lsof -i -a -c ircserv  // Check les leaks de fds associes au reseau (sockets).
 
 #################
 #       Variables       #
 #################
 
-BIN     =	ircserv
+NAME     =	ircserv
 
 INCS    = 	libs.hpp \
 			proto.hpp \
@@ -72,7 +72,7 @@ INCS    :=      ${addprefix ${INCD},${INCS}}
 OBJS    :=      ${addprefix ${OBJD},${OBJS}}
 SRCS    :=      ${addprefix ${SRCD},${SRCS}}
 
-CXX             =       g++
+CXX             =       c++
 CXXFLAGS        =       -g -std=c++98 -Wall -Wextra -Werror
 
 #################
@@ -111,7 +111,7 @@ NC      =       \033[0m
 #       Rules   #
 #############
 
-all:    ${BIN}
+all:    ${NAME}
 
 ${OBJD}%.o:     ${SRCD}%.cpp
 		@echo "${S_CYAN}➤ Compiling $@...${NC}"
@@ -121,9 +121,9 @@ ${OBJD}%.o:     ${SRCD}%.cpp
 		@${CXX} ${CXXFLAGS} -c -o $@ -I${INCD} $<
 		@echo "${S_GREEN}✔ Object file built!\n${NC}"
 
-${BIN}: ${OBJS}
+${NAME}: ${OBJS}
 		@echo "${S_CYAN}➤ Compiling $@...${NC}"
-		@${CXX} ${CXXFLAGS} ${OBJS} -o ${BIN}
+		@${CXX} ${CXXFLAGS} ${OBJS} -o ${NAME}
 		@echo "${S_GREEN}✔ Binary available!\n${NC}"
 
 clean:
@@ -133,7 +133,7 @@ clean:
 
 fclean: clean
 		@echo "${S_RED}➤ Deleting executable...${NC}"
-		@-rm -rf ${BIN}
+		@-rm -rf ${NAME}
 		@echo "${S_GREEN}✔ Executable deleted!\n${NC}"
 
 re:     fclean  all

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:07:50 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/08 16:03:49 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:21:46 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@
 
 void my_kill(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
 	std::string	str;
 
 	if (msg.getParams().size() < 2)

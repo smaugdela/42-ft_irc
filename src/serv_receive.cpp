@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:48:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/08 13:33:35 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:36:55 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 /* This function will parse the client's buffer into its commands list, and execute each of them */
 static void	buf_to_cmd(Server *server, Client *client)
 {
+	if (server == NULL || client == NULL)
+		return ;
+
 	char	*buffer = strdup(client->getBuffer().c_str());
 	std::list<std::string>	buf_list(split(buffer, "\r\n"));
 	std::map<std::string, void (*)(Server*, Message&)>	cmdlist = server->getCmdList();
@@ -42,6 +45,9 @@ void	serv_receive(sockfd clientfd, Server *server)
 	memset(buffer, 0, BUFFER_SIZE + 1);
 	len = recv(clientfd, buffer, BUFFER_SIZE, MSG_DONTWAIT);
 	std::string	buf_str(buffer);
+
+	if (server == NULL)
+		return ;
 
 	server->getUser(clientfd)->resetTime();
 

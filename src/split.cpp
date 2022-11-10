@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 16:53:22 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/22 01:19:42 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:38:36 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 std::list<std::string> split(char *str, const char *delim)
 {
-	char 	*ptr = strtok(str, delim);
 	std::list<std::string> list;
+
+	if (str == NULL)
+		return list;
+
+	char 	*ptr = strtok(str, delim);
 
 	while (ptr)
 	{

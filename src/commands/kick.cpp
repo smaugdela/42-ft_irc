@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 11:12:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/09 16:54:31 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:21:40 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@
 
 void kick(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
 	std::string str;
 
 	if ((msg.getParams().size() == 0))

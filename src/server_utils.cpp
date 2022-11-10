@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 16:27:33 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/04 17:02:01 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:42:45 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ bool	parse_input(int ac, const char **av, Server* serv)
 
 sockfd	start_listening(Server *serv)
 {
+	if (serv == NULL)
+		return -1;
+
 	struct protoent *protoent = shield<struct protoent*>(getprotobyname("tcp"), NULL, "getprotobyname", __FILE__, __LINE__);
 
 	sockfd	sock = shield<sockfd>(socket(PF_INET, SOCK_STREAM, protoent->p_proto), -1, "socket", __FILE__, __LINE__);
@@ -79,6 +82,9 @@ void	error_ConfigFile(void)
 
 bool	setData(std::string str, Configuration *dataConfig)
 {
+	if (dataConfig == NULL)
+		return false;
+
 	int							i = 0;
 	const char 					delim = '=';
 	std::string					token;
@@ -139,6 +145,9 @@ bool	setData(std::string str, Configuration *dataConfig)
 
 void	setConfigData(Configuration *dataConfig)
 {
+	if (dataConfig == NULL)
+		return ;
+
 	std::ifstream	ifs("src/config/file.config", std::ifstream::in);
 
 	if (ifs.good())

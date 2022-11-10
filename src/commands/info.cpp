@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   info.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:06:36 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/03 11:48:41 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/10 15:03:53 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ std::string get_time_compilation()
         time = ctime(&file.st_mtime); // st_mtime = time of last modification
         if (time[time.size() - 1] == '\n')
 			time.resize(time.size() - 1);
+		close(fd);
     }
     return (time);
 }
@@ -50,7 +51,7 @@ std::vector<std::string> parse_file_info(Server *serv)
     {
         size_t          pos;
         std::string     line;
-        
+
         while (getline(ifs, line))
         {
             if ((pos = line.find("$SERVER_NAME")) != std::string::npos)
@@ -87,6 +88,9 @@ std::vector<std::string> parse_file_info(Server *serv)
 
 void info(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
     std::string                 str;
 	std::vector<std::string>	ret;
     

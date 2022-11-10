@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:27:44 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/07 16:43:47 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:23:21 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 
 void quit(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
 	std::string	str = "QUIT";
 
 	for (size_t i = 0; i < msg.getParams().size(); ++i)

@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 13:54:02 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/02 14:50:37 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:35:04 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	my_send(Client const *client, std::string msg_str)
 {
-	if (client->getConnected() == false || client->getAuthorize() == false)
+	if (client == NULL || client->getConnected() == false || client->getAuthorize() == false)
 		return ;
 
 	std::cout << "Message to client #" << client->getFd() << " (" << client->getNickname() << ") >> [" << msg_str << "]" << std::endl;

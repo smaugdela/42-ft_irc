@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err_def.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:32:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/04 16:30:32 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:20:34 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define ERR_DEF_HPP
 
 // [<prefix>] RPL/ERR <nickname> [<params>]
-
 
 //	Commandes responses
 
@@ -55,9 +54,5 @@
 # define ERR_CHANOPRIVSNEEDED		"482"		// "<channel> :You're not channel operator"
 # define ERR_UMODEUNKNOWNFLAG       "501"       // ":Unknown MODE flag"                             || Returned by the server to indicate that a MODE message was sent with a nickname parameter and that the a mode flag sent was not recognized.
 # define ERR_USERSDONTMATCH         "502"       // ":Cannot change mode for other users"            || Error sent to any user trying to view or change the user mode for a user other than themselves.
-              
-
-         
-              
 
 #endif

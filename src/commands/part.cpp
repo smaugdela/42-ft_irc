@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:30:34 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 16:43:44 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:23:01 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@
 		   
 void part(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
 	std::string	str;
 	
 	if (msg.getParams().size() == 0)

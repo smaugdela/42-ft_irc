@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   version.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:31:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/27 15:10:22 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:23:30 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 	   
 void version(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
 	std::string       str;
 
 	if (msg.getParams().size() > 1)

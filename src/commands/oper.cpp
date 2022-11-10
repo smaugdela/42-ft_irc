@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:42:57 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/07 17:38:09 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:22:56 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 
 void oper(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
 	std::string str;
 
 	if (msg.getParams().size() < 2)

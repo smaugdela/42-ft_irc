@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:12:17 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/26 11:06:20 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:23:07 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 void pass(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
 	std::string str;
+
 	if (msg.getParams().size() < 1 && msg.getSender()->getAuthorize() == false)
 	{
 		str = ERR_NEEDMOREPARAMS;

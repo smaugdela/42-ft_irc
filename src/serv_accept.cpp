@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:41:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/10/28 19:29:40 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:35:41 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	serv_accept(Server *serv, std::vector<pollfd> &fds)
 {
+	if (serv == NULL)
+		return ;
+
 	sockfd			new_client_fd;
 	struct sockaddr	cs;
 	socklen_t		cs_len = sizeof(cs);

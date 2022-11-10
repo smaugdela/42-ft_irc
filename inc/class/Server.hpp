@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 14:44:13 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/08 14:39:47 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:03:01 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ class Server
 		Server(int ac, const char **av);
 		~Server();
 
-		bool		addUser(Client* new_user);
+		void		addUser(Client* new_user);
 		void		rmUser(Client* user);
 		Client*		getUser(sockfd	fd) const;
 		Client*		getUser(std::string nickname) const;

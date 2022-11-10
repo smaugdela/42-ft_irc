@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libs.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 14:11:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 17:41:15 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:07:58 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@
 
 /* defines */
 # define BUFFER_SIZE	512
+# define BOTNAME		"DistinguichCatBot"
 
 /* typedefs */
 typedef int	sockfd;

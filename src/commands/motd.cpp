@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   motd.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fboumell <fboumell@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:24:21 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/03 11:48:48 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:22:01 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 
 void motd(Server *serv, Message &msg)
 {
+	if (serv == NULL)
+		return ;
+
 	std::string					str;
 	std::vector<std::string>	ret;
 	
