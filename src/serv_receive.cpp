@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:48:14 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/10 14:36:55 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/13 19:34:57 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	buf_to_cmd(Server *server, Client *client)
 		std::cout << "Message from client #" << client->getFd() << " (" << client->getNickname() << ") << [" << *it << "]" << std::endl;
 		if (new_msg.parse_msg() && cmdlist.find(new_msg.getCommand()) != cmdlist.end())
 		{
-			if (client->getAuthorize() || (new_msg.getCommand() == "PASS"))
+			if (client->getWelcome() || new_msg.getCommand() == "PASS" || new_msg.getCommand() == "NICK" || new_msg.getCommand() == "USER")
 				cmdlist[new_msg.getCommand()](server, new_msg);
 		}
 	}

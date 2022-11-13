@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Client.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajearuth <ajearuth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/07 16:23:55 by ajearuth         ###   ########.fr       */
+/*   Updated: 2022/11/13 19:41:08 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class Client
 
 		void						send_to(std::string msg_str) const;
 		void						disconnect(void);
-		void						welcome(Server *serv) const;
+		void						welcome(Server *serv);
 		void						resetTime(void);
 		size_t						getLastcom(void) const;
 		std::string					getPrefix(void) const;
@@ -38,6 +38,7 @@ class Client
 		std::string const&			getRealname(void) const;
 		bool						getAuthorize(void) const;
 		bool						getConnected(void) const;
+		bool						getWelcome(void) const;
 		std::string const&			getBuffer(void) const;
 		std::string const&			getMode(void) const;
 
@@ -58,6 +59,7 @@ class Client
 		std::string				_nickname;	// nickname - name which appears for other users
 		std::string				_username;	// username - name you use to login, allows system to identify you
 		std::string				_realname;	// real name - this is just additional information about you
+		bool					_welcome;
 		std::string				_buffer;
 		time_t					_last_com;
 		std::string				_mode;

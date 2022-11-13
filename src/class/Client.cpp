@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 13:38:05 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/10 14:19:22 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/13 19:41:10 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ Client::Client( const Client & src ) : _fd(-1)
 	(void)src;
 }
 
-Client::Client(sockfd fd, struct sockaddr_in addr, std::string servername) : _fd(fd), _connected(true), _servername(servername), _authorize(false), _nickname(), _username(), _realname(), _buffer(), _last_com(time(0)), _mode("w")
+Client::Client(sockfd fd, struct sockaddr_in addr, std::string servername) : _fd(fd), _connected(true), _servername(servername), _authorize(false), _nickname(), _username(), _realname(), _welcome(false), _buffer(), _last_com(time(0)), _mode("w")
 {
 	char hostname[NI_MAXHOST];
 
@@ -81,13 +81,14 @@ void	Client::send_to(std::string msg_str) const
 	my_send(this, msg_str);
 }
 
-void	Client::welcome(Server *serv) const
+void	Client::welcome(Server *serv)
 {
 	if (serv == NULL)
 		return ;
 
 	std::string	str;
 
+	_welcome = true;
 	str = RPL_WELCOME;
 	str += " " + _nickname + " Welcome to the Internet Relay Network " + _nickname + "!" + _username + "@" + _hostname;
 	send_to(str);
@@ -191,6 +192,11 @@ bool	Client::getConnected(void) const
 std::string const &Client::getMode(void) const
 {
 	return this->_mode;
+}
+
+bool	Client::getWelcome(void) const
+{
+	return this->_welcome;
 }
 
 void			Client::setNickname(std::string new_nick)
