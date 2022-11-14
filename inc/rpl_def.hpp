@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 18:21:26 by smagdela          #+#    #+#             */
-/*   Updated: 2022/11/04 16:39:07 by fboumell         ###   ########.fr       */
+/*   Updated: 2022/11/14 11:47:49 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,6 @@
 # define RPL_ENDOFINFO  "374"       // ":End of INFO list"
 # define RPL_MOTDSTART  "375"       // ":- <server> Message of the day - "
 # define RPL_ENDOFMOTD  "376"       // ":End of MOTD command"
-    
-              
-
-        
-
 # define RPL_YOUREOPER	"381"		// ":You are now an IRC operator"
 
 #endif

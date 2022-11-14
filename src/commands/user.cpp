@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 14:15:22 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/10 14:23:26 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/14 11:49:08 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void user(Server *serv, Message &msg)
 		for (; it != msg.getParams().end(); ++it)
 			realname += " " + *it;
 		client->setRealname(realname);
+		if (client->getAuthorize() && client->getNickname().size() && client->getUsername().size())
+			client->welcome(serv);
 	}
-	if (client->getAuthorize() && client->getNickname().size() && client->getUsername().size())
-		client->welcome(serv);
 }

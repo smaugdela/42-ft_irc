@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 12:32:03 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/10 14:20:34 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/14 11:56:17 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  
 # define ERR_UNKNOWNERROR			"400"
 # define ERR_NEEDMOREPARAMS			"461"		// "<command> :Not enough parameters"
-# define ERR_ALREADYREGISTRED		"462 :Unauthorized command (already registered)"
+# define ERR_ALREADYREGISTRED		"462" 		// ":Unauthorized command (already registered)"
 
 // Commands errors
 
