@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ouyg/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ping.cpp                                           :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:10:15 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/14 11:58:03 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/15 11:49:30 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,7 @@ void ping(Server *serv, Message &msg)
 	}
 	else
 	{
-		Client *receiver = NULL;
-
-		for (std::map<sockfd, Client*>::const_iterator it = serv->getUsers().begin(); it != serv->getUsers().end(); ++it)
-		{
-			if (it->second->getUsername() == msg.getParams()[0])
-			{
-				receiver = it->second;
-				break ;
-			}
-		}
-
-		if (receiver == NULL)
-		{
-			str = ERR_NOSUCHSERVER;
-			str += " " + msg.getSender()->getNickname() + " " + msg.getParams()[0] + " :No such user";
-			receiver = msg.getSender();
-		}
-		else
-			str = "PONG " + receiver->getNickname() + " :" + msg.getParams()[0];
-		receiver->send_to(str);
+		str = "PONG " + msg.getSender()->getNickname() + " :" + msg.getParams()[0];
+		msg.getSender()->send_to(str);
 	}
 }

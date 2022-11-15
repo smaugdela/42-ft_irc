@@ -6,7 +6,7 @@
 /*   By: smagdela <smagdela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:06:36 by ajearuth          #+#    #+#             */
-/*   Updated: 2022/11/10 15:03:53 by smagdela         ###   ########.fr       */
+/*   Updated: 2022/11/15 12:09:17 by smagdela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ std::vector<std::string> parse_file_info(Server *serv)
     std::string                 time_compilation = get_time_compilation();
     std::ifstream               ifs("./src/config/info.txt", std::ifstream::in);
 	std::vector<std::string>	ret;
-    
+
     if (ifs.good())
     {
         size_t          pos;
